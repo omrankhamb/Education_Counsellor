@@ -1,0 +1,37 @@
+# Environment variables & Secrets (CRITICAL)
+.env
+*.env
+backend/.env
+
+# Node & Frontend dependencies
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+.vite/
+*.log
+
+# Python artifacts
+__pycache__/
+*/__pycache__/
+backend/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+.pytest_cache/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
