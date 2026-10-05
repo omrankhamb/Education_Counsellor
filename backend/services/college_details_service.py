@@ -4,7 +4,10 @@ import asyncio
 from google import genai
 from google.genai import types
 from config import GEMINI_API_KEY, GEMINI_MODEL, FALLBACK_MODELS
-from services.recommender import get_college_image, parse_number, parse_fees
+from services.recommender import (
+    get_college_image, parse_number, parse_fees,
+    get_exam_score_info, get_eligibility_status, format_score_text
+)
 
 client = genai.Client(api_key=GEMINI_API_KEY)
 
@@ -465,7 +468,13 @@ COLLEGE_DETAILS_DB = {
 }
 
 
-def get_detailed_college_info(college_name: str, stream: str, student_marks: float) -> dict:
+def get_detailed_college_info(
+    college_name: str,
+    stream: str,
+    student_marks: float,
+    exam_type: str = "MHT-CET",
+    score_unit: str = "percentile"
+) -> dict:
     """
     Return comprehensive domain/branch cutoffs and marked performance metrics.
     Checks predefined database first, or dynamically synthesizes accurate details.
@@ -555,7 +564,7 @@ def get_detailed_college_info(college_name: str, stream: str, student_marks: flo
                 }
             ],
             "admission_process": {
-                "exams_accepted": "MHT-CET / JEE / 12th Board Marks",
+                "exams_accepted": f"{exam_type} / State Counseling",
                 "counseling_authority": "State Counseling Authority",
                 "seat_split": "State Quota + All India Quota",
                 "steps": [
@@ -573,24 +582,43 @@ def get_detailed_college_info(college_name: str, stream: str, student_marks: flo
             }
         }
 
-    # Dynamically annotate each branch's eligibility for THIS specific student's marks!
+    # Dynamically annotate each branch's eligibility for THIS specific student's marks and exam!
+    score_info = get_exam_score_info(exam_type, score_unit)
     annotated_branches = []
     for b in data.get("branch_cutoffs", []):
-        cutoff = b.get("cutoff_general", 85.0)
-        diff = student_marks - cutoff
-        if diff >= 1.5:
-            eligibility = {"status": "eligible", "label": "✅ Safe & Eligible!", "color": "success", "tag": "High Admission Probability"}
-        elif diff >= -3.5:
-            eligibility = {"status": "borderline", "label": "⚠️ Borderline Target", "color": "warning", "tag": "Competitive / CAP Round 2/3"}
+        raw_cut = b.get("cutoff_general", 85.0)
+
+        # Scale cutoffs if exam is rank or marks out of 720
+        if score_info["unit"] == "rank":
+            cut_gen = int(max(300, (100 - raw_cut) * 1250))
+            cut_obc = int(cut_gen * 1.15)
+            cut_sc = int(cut_gen * 1.45)
+            diff = cut_gen - student_marks
+        elif score_info["unit"] == "marks_720":
+            cut_gen = int(raw_cut * 7.2)
+            cut_obc = int(b.get("cutoff_obc", raw_cut * 0.98) * 7.2)
+            cut_sc = int(b.get("cutoff_sc_st", raw_cut * 0.90) * 7.2)
+            diff = student_marks - cut_gen
         else:
-            eligibility = {"status": "not_eligible", "label": "❌ Aspirational", "color": "danger", "tag": "Requires Higher Cutoff"}
+            cut_gen = raw_cut
+            cut_obc = b.get("cutoff_obc", round(raw_cut - 1.5, 1))
+            cut_sc = b.get("cutoff_sc_st", round(raw_cut - 6.0, 1))
+            diff = student_marks - cut_gen
+
+        eligibility = get_eligibility_status(student_marks, cut_gen, exam_type, score_info["unit"])
 
         annotated_branches.append({
             **b,
+            "cutoff_general": cut_gen,
+            "cutoff_obc": cut_obc,
+            "cutoff_sc_st": cut_sc,
             "eligibility": eligibility,
-            "diff_from_cutoff": round(diff, 2)
+            "diff_from_cutoff": round(diff, 2) if score_info["unit"] != "rank" else int(diff)
         })
 
     data["branch_cutoffs"] = annotated_branches
     data["student_marks"] = student_marks
+    data["score_unit"] = score_info["unit"]
+    data["score_unit_display"] = score_info["display"]
+    data["exam_type"] = exam_type
     return data

@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import {
   FaMapMarkerAlt, FaStar, FaUserGraduate, FaTrophy,
   FaCalendarAlt, FaCheckCircle, FaExclamationTriangle,
-  FaTimesCircle, FaInfoCircle
+  FaTimesCircle, FaInfoCircle, FaHeart, FaRegHeart, FaBalanceScale
 } from "react-icons/fa";
+import { formatScore } from "../utils/scoreUtils";
 
 export function EligibilityBadge({ status }) {
   if (status === "eligible")
@@ -16,12 +17,28 @@ export function EligibilityBadge({ status }) {
   return <span className="badge bg-danger shadow-sm px-2 py-1"><FaTimesCircle className="me-1" />Aspirational</span>;
 }
 
-export default function CollegeCard({ college, onAskAI, isCompact = false }) {
+export default function CollegeCard({
+  college,
+  onAskAI,
+  isCompact = false,
+  isShortlisted = false,
+  onToggleShortlist = null,
+  isSelectedForCompare = false,
+  onToggleCompare = null
+}) {
   const navigate = useNavigate();
+
+  if (!college) return null;
 
   const feesInLakh = college.annual_fees
     ? (college.annual_fees / 100000).toFixed(1)
     : "1.2";
+
+  const examType = college.exam_type || "12th %";
+  const scoreUnit = college.score_unit;
+  const cutoffDisplay = formatScore(college.cutoff_marks, examType, scoreUnit);
+  const studentScoreDisplay = formatScore(college.student_marks, examType, scoreUnit);
+  const scoreLabel = scoreUnit === "rank" ? "Your Rank" : "Your Score";
 
   const handleOpenDetails = () => {
     navigate("/college-details", { state: { college } });
@@ -77,8 +94,28 @@ export default function CollegeCard({ college, onAskAI, isCompact = false }) {
           </span>
         </div>
 
-        <div className="position-absolute top-0 end-0 p-2">
+        <div className="position-absolute top-0 end-0 p-2 d-flex align-items-center gap-1">
           <EligibilityBadge status={college.eligibility?.status || "eligible"} />
+          {onToggleShortlist && (
+            <button
+              type="button"
+              className="btn btn-sm p-1 rounded-circle d-flex align-items-center justify-content-center shadow-sm"
+              style={{
+                width: 28,
+                height: 28,
+                background: isShortlisted ? "#EF4444" : "rgba(255,255,255,0.9)",
+                color: isShortlisted ? "#FFFFFF" : "#475569",
+                border: "none",
+              }}
+              title={isShortlisted ? "Remove from shortlist" : "Add to shortlist"}
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleShortlist(college);
+              }}
+            >
+              {isShortlisted ? <FaHeart size={13} /> : <FaRegHeart size={13} />}
+            </button>
+          )}
         </div>
 
         {/* Location over Image */}
@@ -115,14 +152,14 @@ export default function CollegeCard({ college, onAskAI, isCompact = false }) {
         <div className="row g-2 text-center mb-3">
           <div className="col-4">
             <div className="p-1 rounded border" style={{ background: "#EEF2FF" }}>
-              <div className="fw-bold text-primary small">{college.cutoff_marks}%</div>
+              <div className="fw-bold text-primary small text-truncate" title={cutoffDisplay}>{cutoffDisplay}</div>
               <div className="text-secondary" style={{ fontSize: 10 }}>Cutoff</div>
             </div>
           </div>
           <div className="col-4">
             <div className="p-1 rounded border" style={{ background: "#F0FFF4" }}>
-              <div className="fw-bold text-success small">{college.student_marks || "--"}%</div>
-              <div className="text-secondary" style={{ fontSize: 10 }}>Your Score</div>
+              <div className="fw-bold text-success small text-truncate" title={studentScoreDisplay}>{studentScoreDisplay}</div>
+              <div className="text-secondary" style={{ fontSize: 10 }}>{scoreLabel}</div>
             </div>
           </div>
           <div className="col-4">
@@ -172,6 +209,36 @@ export default function CollegeCard({ college, onAskAI, isCompact = false }) {
             style={{ background: "#FFF8E1", borderLeft: "3px solid #FFB300", fontSize: 11.5, color: "#6D4C41" }}
           >
             💡 <strong>Why:</strong> {college.why_recommended}
+          </div>
+        )}
+
+        {/* Quick Compare Checkbox Bar */}
+        {onToggleCompare && (
+          <div
+            className="d-flex align-items-center justify-content-between px-2 py-1 rounded mb-2 border"
+            style={{
+              fontSize: 11.5,
+              cursor: "pointer",
+              background: isSelectedForCompare ? "#EEF2FF" : "#F8FAFC",
+              borderColor: isSelectedForCompare ? "#6366F1" : "#E2E8F0",
+              transition: "all 0.15s ease",
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleCompare(college);
+            }}
+          >
+            <span className="fw-semibold text-secondary d-flex align-items-center gap-1" style={{ fontSize: 11 }}>
+              <FaBalanceScale className={isSelectedForCompare ? "text-primary" : "text-muted"} />
+              {isSelectedForCompare ? "Selected to Compare" : "Compare"}
+            </span>
+            <input
+              type="checkbox"
+              className="form-check-input m-0"
+              checked={!!isSelectedForCompare}
+              onChange={() => {}}
+              style={{ cursor: "pointer", width: 14, height: 14 }}
+            />
           </div>
         )}
 

@@ -15,6 +15,8 @@ class CollegeDetailRequest(BaseModel):
     college_name: str
     stream: Optional[str] = "Engineering"
     student_marks: Optional[float] = 90.0
+    exam_type: Optional[str] = "MHT-CET"
+    score_unit: Optional[str] = "percentile"
 
 @router.post("/recommend")
 async def get_recommendations(request: RecommendRequest):
@@ -30,9 +32,9 @@ async def get_recommendations(request: RecommendRequest):
     }
 
 @router.get("/featured-colleges")
-async def featured_colleges(stream: Optional[str] = "All"):
-    """Get featured colleges for landing page without login requirement."""
-    colleges = get_featured_colleges(stream)
+async def featured_colleges(stream: Optional[str] = "All", exam_type: Optional[str] = None):
+    """Get featured colleges for landing page without login requirement, filtered by exam_type if specified."""
+    colleges = get_featured_colleges(stream, exam_type or "")
     return {
         "success": True,
         "colleges": colleges,
@@ -42,7 +44,9 @@ async def featured_colleges(stream: Optional[str] = "All"):
 @router.post("/college-details")
 async def college_details(req: CollegeDetailRequest):
     """Get comprehensive domain/branch cutoffs, performance metrics, and marked key points for a college."""
-    details = get_detailed_college_info(req.college_name, req.stream, req.student_marks)
+    details = get_detailed_college_info(
+        req.college_name, req.stream, req.student_marks, req.exam_type, req.score_unit
+    )
     return {
         "success": True,
         "college": details

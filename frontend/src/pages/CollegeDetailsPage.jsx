@@ -7,6 +7,7 @@ import {
   FaBriefcase, FaIdCard, FaListAlt, FaFilter, FaPaperPlane
 } from "react-icons/fa";
 import { APP_NAME } from "./LandingPage";
+import { formatScore } from "../utils/scoreUtils";
 
 const API_BASE = "/api";
 
@@ -16,7 +17,7 @@ export default function CollegeDetailsPage({ studentProfile }) {
 
   // Selected college from navigation state
   const stateCollege = location.state?.college;
-  const student = studentProfile || location.state?.studentProfile || { marks: 90.0, stream: "Engineering", name: "Student" };
+  const student = studentProfile || location.state?.studentProfile || { marks: 90.0, stream: "Engineering", name: "Student", exam_type: "MHT-CET", score_unit: "percentile" };
 
   const [details, setDetails] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,8 @@ export default function CollegeDetailsPage({ studentProfile }) {
       const collegeName = stateCollege?.college_name || "COEP Technological University";
       const stream = stateCollege?.stream || student.stream || "Engineering";
       const marks = student.marks || 90.0;
+      const examType = stateCollege?.exam_type || student.exam_type || "MHT-CET";
+      const scoreUnit = stateCollege?.score_unit || student.score_unit || "percentile";
 
       try {
         const res = await fetch(`${API_BASE}/college-details`, {
@@ -37,7 +40,9 @@ export default function CollegeDetailsPage({ studentProfile }) {
           body: JSON.stringify({
             college_name: collegeName,
             stream: stream,
-            student_marks: marks
+            student_marks: marks,
+            exam_type: examType,
+            score_unit: scoreUnit
           })
         });
         const data = await res.json();
@@ -85,7 +90,8 @@ export default function CollegeDetailsPage({ studentProfile }) {
   });
 
   const handleAskCounselorForBranch = (branchName) => {
-    const prompt = `I am interested in ${branchName} at ${details.college_name}. Based on my ${student.marks}% score, what are my admission chances in CAP rounds, fees, and career placements?`;
+    const formattedScore = formatScore(student.marks, student.exam_type, student.score_unit);
+    const prompt = `I am interested in ${branchName} at ${details.college_name}. Based on my score of ${formattedScore} in ${student.exam_type || "entrance exam"}, what are my admission chances in CAP rounds, fees, and career placements?`;
     navigate("/chat", { state: { initialPrompt: prompt, selectedCollege: details.college_name } });
   };
 
@@ -112,11 +118,14 @@ export default function CollegeDetailsPage({ studentProfile }) {
 
           <div className="d-flex align-items-center gap-2">
             <span className="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold shadow-sm">
-              Your Score: {student.marks}% ({student.stream})
+              Your Score: {formatScore(student.marks, student.exam_type, student.score_unit)} ({student.stream})
             </span>
             <button
               className="btn btn-sm btn-light fw-bold rounded-pill px-3"
-              onClick={() => navigate("/chat", { state: { initialPrompt: `Tell me all about admission at ${details.college_name} for my ${student.marks}% score.` } })}
+              onClick={() => {
+                const formattedScore = formatScore(student.marks, student.exam_type, student.score_unit);
+                navigate("/chat", { state: { initialPrompt: `Tell me all about admission at ${details.college_name} for my score of ${formattedScore} in ${student.exam_type || "entrance exam"}.` } });
+              }}
             >
               <FaUserGraduate className="me-1 text-primary" /> Ask Counselor
             </button>
@@ -270,7 +279,9 @@ export default function CollegeDetailsPage({ studentProfile }) {
                   <th className="py-3 px-2 text-white border-0">OBC Cutoff</th>
                   <th className="py-3 px-2 text-white border-0">SC / ST Cutoff</th>
                   <th className="py-3 px-2 text-white border-0">Avg Placement</th>
-                  <th className="py-3 px-3 text-white border-0">Your Eligibility ({student.marks}%)</th>
+                  <th className="py-3 px-3 text-white border-0">
+                    Your Eligibility ({formatScore(student.marks, student.exam_type, details.score_unit || student.score_unit)})
+                  </th>
                   <th className="py-3 px-2 text-white border-0">Action</th>
                 </tr>
               </thead>
@@ -296,17 +307,17 @@ export default function CollegeDetailsPage({ studentProfile }) {
 
                     {/* General Cutoff */}
                     <td className="py-3 px-2 fw-bold text-primary">
-                      {b.cutoff_general}%
+                      {formatScore(b.cutoff_general, student.exam_type, details.score_unit || student.score_unit)}
                     </td>
 
                     {/* OBC Cutoff */}
                     <td className="py-3 px-2 text-secondary">
-                      {b.cutoff_obc}%
+                      {formatScore(b.cutoff_obc, student.exam_type, details.score_unit || student.score_unit)}
                     </td>
 
                     {/* SC/ST Cutoff */}
                     <td className="py-3 px-2 text-secondary">
-                      {b.cutoff_sc_st}%
+                      {formatScore(b.cutoff_sc_st, student.exam_type, details.score_unit || student.score_unit)}
                     </td>
 
                     {/* Branch Placement Average */}
@@ -320,7 +331,22 @@ export default function CollegeDetailsPage({ studentProfile }) {
                         {b.eligibility?.label}
                       </span>
                       <div className="text-secondary" style={{ fontSize: 10 }}>
-                        {b.diff_from_cutoff >= 0 ? `+${b.diff_from_cutoff}% above cutoff` : `${b.diff_from_cutoff}% needed`}
+                        {(() => {
+                          const unit = details.score_unit || student.score_unit;
+                          if (unit === "rank") {
+                            return b.diff_from_cutoff >= 0
+                              ? `${Math.abs(b.diff_from_cutoff).toLocaleString()} ranks safer`
+                              : `${Math.abs(b.diff_from_cutoff).toLocaleString()} ranks away`;
+                          }
+                          if (unit === "marks_720") {
+                            return b.diff_from_cutoff >= 0
+                              ? `+${b.diff_from_cutoff} marks above`
+                              : `${b.diff_from_cutoff} marks needed`;
+                          }
+                          return b.diff_from_cutoff >= 0
+                            ? `+${b.diff_from_cutoff}% above cutoff`
+                            : `${b.diff_from_cutoff}% needed`;
+                        })()}
                       </div>
                     </td>
 

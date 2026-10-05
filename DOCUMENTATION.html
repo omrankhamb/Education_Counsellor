@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Education Counsellor - Complete Project Documentation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&family=Fira+Code:wght@400;500&display=swap');
+
+  @page {
+    size: A4 portrait;
+    margin: 18mm 16mm 18mm 16mm;
+    @bottom-center {
+      content: "Education Counsellor | Project Documentation";
+      font-size: 9pt;
+      color: #94A3B8;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #1E293B;
+    background: #FFFFFF;
+    line-height: 1.65;
+    font-size: 13.5px;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Executive Header */
+  .doc-header {
+    background: linear-gradient(135deg, #1A237E 0%, #283593 50%, #3949AB 100%);
+    color: #FFFFFF;
+    padding: 36px 32px;
+    border-radius: 12px;
+    margin-bottom: 28px;
+    box-shadow: 0 8px 24px rgba(26, 35, 126, 0.15);
+  }
+
+  .doc-header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+    color: #FFFFFF;
+    letter-spacing: -0.3px;
+  }
+
+  .doc-header p {
+    font-size: 13.5px;
+    color: #E0E7FF;
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+  }
+
+  .doc-header-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-warning {
+    background: #FFB300;
+    color: #1A237E;
+  }
+
+  .badge-light {
+    background: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5 {
+    font-family: 'Poppins', sans-serif;
+    color: #0F172A;
+    margin-top: 26px;
+    margin-bottom: 12px;
+    page-break-after: avoid;
+  }
+
+  h1 {
+    font-size: 20px;
+    font-weight: 800;
+    border-bottom: 2px solid #E2E8F0;
+    padding-bottom: 6px;
+    color: #1A237E;
+  }
+
+  h2 {
+    font-size: 16.5px;
+    font-weight: 700;
+    border-bottom: 1px solid #E2E8F0;
+    padding-bottom: 4px;
+    color: #283593;
+    margin-top: 22px;
+  }
+
+  h3 {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #334155;
+  }
+
+  p, li {
+    color: #334155;
+    margin-bottom: 10px;
+  }
+
+  ul, ol {
+    padding-left: 24px;
+    margin-bottom: 14px;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+
+  strong {
+    color: #0F172A;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 18px 0;
+    font-size: 12px;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    overflow: hidden;
+    page-break-inside: avoid;
+  }
+
+  th {
+    background: #1A237E;
+    color: #FFFFFF;
+    font-weight: 700;
+    text-align: left;
+    padding: 9px 12px;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  td {
+    padding: 8px 12px;
+    border-top: 1px solid #E2E8F0;
+    color: #334155;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td {
+    background: #F8FAFC;
+  }
+
+  /* Code & Pre */
+  code {
+    font-family: 'Fira Code', Consolas, monospace;
+    font-size: 11.5px;
+    background: #F1F5F9;
+    color: #1E293B;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #E2E8F0;
+  }
+
+  pre {
+    background: #0F172A;
+    color: #E2E8F0;
+    padding: 14px 18px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 11.5px;
+    line-height: 1.5;
+    margin: 14px 0;
+    page-break-inside: avoid;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+    font-size: inherit;
+  }
+
+  /* Blockquote / Alert callouts */
+  blockquote {
+    margin: 16px 0;
+    padding: 12px 18px;
+    background: #FFFBEB;
+    border-left: 4px solid #F59E0B;
+    border-radius: 0 8px 8px 0;
+    color: #78350F;
+    font-size: 13px;
+    page-break-inside: avoid;
+  }
+
+  blockquote p {
+    margin: 0;
+    color: inherit;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: #E2E8F0;
+    margin: 24px 0;
+  }
+
+  /* Print specific formatting */
+  @media print {
+    body {
+      font-size: 12px;
+    }
+    .doc-header {
+      background: #1A237E !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    th {
+      background: #1A237E !important;
+      color: #FFFFFF !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    tr:nth-child(even) td {
+      background: #F8FAFC !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    pre {
+      background: #0F172A !important;
+      color: #E2E8F0 !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    blockquote {
+      background: #FFFBEB !important;
+      border-left-color: #F59E0B !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    a {
+      color: #1A237E;
+      text-decoration: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div class="doc-header">
+    <h1>🎓 Education Counsellor</h1>
+    <p>AI-Powered Hybrid College Recommendation & Interactive Student Guidance System<br>
+    Comprehensive Engineering, Architecture, Rationale & Operational Documentation</p>
+    <div class="doc-header-badges">
+      <span class="badge badge-warning">Full Stack System</span>
+      <span class="badge badge-light">React 18 + Vite 5</span>
+      <span class="badge badge-light">FastAPI + Uvicorn</span>
+      <span class="badge badge-light">MongoDB Persistence</span>
+      <span class="badge badge-light">Google Gemini 2.5 Flash</span>
+      <span class="badge badge-light">Academic Year 2026</span>
+    </div>
+  </div>
+
+  <h1 id="education-counsellor-complete-project-documentation">🎓 Education Counsellor — Complete Project Documentation</h1>
+<blockquote>
+<p><strong>AI-Powered Hybrid College Recommendation &amp; Interactive Student Guidance System</strong><br />
+<em>Developed for Indian higher education entrance counseling across Engineering, Medical, Commerce, Arts, Science, Law, and Design streams.</em></p>
+</blockquote>
+<hr />
+<h2 id="table-of-contents">📌 Table of Contents</h2>
+<ol>
+<li><a href="#1-executive-summary--project-overview">Executive Summary &amp; Project Overview</a></li>
+<li><a href="#2-problem-statement--the-solution">Problem Statement &amp; The Solution</a></li>
+<li><a href="#3-system-architecture">System Architecture</a></li>
+<li><a href="#4-what-we-use-complete-technology-stack">What We Use (Complete Technology Stack)</a></li>
+<li><a href="#5-why-we-use-it-technology-rationale--justification">Why We Use It (Technology Rationale &amp; Justification)</a></li>
+<li><a href="#6-core-system-features--modules">Core System Features &amp; Modules</a></li>
+<li><a href="#7-recommendation-engine--scoring-architecture">Recommendation Engine &amp; Scoring Architecture</a></li>
+<li><a href="#8-database-schema--data-persistence">Database Schema &amp; Data Persistence</a></li>
+<li><a href="#9-api-endpoints-reference">API Endpoints Reference</a></li>
+<li><a href="#10-frontend-component-architecture--pages">Frontend Component Architecture &amp; Pages</a></li>
+<li><a href="#11-installation-configuration--run-guide">Installation, Configuration &amp; Run Guide</a></li>
+<li><a href="#12-future-roadmap--enhancements">Future Roadmap &amp; Enhancements</a></li>
+</ol>
+<hr />
+<h2 id="1-executive-summary-project-overview">1. Executive Summary &amp; Project Overview</h2>
+<p>The <strong>Education Counsellor</strong> application is a modern, full-stack, AI-integrated decision-support platform designed to solve the complexity of Indian college admissions. </p>
+<p>Every year, millions of Indian students appear for diverse national and state entrance examinations such as <strong>JEE Main</strong>, <strong>JEE Advanced</strong>, <strong>NEET</strong>, <strong>MHT-CET</strong>, <strong>CUET</strong>, <strong>CLAT</strong>, and <strong>NID/NIFT</strong>. Navigating cutoff lists, quotas, fee structures, branch eligibility, and counseling timelines across central (JoSAA, CSAB, MCC) and state (CAP, KEA, DTE) portals is overwhelming, stressful, and often leads to uninformed career decisions or reliance on expensive, biased private agents.</p>
+<p>This project delivers:<br />
+- <strong>Personalized College Recommendations:</strong> Dynamically evaluated against the student's exam score, percentile, or All India Rank (AIR).<br />
+- <strong>Rule-Based Eligibility Classification:</strong> Strict, deterministic bucketing into <strong>Safe (&gt;90%)</strong>, <strong>Target (50–85%)</strong>, and <strong>Dream (&lt;40%)</strong> tiers to prevent unrealistic choices.<br />
+- <strong>Conversational AI Counselor:</strong> Powered by Google's Gemini LLM, acting as a supportive, empathetic education counselor that understands Indian academic vernacular and provides tailored guidance.<br />
+- <strong>Student Productivity Hub:</strong> Left-side collapsible tools with an Admission Chances Meter, Personal Shortlist, 3-way College Comparison, Stream Deadlines, and Printable PDF Summaries.<br />
+- <strong>Persistent Student Profiles &amp; Chat History:</strong> Stored in a local or cloud MongoDB database with full inspection capabilities via MongoDB Compass.</p>
+<hr />
+<h2 id="2-problem-statement-the-solution">2. Problem Statement &amp; The Solution</h2>
+<h3 id="the-challenges-in-indian-admissions">The Challenges in Indian Admissions:</h3>
+<ol>
+<li><strong>Diverse Scoring Units:</strong> Different entrance tests use incompatible scoring metrics:<br />
+   - <em>NEET</em> uses total marks (out of 720).<br />
+   - <em>JEE Advanced &amp; CLAT</em> use All India Rank (AIR, where lower is better).<br />
+   - <em>JEE Main &amp; MHT-CET</em> use NTA/State percentiles (0–100 %ile).<br />
+   - <em>Board exams</em> use aggregate percentages (0–100%).</li>
+<li><strong>Information Asymmetry:</strong> Cutoff data from previous years (2022–2024) is buried inside hundreds of government PDFs, making it nearly impossible for students to compare multiple institutions effectively.</li>
+<li><strong>Impersonal or Generic Advice:</strong> Traditional search engines return sponsored advertisements, while naive LLMs often hallucinate cutoffs or produce overwhelming walls of text for simple greetings.</li>
+</ol>
+<h3 id="our-solution">Our Solution:</h3>
+<p>A <strong>Hybrid Architecture</strong> combining:<br />
+- <strong>Deterministic Rules &amp; Data Validation:</strong> Ensures that cutoffs, ranking inversions (e.g., AIR 2000 is better than AIR 8000), and fee structures are mathematically checked and validated.<br />
+- <strong>Generative AI Guidance:</strong> Generates qualitative insights ("Why Recommended", campus culture, placement statistics, career roadmaps) and engages in natural, context-aware dialogues.<br />
+- <strong>Fluid, Interactive User Experience:</strong> A responsive Single-Page Application (SPA) designed with collapsible sidebars, independent scroll containers, and zero-page-reload interactivity.</p>
+<hr />
+<h2 id="3-system-architecture">3. System Architecture</h2>
+<p>The project adheres to a clean, decoupled <strong>Client-Server-Database-AI Service</strong> architecture:</p>
+<pre><code>+-------------------------------------------------------------------------+
+|                         CLIENT (FRONTEND)                               |
+|   React 18 SPA + Vite 5 + Bootstrap 5 + React Icons + React Markdown    |
++------------------------------------+------------------------------------+
+                                     |
+                         HTTP / REST | (JSON over Fetch API)
+                                     v
++-------------------------------------------------------------------------+
+|                         SERVER (BACKEND)                                |
+|   FastAPI (Python 3.10+) + Uvicorn ASGI Server                          |
+|   - Authentication Middleware (Salted SHA-256)                          |
+|   - Pydantic v2 Request/Response Validation                             |
+|   - Hybrid Recommender Engine (Scoring Rules + Score Normalization)      |
++-------------------+--------------------------------+--------------------+
+                    |                                |
+   Motor (Async IO) |                 Google GenAI   | (REST / HTTPS)
+                    v                                v
++------------------------------------+  +---------------------------------+
+|       DATABASE (PERSISTENCE)       |  |     INTELLIGENCE (AI MODEL)     |
+|   MongoDB (Port 27017)             |  |   Google Gemini 2.5 Flash       |
+|   - Database: education_counsellor |  |   - Contextual Counselor Prompt |
+|   - Collection: users              |  |   - Structured JSON Generator   |
+|   - Collection: conversations      |  |   - Multi-Turn History Memory   |
++------------------------------------+  +---------------------------------+
+</code></pre>
+<h3 id="request-flow">Request Flow:</h3>
+<ol>
+<li><strong>Student Interaction:</strong> The student enters their marks and stream (e.g., 94.2 %ile in MHT-CET, Engineering).</li>
+<li><strong>API Dispatch:</strong> React sends a structured JSON payload to FastAPI (<code>POST /api/recommend</code>).</li>
+<li><strong>Hybrid Processing:</strong><br />
+   - The backend checks exam parameters and formats the score.<br />
+   - It queries Gemini for live accredited colleges in that specific stream with verified cutoff criteria.<br />
+   - The rule engine performs eligibility checks: comparing cutoff vs student score, classifying each college into <code>Safe</code>, <code>Target</code>, or <code>Dream</code>.</li>
+<li><strong>Presentation:</strong> The frontend renders dynamic cards, computes the Chances Meter proportions, and updates the Left Sidebar.</li>
+<li><strong>Conversational Support:</strong> When the student asks questions in chat, the context (profile marks, stream, and previous dialog) is routed to Gemini, with greeting interceptors ensuring concise, friendly counselor replies.</li>
+</ol>
+<hr />
+<h2 id="4-what-we-use-complete-technology-stack">4. What We Use (Complete Technology Stack)</h2>
+<h3 id="a-frontend-technologies">A. Frontend Technologies</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Tool / Library</th>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Purpose in Project</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>React</strong></td>
+<td style="text-align: left;"><code>^18.3.1</code></td>
+<td style="text-align: left;">Declarative UI library for component-based Single Page Architecture.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Vite</strong></td>
+<td style="text-align: left;"><code>^5.4.8</code></td>
+<td style="text-align: left;">Next-generation frontend tooling providing sub-second Hot Module Replacement (HMR) and optimized Rollup production builds.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>React Router DOM</strong></td>
+<td style="text-align: left;"><code>^6.26.2</code></td>
+<td style="text-align: left;">Client-side routing between Landing Page, Auth, Dashboard, Chat, and College Details.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bootstrap</strong></td>
+<td style="text-align: left;"><code>^5.3.8</code></td>
+<td style="text-align: left;">Responsive 12-column grid layout, styling utilities, and typography.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>React Icons</strong></td>
+<td style="text-align: left;"><code>^5.7.0</code></td>
+<td style="text-align: left;">Comprehensive iconography (Font Awesome, Material Design) for intuitive visual cues.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>React Markdown &amp; Remark GFM</strong></td>
+<td style="text-align: left;"><code>^9.0.1</code> / <code>^4.0.1</code></td>
+<td style="text-align: left;">Renders rich AI responses (tables, bulleted roadmaps, highlighted badges) cleanly without terminal-like code block glitches.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Framer Motion</strong></td>
+<td style="text-align: left;"><code>^11.5.4</code></td>
+<td style="text-align: left;">Micro-interactions and smooth transitions across views.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="b-backend-technologies">B. Backend Technologies</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Tool / Library</th>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Purpose in Project</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Python</strong></td>
+<td style="text-align: left;"><code>3.10+</code></td>
+<td style="text-align: left;">Core backend programming language offering robust data processing and AI libraries.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>FastAPI</strong></td>
+<td style="text-align: left;"><code>^0.110+</code></td>
+<td style="text-align: left;">High-performance, asynchronous web framework built on Starlette and Pydantic.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Uvicorn</strong></td>
+<td style="text-align: left;"><code>^0.28+</code></td>
+<td style="text-align: left;">Lightning-fast ASGI web server implementing HTTP/1.1 and WebSockets.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Pydantic v2</strong></td>
+<td style="text-align: left;"><code>^2.6+</code></td>
+<td style="text-align: left;">Strict schema definition, request validation, and data parsing.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Google GenAI SDK</strong></td>
+<td style="text-align: left;"><code>google-genai</code></td>
+<td style="text-align: left;">Official Google SDK for interacting with Gemini models (<code>gemini-2.5-flash</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Motor</strong></td>
+<td style="text-align: left;"><code>^3.4+</code></td>
+<td style="text-align: left;">Asynchronous, non-blocking Python driver for MongoDB.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>PyMongo</strong></td>
+<td style="text-align: left;"><code>^4.6+</code></td>
+<td style="text-align: left;">Core synchronous/underlying MongoDB protocol support and ObjectId handling.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>python-dotenv</strong></td>
+<td style="text-align: left;"><code>^1.0+</code></td>
+<td style="text-align: left;">Loads sensitive environment variables (<code>GEMINI_API_KEY</code>, <code>MONGODB_URL</code>) securely.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>HTTPX</strong></td>
+<td style="text-align: left;"><code>^0.27+</code></td>
+<td style="text-align: left;">Modern asynchronous HTTP client for external service verification.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="c-database-persistence">C. Database &amp; Persistence</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Component</th>
+<th style="text-align: left;">Configuration</th>
+<th style="text-align: left;">Purpose in Project</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>MongoDB</strong></td>
+<td style="text-align: left;"><code>mongodb://127.0.0.1:27017</code></td>
+<td style="text-align: left;">Document-oriented database (<code>education_counsellor</code>) storing student accounts and chat history.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>MongoDB Compass</strong></td>
+<td style="text-align: left;">GUI Tool</td>
+<td style="text-align: left;">Visual database inspector used to monitor real-time reads, writes, and indexing.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-why-we-use-it-technology-rationale-justification">5. Why We Use It (Technology Rationale &amp; Justification)</h2>
+<h3 id="1-why-fastapi-instead-of-django-or-flask">1. Why FastAPI Instead of Django or Flask?</h3>
+<ul>
+<li><strong>Asynchronous Throughput (Async/Await):</strong> Generating AI recommendations and streaming chat responses requires non-blocking I/O. FastAPI runs natively on ASGI (Uvicorn), allowing multiple students to chat with the AI concurrently without thread starvation.</li>
+<li><strong>Native Pydantic Type Safety:</strong> In admissions counseling, incorrect data types (e.g., passing a string for NEET marks instead of an integer) lead to faulty eligibility calculations. Pydantic validates incoming payloads automatically before reaching business logic.</li>
+<li><strong>Automatic Interactive OpenAPI/Swagger Documentation:</strong> FastAPI automatically generates <code>/docs</code>, making API testing effortless.</li>
+</ul>
+<h3 id="2-why-react-vite-instead-of-traditional-mpas-or-create-react-app">2. Why React + Vite Instead of Traditional MPAs or Create-React-App?</h3>
+<ul>
+<li><strong>Instantaneous State Reactivity:</strong> The student dashboard requires real-time filtering (switching from "All" to "Safe", filtering by shortlist, or toggling sidebars) without reloading the page.</li>
+<li><strong>Fast Developer Experience (Vite HMR):</strong> Vite leverages native ES modules in development, compiling changes in under 50 milliseconds compared to Webpack's multi-second bundle re-runs.</li>
+<li><strong>Modular Component Reuse:</strong> Components such as <code>CollegeCard</code>, <code>EligibilityBadge</code>, and markdown formatters are defined once and reused across Landing, Dashboard, and Details pages.</li>
+</ul>
+<h3 id="3-why-mongodb-instead-of-relational-sql-postgres-mysql">3. Why MongoDB Instead of Relational SQL (Postgres / MySQL)?</h3>
+<ul>
+<li><strong>Dynamic &amp; Evolving Profile Schemas:</strong> A student applying for Medical has NEET scores (out of 720), while an Engineering applicant has JEE percentiles or Advanced AIR ranks. Storing diverse academic attributes in a flexible JSON document avoids messy SQL table migrations and sparse relational tables.</li>
+<li><strong>Natural Fit for Conversation Threads:</strong> Chat history is naturally represented as an array of message objects (<code>[{ role: 'user', content: '...' }, { role: 'model', content: '...' }]</code>) embedded directly in the conversation document.</li>
+<li><strong>High Read/Write Performance:</strong> Non-blocking async queries via <code>motor</code> provide sub-millisecond retrieval of user shortlists and preferences.</li>
+</ul>
+<h3 id="4-why-google-gemini-25-flash">4. Why Google Gemini 2.5 Flash?</h3>
+<ul>
+<li><strong>Deep Understanding of the Indian Education Ecosystem:</strong> Gemini has extensive training on Indian state entrance systems, NIRF rankings, CAP rounds, branch specializations, and fee ranges.</li>
+<li><strong>Structured JSON Generation:</strong> Gemini can be constrained to output pure JSON arrays containing college cutoffs, NIRF details, and facilities, which the backend safely parses into UI cards.</li>
+<li><strong>Speed &amp; Cost Efficiency:</strong> <code>gemini-2.5-flash</code> delivers low time-to-first-token (TTFT), ensuring conversational replies feel natural and responsive.</li>
+</ul>
+<h3 id="5-why-a-hybrid-recommendation-system-rules-ai">5. Why a Hybrid Recommendation System (Rules + AI)?</h3>
+<ul>
+<li><strong>Hallucination Prevention:</strong> Pure AI models can invent nonexistent colleges or inaccurate cutoff requirements. Our rule engine mathematically validates the college cutoff against the student's actual score:</li>
+<li>Higher-is-better exams (Percentiles, Marks): <code>Student Score &gt;= Cutoff</code> $\rightarrow$ Safe.</li>
+<li>Lower-is-better exams (AIR Rank): <code>Student Rank &lt;= Cutoff Rank</code> $\rightarrow$ Safe.</li>
+<li><strong>Personalized Contextualization:</strong> While the rule engine guarantees mathematical correctness, the AI provides the <em>qualitative</em> insights: why a college is a strong fit, campus culture, hostel availability, and branch career trajectories.</li>
+</ul>
+<hr />
+<h2 id="6-core-system-features-modules">6. Core System Features &amp; Modules</h2>
+<h3 id="1-modern-authentication-user-persistence">1. Modern Authentication &amp; User Persistence</h3>
+<ul>
+<li><strong>Sign In &amp; Sign Up Experience:</strong> 2-column layout with visual branding, password visibility toggles, and instant demo credentials auto-fill.</li>
+<li><strong>Security:</strong> Passwords are never stored in plaintext; they are hashed using <strong>Salted SHA-256</strong> (<code>edu_counsellor_secure_salt_2026</code>).</li>
+<li><strong>Database Synchronization:</strong> Logging in synchronizes user data from MongoDB directly into client <code>localStorage</code> for uninterrupted sessions.</li>
+</ul>
+<h3 id="2-multi-stream-multi-exam-academic-profile-setup">2. Multi-Stream &amp; Multi-Exam Academic Profile Setup</h3>
+<p>Supports 7 major academic streams with their corresponding exams and scoring units:<br />
+1. <strong>Engineering:</strong> JEE Main (%ile), JEE Advanced (AIR), MHT-CET (%ile), State CET (%ile), 12th Board (%).<br />
+2. <strong>Medical:</strong> NEET (Marks out of 720), 12th Board (%).<br />
+3. <strong>Arts / Humanities:</strong> CUET (%ile), 12th Board (%).<br />
+4. <strong>Commerce / Management:</strong> CUET (%ile), CAT (%ile), 12th Board (%).<br />
+5. <strong>Science / Research:</strong> CUET (%ile), IISER Aptitude, 12th Board (%).<br />
+6. <strong>Law:</strong> CLAT (AIR), AILET (AIR), 12th Board (%).<br />
+7. <strong>Design &amp; Architecture:</strong> NID DAT, NIFT, UCEED, 12th Board (%).</p>
+<h3 id="3-student-recommendation-dashboard">3. Student Recommendation Dashboard</h3>
+<ul>
+<li><strong>Personalized Hero Welcome:</strong> Displays verified student score, target stream, and exam badge.</li>
+<li><strong>Left Sidebar (Counseling Tools Hub):</strong></li>
+<li><strong>Admission Chances Meter:</strong> Visual tripartite progress bar (Safe, Target, Dream) with interactive filter toggles.</li>
+<li><strong>My Shortlist:</strong> Save preferred colleges with a single click (❤️), persisted per student.</li>
+<li><strong>Compare Colleges Hub:</strong> Select up to 3 colleges for side-by-side metric comparison (Cutoff, Fees, Placement, Established year, Facilities).</li>
+<li><strong>Counseling Timeline &amp; Deadlines:</strong> Stream-specific upcoming counseling dates (e.g., CAP Round 1, Merit List, Option Form Locking).</li>
+<li><strong>Printable PDF Counseling Report:</strong> Formats student results into a clean, printable admission dossier.</li>
+<li><strong>Slide Up/Down &amp; Hide Left Controls:</strong></li>
+<li>Dedicated smooth-scroll container (<code>maxHeight: calc(100vh - 175px)</code> with sleek custom scrollbar).</li>
+<li>Quick-action <strong>▲ Slide Up</strong> and <strong>▼ Slide Down</strong> 1-click scroll buttons.</li>
+<li>Quick-jump navigation chips (<code>📊 Chances</code>, <code>❤️ Shortlist</code>, <code>⚖️ Compare</code>, <code>📅 Deadlines</code>, <code>📄 PDF Report</code>).</li>
+<li><strong>Hide Left Button (<code>◂ Hide Left</code>):</strong> Smoothly collapses the sidebar to the left.</li>
+<li><strong>Docked Floating Tab (<code>➔ Show Sidebar</code>):</strong> Appears when hidden, showing saved college count badges.</li>
+<li><strong>Adaptive Grid:</strong> When the sidebar is hidden, the college recommendation grid automatically expands to a <strong>full-width 3-column layout (<code>col-xl-4</code>)</strong>.</li>
+</ul>
+<h3 id="4-interactive-conversational-ai-counselor">4. Interactive Conversational AI Counselor</h3>
+<ul>
+<li><strong>Human-Like Greeting Intelligence:</strong> Intercepts short casual greetings like <em>"hi"</em>, <em>"hello"</em>, or <em>"hii counselor"</em>, returning a natural 2–3 sentence warm welcome acknowledging the student's stream and score, rather than dumping unwanted tables and cutoff essays.</li>
+<li><strong>Context-Aware Deep Guidance:</strong> Remembers the student's background throughout the conversation.</li>
+<li><strong>Custom Markdown Rendering:</strong> Output includes properly formatted data tables, quote callouts, and clean link badges without terminal-like formatting bugs.</li>
+</ul>
+<h3 id="5-college-details-deep-dive-page">5. College Details Deep-Dive Page</h3>
+<ul>
+<li>Detailed institution banner with campus photography.</li>
+<li>Multi-year cutoff trends (2024, 2023, 2022).</li>
+<li>Branch-by-branch eligibility status (CSE, AI/DS, IT, Mechanical, Electrical, Civil, etc.).</li>
+<li>Placement records (Average vs Highest package) and campus facilities tags.</li>
+<li>Direct <strong>"Ask Counselor About This College"</strong> button to jump straight into chat with prepopulated questions.</li>
+</ul>
+<hr />
+<h2 id="7-recommendation-engine-scoring-architecture">7. Recommendation Engine &amp; Scoring Architecture</h2>
+<h3 id="eligibility-logic-score-normalization">Eligibility Logic &amp; Score Normalization</h3>
+<p>The engine dynamically switches mathematical evaluation based on <code>score_unit</code>:</p>
+<pre><code class="language-python"># Rank-based exams (JEE Advanced, CLAT): Lower number is better
+if is_rank:
+    if student_score &lt;= cutoff_rank * 0.95:
+        status = &quot;eligible&quot;       # Safe chance (&gt;90%)
+    elif student_score &lt;= cutoff_rank * 1.15:
+        status = &quot;borderline&quot;     # Target / Realistic (50-85%)
+    else:
+        status = &quot;not_eligible&quot;   # Dream / Reach (&lt;40%)
+
+# Score-based exams (Percentiles, NEET /720, Board %): Higher number is better
+else:
+    diff = student_score - cutoff_marks
+    if diff &gt;= 0:
+        status = &quot;eligible&quot;       # Safe chance (&gt;90%)
+    elif diff &gt;= -3.0:
+        status = &quot;borderline&quot;     # Target / Realistic (50-85%)
+    else:
+        status = &quot;not_eligible&quot;   # Dream / Reach (&lt;40%)
+</code></pre>
+<hr />
+<h2 id="8-database-schema-data-persistence">8. Database Schema &amp; Data Persistence</h2>
+<h3 id="collection-users">Collection: <code>users</code></h3>
+<p>Stores student authentication credentials and academic profile details.</p>
+<pre><code class="language-json">{
+  &quot;_id&quot;: { &quot;$oid&quot;: &quot;670014a9b4f2c91834e56789&quot; },
+  &quot;name&quot;: &quot;Omprasad Shinde&quot;,
+  &quot;email&quot;: &quot;student@example.com&quot;,
+  &quot;password_hash&quot;: &quot;a4b5c6... (Salted SHA-256)&quot;,
+  &quot;phone&quot;: &quot;+91 9876543210&quot;,
+  &quot;profile&quot;: {
+    &quot;name&quot;: &quot;Omprasad Shinde&quot;,
+    &quot;age&quot;: 18,
+    &quot;stream&quot;: &quot;Engineering&quot;,
+    &quot;marks&quot;: 94.2,
+    &quot;exam_type&quot;: &quot;MHT-CET&quot;,
+    &quot;score_unit&quot;: &quot;percentile&quot;,
+    &quot;preferred_state&quot;: &quot;Maharashtra&quot;,
+    &quot;budget&quot;: &quot;Any&quot;,
+    &quot;college_type&quot;: &quot;Any&quot;
+  },
+  &quot;created_at&quot;: &quot;2026-10-04T16:15:30.000Z&quot;,
+  &quot;updated_at&quot;: &quot;2026-10-04T16:18:45.000Z&quot;
+}
+</code></pre>
+<p><em>Index:</em> <code>{ "email": 1 }</code> (Unique).</p>
+<h3 id="collection-conversations">Collection: <code>conversations</code></h3>
+<p>Stores persistent chat messages exchanged between student and the AI Counselor.</p>
+<pre><code class="language-json">{
+  &quot;_id&quot;: { &quot;$oid&quot;: &quot;670015b8c3e4d82945f67890&quot; },
+  &quot;user_id&quot;: &quot;670014a9b4f2c91834e56789&quot;,
+  &quot;user_name&quot;: &quot;Omprasad Shinde&quot;,
+  &quot;messages&quot;: [
+    {
+      &quot;role&quot;: &quot;user&quot;,
+      &quot;content&quot;: &quot;Hi counselor, can I get COEP Pune with 94.2 percentile in MHT-CET?&quot;,
+      &quot;timestamp&quot;: &quot;2026-10-04T16:20:10.000Z&quot;
+    },
+    {
+      &quot;role&quot;: &quot;model&quot;,
+      &quot;content&quot;: &quot;Hello Omprasad! With your 94.2 percentile in MHT-CET, getting Computer Science at COEP will be aspirational since CSE cutoffs typically close above 99.6 percentile. However, you stand a strong chance in core branches like Manufacturing Science, Civil, or Metallurgy, or Computer branches in other top Pune colleges like PCCOE and MIT-WPU.&quot;,
+      &quot;timestamp&quot;: &quot;2026-10-04T16:20:14.000Z&quot;
+    }
+  ],
+  &quot;created_at&quot;: &quot;2026-10-04T16:20:10.000Z&quot;,
+  &quot;updated_at&quot;: &quot;2026-10-04T16:20:14.000Z&quot;
+}
+</code></pre>
+<p><em>Index:</em> <code>{ "user_id": 1 }</code>.</p>
+<hr />
+<h2 id="9-api-endpoints-reference">9. API Endpoints Reference</h2>
+<p>Base URL: <code>http://localhost:8000/api</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Method</th>
+<th style="text-align: left;">Endpoint</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Request Body / Params</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>POST</code></td>
+<td style="text-align: left;"><code>/auth/register</code></td>
+<td style="text-align: left;">Register new student in MongoDB</td>
+<td style="text-align: left;"><code>{ name, email, password, phone }</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>POST</code></td>
+<td style="text-align: left;"><code>/auth/login</code></td>
+<td style="text-align: left;">Authenticate student and load profile</td>
+<td style="text-align: left;"><code>{ email, password }</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GET</code></td>
+<td style="text-align: left;"><code>/auth/profile/{user_id}</code></td>
+<td style="text-align: left;">Fetch student profile by user ID</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>POST</code></td>
+<td style="text-align: left;"><code>/auth/profile</code></td>
+<td style="text-align: left;">Update student academic preferences</td>
+<td style="text-align: left;"><code>{ user_id, profile: {...} }</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>POST</code></td>
+<td style="text-align: left;"><code>/recommend</code></td>
+<td style="text-align: left;">Generate dynamic college recommendations</td>
+<td style="text-align: left;"><code>{ student_profile: {...} }</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GET</code></td>
+<td style="text-align: left;"><code>/featured-colleges</code></td>
+<td style="text-align: left;">Public showcase colleges for Landing Page</td>
+<td style="text-align: left;"><code>?stream=All</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>POST</code></td>
+<td style="text-align: left;"><code>/college-details</code></td>
+<td style="text-align: left;">Multi-year cutoffs and branch analytics</td>
+<td style="text-align: left;"><code>{ college_name, stream, student_marks, ... }</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>POST</code></td>
+<td style="text-align: left;"><code>/chat</code></td>
+<td style="text-align: left;">Contextual AI counselor chat with history</td>
+<td style="text-align: left;"><code>{ message, student_profile, history, user_id }</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GET</code></td>
+<td style="text-align: left;"><code>/chat/history/{user_id}</code></td>
+<td style="text-align: left;">Retrieve past chat history from MongoDB</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>DELETE</code></td>
+<td style="text-align: left;"><code>/chat/history/{user_id}</code></td>
+<td style="text-align: left;">Clear conversation thread from MongoDB</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GET</code></td>
+<td style="text-align: left;"><code>/health</code></td>
+<td style="text-align: left;">Server and MongoDB database status check</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-frontend-component-architecture-pages">10. Frontend Component Architecture &amp; Pages</h2>
+<pre><code>frontend/src/
+├── main.jsx                     # Application root entry
+├── App.jsx                      # Route configurations &amp; user state management
+├── components/
+│   └── CollegeCard.jsx          # Reusable college presentation card with badges
+├── hooks/
+│   └── useChat.js               # Custom hook managing chat state and streaming
+├── pages/
+│   ├── LandingPage.jsx          # Public portal, hero carousel &amp; featured campuses
+│   ├── AuthPage.jsx             # Sign In / Sign Up tabs with custom branding
+│   ├── ProfileForm.jsx          # Academic stream, exam &amp; marks setup
+│   ├── Dashboard.jsx            # Main recommendation center with left tools sidebar
+│   ├── ChatPage.jsx             # AI Counselor conversation interface
+│   └── CollegeDetailsPage.jsx   # Detailed branch cutoffs &amp; placement analysis
+├── styles/
+│   └── theme.js                 # Theme palette constants
+└── utils/
+    └── scoreUtils.js            # Exam score formatters and unit converters
+</code></pre>
+<hr />
+<h2 id="11-installation-configuration-run-guide">11. Installation, Configuration &amp; Run Guide</h2>
+<h3 id="prerequisites">Prerequisites:</h3>
+<ul>
+<li><strong>Node.js:</strong> v18.0.0 or higher</li>
+<li><strong>Python:</strong> v3.10 or higher</li>
+<li><strong>MongoDB:</strong> Community Server running locally on port 27017, or a MongoDB Atlas connection string.</li>
+<li><strong>Google Gemini API Key:</strong> Obtainable from <a href="https://aistudio.google.com/">Google AI Studio</a>.</li>
+</ul>
+<h3 id="step-1-clone-or-navigate-to-the-repository">Step 1: Clone or Navigate to the Repository</h3>
+<pre><code class="language-bash">cd C:\Users\OMPRASAD\.gemini\antigravity\scratch\hybrid-college-recommendation
+</code></pre>
+<h3 id="step-2-configure-environment-variables">Step 2: Configure Environment Variables</h3>
+<p>Inside <code>backend/.env</code>:</p>
+<pre><code class="language-env">GEMINI_API_KEY=YOUR_GEMINI_API_KEY_HERE
+GEMINI_MODEL=gemini-2.5-flash
+MONGODB_URL=mongodb://127.0.0.1:27017
+MONGODB_DB_NAME=education_counsellor
+PORT=8000
+</code></pre>
+<h3 id="step-3-backend-setup">Step 3: Backend Setup</h3>
+<pre><code class="language-bash">cd backend
+python -m pip install -r requirements.txt
+python main.py
+</code></pre>
+<p><em>Backend will start on <a href="http://localhost:8000">http://localhost:8000</a>.</em></p>
+<h3 id="step-4-frontend-setup">Step 4: Frontend Setup</h3>
+<pre><code class="language-bash">cd ../frontend
+npm install
+npm run dev
+</code></pre>
+<p><em>Frontend will start on <a href="http://localhost:5173">http://localhost:5173</a>.</em></p>
+<h3 id="step-5-one-click-startup-windows">Step 5: One-Click Startup (Windows)</h3>
+<p>Double-click <code>START.bat</code> in the root project folder to launch both backend and frontend servers simultaneously in separate terminal windows.</p>
+<hr />
+<h2 id="12-future-roadmap-enhancements">12. Future Roadmap &amp; Enhancements</h2>
+<ol>
+<li><strong>CAP Round Option Form Generator:</strong> Automatically generate an optimal, prioritized option form list for JoSAA or Maharashtra State CET cell based on historical allocation algorithms.</li>
+<li><strong>Machine Learning Collaborative Filtering:</strong> Incorporate historical allotment data from previous year candidates with similar rank profiles to predict percentile inflation and shift trends.</li>
+<li><strong>SMS &amp; WhatsApp Alerts:</strong> Send automated notifications for cutoff release dates, merit list announcements, and document verification deadlines.</li>
+<li><strong>Scholarship Matcher:</strong> Automatically cross-reference family income, category, and academic merit with government scholarship portals (e.g., MahaDBT, NSP).</li>
+</ol>
+<hr />
+<p><em>Document compiled for the Education Counsellor project — 2026.</em></p>
+
+</body>
+</html>

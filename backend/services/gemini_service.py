@@ -1,28 +1,54 @@
 import asyncio
+import re
 from google import genai
 from google.genai import types
 from config import GEMINI_API_KEY, GEMINI_MODEL, FALLBACK_MODELS, SYSTEM_PROMPT, MAX_HISTORY_LENGTH
 from models import StudentProfile, ChatMessage
 from typing import List
 
+from services.recommender import format_score_text
+
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 
 def build_student_context(profile: StudentProfile) -> str:
+    formatted_score = format_score_text(profile.marks, profile.exam_type, getattr(profile, "score_unit", ""))
     return (
-        f"\n[CURRENT STUDENT CONTEXT]\n"
-        f"Name: {profile.name}\n"
-        f"Stream: {profile.stream}\n"
-        f"Score: {profile.marks}% (Exam: {profile.exam_type})\n"
-        f"Preferred State: {profile.preferred_state}\n"
-        f"Budget: {profile.budget}\n"
-        f"College Preference: {profile.college_type}\n"
-        f"[END CONTEXT]\n"
+        f"[Student Profile Context: Name: {profile.name}, Stream: {profile.stream}, "
+        f"Score: {formatted_score} ({profile.exam_type}), Preferred State: {profile.preferred_state}, "
+        f"Budget: {profile.budget}, College Type: {profile.college_type}]"
     )
+
+
+def is_greeting(text: str) -> bool:
+    """Check if the user input is a greeting or brief pleasantry."""
+    clean = re.sub(r"[^\w\s]", "", text.strip().lower())
+    greetings = {
+        "hi", "hii", "hiii", "hello", "helloo", "hey", "heyy",
+        "hii counseler", "hi counselor", "hello counselor", "hey counselor",
+        "good morning", "good evening", "good afternoon", "namaste", "namaskar",
+        "how are you", "who are you", "thanks", "thank you", "ok", "okay"
+    }
+    if clean in greetings:
+        return True
+    words = clean.split()
+    if len(words) <= 3 and words[0] in {"hi", "hii", "hello", "hey", "namaste"}:
+        return True
+    return False
 
 
 def build_follow_up_questions(stream: str) -> List[str]:
     base_questions = {
+        "Design": [
+            "What are top NID & NIFT campuses for my score?",
+            "How should I prepare for DAT Mains & Studio Test?",
+            "What are UX & Product Design salary packages?",
+        ],
+        "Law": [
+            "Which top NLUs can I get with my CLAT score?",
+            "Corporate Law vs Litigation — placement reality?",
+            "Cutoffs for NALSAR, NLSIU, and WBNUJS?",
+        ],
         "Engineering": [
             "Which engineering branch has the highest placement?",
             "Can I get COEP or VJTI with my percentage?",
@@ -31,7 +57,7 @@ def build_follow_up_questions(stream: str) -> List[str]:
         "Science": [
             "What are top research careers after B.Sc in India?",
             "Can I get into IISc or IISER with my score?",
-            "B.Sc Computer Science vs B.Sc Data Science — which is better?",
+            "B.Sc Computer Science vs Data Science career prospects?",
         ],
         "Medical": [
             "What NEET cutoff is required for government MBBS?",
@@ -83,10 +109,27 @@ async def chat_with_gemini(
     history: List[ChatMessage]
 ) -> dict:
     """
-    Send chat message to Gemini with non-blocking executor and 6.5s timeout.
+    Send chat message to Gemini with adaptive length control and conversational sizing.
     """
     student_context = build_student_context(student_profile)
-    full_message = f"{student_context}\nStudent Query: {user_message}"
+    
+    # Adaptive prompt instruction based on query type
+    if is_greeting(user_message):
+        directive = (
+            "[Directive: The student is greeting you. Respond warmly, politely, and conversationally in 2 to 3 natural sentences. "
+            "Acknowledge their stream and score, and ask how you can help them today. DO NOT produce any tables, lists, or long cutoffs.]"
+        )
+    elif any(kw in user_message.lower() for kw in ["table", "compare", "cutoff list", "cutoffs", "list of colleges", "best colleges"]):
+        directive = (
+            "[Directive: Provide a clean, compact markdown comparison table (4-6 colleges max) with a short 2-line practical verdict for their score.]"
+        )
+    else:
+        directive = (
+            "[Directive: Answer the student's question directly, naturally, and concisely in 1 to 2 crisp paragraphs or bullet points. "
+            "Do NOT include unsolicited tables or long multi-page essays unless specifically requested.]"
+        )
+
+    full_message = f"{student_context}\nStudent Query: {user_message}\n{directive}"
 
     gemini_history = []
     recent_history = history[-MAX_HISTORY_LENGTH:]
@@ -105,8 +148,8 @@ async def chat_with_gemini(
                 model=model_name,
                 config=types.GenerateContentConfig(
                     system_instruction=SYSTEM_PROMPT,
-                    temperature=0.7,
-                    max_output_tokens=1024,
+                    temperature=0.6,
+                    max_output_tokens=600,
                 ),
                 history=gemini_history,
             )
@@ -129,24 +172,10 @@ async def chat_with_gemini(
             print(f"Chat model {model_name} failed: {e}")
             continue
 
-    # Instant tailored fallback advice if external API experiences delay
-    stream_tips = {
-        "Science": f"With your **{student_profile.marks}%** score in Science, you are in a prime tier for top-ranking autonomous institutes like **Fergusson College (Pune)**, **St. Xavier's (Mumbai)**, and research pathways at **IISER**. You qualify for selective specializations in Computer Science, Biotechnology, and Mathematics.",
-        "Engineering": f"With **{student_profile.marks}%**, you have strong admission prospects for leading state colleges (VIT Pune, PCCOE, MIT-WPU, DY Patil). If targeting Tier-1 (COEP/VJTI), focus on your MHT-CET / JEE percentile!",
-        "Medical": f"With **{student_profile.marks}%** in 12th PCB, your board eligibility for NEET is fully fulfilled. Admission to MBBS/BDS is determined by your NEET rank.",
-        "Commerce": f"With **{student_profile.marks}%**, you stand among the top applicants for competitive B.Com (Hons), BMS, and BBA programs across BMCC, Symbiosis, and Delhi University."
-    }
-    fallback_tip = stream_tips.get(student_profile.stream, f"With a score of **{student_profile.marks}%**, you have strong eligibility across accredited institutions in India.")
-
+    # Fallback response if external API is slow
+    fallback_tip = f"Hello {student_profile.name}! Based on your {student_profile.stream} score, you have strong admission prospects. How can I guide you today regarding cutoffs, branches, or entrance counselling?"
     return {
         "success": True,
-        "response": (
-            f"🎓 **Counselor Assessment for {student_profile.name}:**\n\n"
-            f"{fallback_tip}\n\n"
-            f"### 💡 Next Recommended Inquiries:\n"
-            f"- *\"What are the 5-year cutoff trends for top colleges in my state?\"*\n"
-            f"- *\"Which branch or specialization offers the highest placement package?\"*\n"
-            f"- *\"What government and merit scholarships can I apply for?\"*"
-        ),
+        "response": fallback_tip,
         "follow_up_questions": build_follow_up_questions(student_profile.stream)
     }

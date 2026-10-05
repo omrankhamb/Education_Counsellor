@@ -6,6 +6,7 @@ import {
 } from "react-icons/fa";
 import { MdSchool } from "react-icons/md";
 import { APP_NAME } from "./LandingPage";
+import { getExamScoreConfig } from "../utils/scoreUtils";
 
 const STREAMS = ["Engineering", "Medical", "Arts", "Commerce", "Science", "Law", "Design"];
 const EXAM_TYPES = {
@@ -25,11 +26,21 @@ const STATES = [
 
 export default function ProfileForm({ onSubmit, existingProfile }) {
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const u = localStorage.getItem("edu_user");
+      return u ? JSON.parse(u) : null;
+    } catch {
+      return null;
+    }
+  });
+
   const [form, setForm] = useState({
     name: "", age: "", stream: "Engineering", marks: "", exam_type: "MHT-CET",
     preferred_state: "Maharashtra", budget: "Any", college_type: "Any",
   });
   const [errors, setErrors] = useState({});
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (existingProfile) {
@@ -39,22 +50,38 @@ export default function ProfileForm({ onSubmit, existingProfile }) {
       if (saved) {
         try {
           setForm(JSON.parse(saved));
+          return;
         } catch {}
       }
+      // If no profile yet but user is logged in, use their registered name
+      if (currentUser?.name) {
+        setForm((prev) => ({ ...prev, name: currentUser.name }));
+      }
     }
-  }, [existingProfile]);
+  }, [existingProfile, currentUser]);
+
+  const scoreConfig = getExamScoreConfig(form.exam_type);
 
   const validate = () => {
     const e = {};
     if (!form.name.trim()) e.name = "Name is required";
     if (!form.age || form.age < 14 || form.age > 35) e.age = "Enter valid age (14–35)";
     if (!form.stream) e.stream = "Select your stream";
-    if (!form.marks || form.marks < 0 || form.marks > 100) e.marks = "Enter valid marks/percentile (0–100)";
+    
+    if (
+      form.marks === "" ||
+      form.marks === undefined ||
+      isNaN(form.marks) ||
+      Number(form.marks) < scoreConfig.min ||
+      Number(form.marks) > scoreConfig.max
+    ) {
+      e.marks = `Enter valid ${scoreConfig.label} (${scoreConfig.min}–${scoreConfig.max.toLocaleString()})`;
+    }
     if (!form.exam_type) e.exam_type = "Select exam type";
     return e;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
@@ -64,11 +91,37 @@ export default function ProfileForm({ onSubmit, existingProfile }) {
     const profile = {
       ...form,
       age: parseInt(form.age),
-      marks: parseFloat(form.marks)
+      marks: parseFloat(form.marks),
+      score_unit: scoreConfig.unit,
+      user_id: currentUser?.id || null,
     };
+
+    setSaving(true);
+
+    // If user is authenticated, save profile directly into MongoDB users collection
+    if (currentUser?.id) {
+      try {
+        const res = await fetch("/api/auth/profile", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user_id: currentUser.id,
+            profile: profile,
+          }),
+        });
+        const data = await res.json();
+        if (data.success && data.user) {
+          localStorage.setItem("edu_user", JSON.stringify(data.user));
+        }
+      } catch (err) {
+        console.warn("[MongoDB] Profile sync warning:", err);
+      }
+    }
+
     localStorage.setItem("edu_student_profile", JSON.stringify(profile));
     onSubmit(profile);
-    // NAVIGATE TO DASHBOARD (NOT CHAT DIRECTLY)
+    setSaving(false);
+    // NAVIGATE TO DASHBOARD
     navigate("/dashboard");
   };
 
@@ -102,9 +155,26 @@ export default function ProfileForm({ onSubmit, existingProfile }) {
             <h4 className="fw-black mb-1" style={{ fontFamily: "'Poppins', sans-serif" }}>
               Student Admission Profile
             </h4>
-            <p className="text-white-50 small mb-0">
+            <p className="text-white-50 small mb-2">
               Provide your academic score to unlock your custom college recommendation dashboard.
             </p>
+            {currentUser ? (
+              <div className="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill small bg-white bg-opacity-10 border border-white border-opacity-25 text-white">
+                <span className="badge bg-success" style={{ fontSize: 10 }}>MongoDB Active</span>
+                <span>Logged in: <strong>{currentUser.name}</strong> ({currentUser.email})</span>
+              </div>
+            ) : (
+              <div className="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill small bg-white bg-opacity-10 border border-white border-opacity-25 text-white">
+                <span>Want your profile and chats saved in MongoDB?</span>
+                <span
+                  className="badge bg-warning text-dark"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate("/login")}
+                >
+                  Sign In / Register
+                </span>
+              </div>
+            )}
           </div>
 
           <form className="card-body p-4 p-md-5" onSubmit={handleSubmit}>
@@ -178,17 +248,32 @@ export default function ProfileForm({ onSubmit, existingProfile }) {
               </div>
 
               <div className="col-12 col-sm-6">
-                <label className="form-label fw-bold text-primary small text-uppercase">📊 Your Score / Percentile (%)</label>
+                <div className="d-flex justify-content-between align-items-center mb-1">
+                  <label className="form-label fw-bold text-primary small text-uppercase mb-0">
+                    📊 {scoreConfig.label}
+                  </label>
+                  <span className="badge bg-light text-primary border" style={{ fontSize: 10 }}>
+                    {scoreConfig.badgeText}
+                  </span>
+                </div>
                 <input
                   className={`form-control form-control-lg ${errors.marks ? "is-invalid" : ""}`}
                   type="number"
-                  step="0.01"
-                  placeholder="e.g. 92.5 or 76.66"
+                  min={scoreConfig.min}
+                  max={scoreConfig.max}
+                  step={scoreConfig.step}
+                  placeholder={scoreConfig.placeholder}
                   value={form.marks}
                   onChange={(e) => setForm({ ...form, marks: e.target.value })}
                   style={{ borderRadius: 12, fontSize: 15 }}
                 />
-                {errors.marks && <div className="invalid-feedback">{errors.marks}</div>}
+                {errors.marks ? (
+                  <div className="invalid-feedback">{errors.marks}</div>
+                ) : (
+                  <div className="text-secondary small mt-1" style={{ fontSize: 11 }}>
+                    {scoreConfig.help}
+                  </div>
+                )}
               </div>
             </div>
 

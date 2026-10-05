@@ -11,7 +11,7 @@ import CollegeCard from "../components/CollegeCard";
 export const APP_NAME = "Education Counsellor";
 const API_BASE = "/api";
 
-export default function LandingPage({ studentProfile }) {
+export default function LandingPage({ studentProfile, currentUser, onLogout }) {
   const navigate = useNavigate();
   const [featuredColleges, setFeaturedColleges] = useState([]);
   const [activeStream, setActiveStream] = useState("All");
@@ -40,7 +40,7 @@ export default function LandingPage({ studentProfile }) {
     if (studentProfile) {
       navigate("/chat", { state: { initialPrompt: `Tell me about ${college.college_name}: cutoffs, placements, and admission criteria.` } });
     } else {
-      navigate("/profile");
+      navigate("/login");
     }
   };
 
@@ -57,24 +57,45 @@ export default function LandingPage({ studentProfile }) {
             <span style={{ fontFamily: "'Poppins', sans-serif", letterSpacing: "0.3px" }}>{APP_NAME}</span>
           </a>
 
-          <div className="d-flex align-items-center gap-3 ms-auto">
-            {studentProfile ? (
-              <button
-                className="btn btn-warning fw-bold px-4 py-2 rounded-pill shadow-sm d-flex align-items-center gap-2"
-                onClick={() => navigate("/dashboard")}
-              >
-                <span>Go to Dashboard</span>
-                <FaArrowRight size={12} />
-              </button>
+          <div className="d-flex align-items-center gap-2 ms-auto">
+            {currentUser ? (
+              <>
+                <span className="badge px-3 py-2 rounded-pill bg-white bg-opacity-15 text-white border border-white border-opacity-25 d-none d-sm-inline-block">
+                  👤 {currentUser.name}
+                </span>
+                {studentProfile && (
+                  <button
+                    className="btn btn-warning fw-bold px-3 py-2 rounded-pill shadow-sm d-flex align-items-center gap-1"
+                    onClick={() => navigate("/dashboard")}
+                  >
+                    <span>Dashboard</span>
+                    <FaArrowRight size={11} />
+                  </button>
+                )}
+                <button
+                  className="btn btn-outline-light btn-sm rounded-pill px-3 py-2"
+                  onClick={onLogout}
+                >
+                  Logout
+                </button>
+              </>
             ) : (
-              <button
-                className="btn btn-warning fw-bold px-4 py-2 rounded-pill shadow-sm d-flex align-items-center gap-2"
-                style={{ background: "linear-gradient(135deg, #FFB300 0%, #FF8F00 100%)", color: "#1A237E", border: "none" }}
-                onClick={() => navigate("/profile")}
-              >
-                <FaSignInAlt size={14} />
-                <span>Student Login / Profile</span>
-              </button>
+              <>
+                <button
+                  className="btn btn-outline-light fw-semibold px-3 py-2 rounded-pill"
+                  onClick={() => navigate("/login")}
+                >
+                  <FaSignInAlt className="me-1" size={13} />
+                  <span>Sign In</span>
+                </button>
+                <button
+                  className="btn btn-warning fw-bold px-4 py-2 rounded-pill shadow-sm"
+                  style={{ background: "linear-gradient(135deg, #FFB300 0%, #FF8F00 100%)", color: "#1A237E", border: "none" }}
+                  onClick={() => navigate("/register")}
+                >
+                  <span>Register Free</span>
+                </button>
+              </>
             )}
           </div>
         </div>

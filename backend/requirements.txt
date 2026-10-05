@@ -6,3 +6,5 @@ pandas
 pydantic
 python-multipart
 httpx
+motor
+pymongo
