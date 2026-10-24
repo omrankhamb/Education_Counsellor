@@ -254,28 +254,6 @@ export default function LandingPage({ studentProfile, currentUser, onLogout }) {
         </div>
       </nav>
 
-      {/* Dynamic Live Admission Ticker Ribbon (Active on every browser refresh) */}
-      <div
-        className="py-1.5 px-3 text-center text-white-50 small border-bottom border-white border-opacity-10 d-flex align-items-center justify-content-center gap-2 flex-wrap"
-        style={{ background: "#0F172A", fontSize: 11.5 }}
-      >
-        <span className="badge rounded-pill bg-danger d-inline-flex align-items-center gap-1.5 px-2.5 py-0.5 shadow-sm">
-          <span className="spinner-grow spinner-grow-sm text-white" style={{ width: 6, height: 6 }} role="status" />
-          <span className="fw-bold" style={{ letterSpacing: "0.5px" }}>LIVE UPDATE</span>
-        </span>
-        <span className="text-white-50">
-          {studentProfile ? (
-            <span>
-              Profile Active: <strong className="text-warning">{studentProfile.name}</strong> • <strong>{studentProfile.marks}%ile</strong> ({studentProfile.stream}) • 3,240 Colleges Benchmarked • Real-Time Cutoffs Active
-            </span>
-          ) : (
-            <span>
-              Centralized Admission Process 2026 Forecasts Active • 3,240 All-India Colleges Indexed • CAP Simulator Ready
-            </span>
-          )}
-        </span>
-      </div>
-
       {/* 2. DYNAMIC HERO SLIDER & AUTO-CAROUSEL */}
       <div
         id="heroCarousel"

@@ -149,6 +149,10 @@ export default function App() {
           path="/college-details"
           element={<CollegeDetailsPage studentProfile={studentProfile} />}
         />
+        <Route
+          path="/college_details"
+          element={<Navigate to="/college-details" replace />}
+        />
 
         {/* 6. AI Education Counselor Chat */}
         <Route
