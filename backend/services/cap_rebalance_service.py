@@ -109,17 +109,114 @@ def evaluate_portfolio(
     }
 
 
+def find_matching_branch_for_college(college_branches: List[Dict[str, Any]], target_branches: List[str]) -> Optional[str]:
+    """Find branch in college matching the student's selected branch(es) without changing discipline."""
+    b_names = [b.get("branch", "") for b in college_branches if b.get("branch")]
+    if not b_names:
+        return None
+
+    # Priority 1: Exact case-insensitive match
+    for tb in target_branches:
+        if not tb:
+            continue
+        tb_clean = tb.strip().lower()
+        for b in b_names:
+            if b.strip().lower() == tb_clean:
+                return b
+
+    # Priority 2: Direct disciplinary equivalence (Strictly within the exact same field)
+    for tb in target_branches:
+        if not tb:
+            continue
+        tb_l = tb.lower().replace("&", "and")
+
+        # Computer Engineering / Science
+        if "computer" in tb_l or "cse" in tb_l:
+            for b in b_names:
+                b_l = b.lower().replace("&", "and")
+                if "computer engineering" in b_l or "computer science" in b_l or "cse" in b_l:
+                    return b
+
+        # Information Technology (Strictly IT, not Dyestuff or Food tech)
+        elif "information technology" in tb_l or tb_l.strip() == "it":
+            for b in b_names:
+                b_l = b.lower()
+                if "information technology" in b_l or " info tech" in b_l:
+                    return b
+
+        # AI & Data Science
+        elif any(k in tb_l for k in ["artificial intelligence", "data science", "aids", "machine learning"]):
+            for b in b_names:
+                b_l = b.lower()
+                if any(k in b_l for k in ["artificial intelligence", "data science", "aiml", "aids"]):
+                    return b
+
+        # Mechanical
+        elif "mechanical" in tb_l:
+            for b in b_names:
+                b_l = b.lower()
+                if "mechanical" in b_l:
+                    return b
+
+        # Civil
+        elif "civil" in tb_l:
+            for b in b_names:
+                b_l = b.lower()
+                if "civil" in b_l:
+                    return b
+
+        # Electrical (not electronic)
+        elif "electrical" in tb_l:
+            for b in b_names:
+                b_l = b.lower()
+                if "electrical" in b_l and "electronic" not in b_l:
+                    return b
+
+        # Electronics & Telecommunication / EXTC / ENTC
+        elif any(k in tb_l for k in ["electronic", "telecom", "entc", "extc"]):
+            for b in b_names:
+                b_l = b.lower()
+                if any(k in b_l for k in ["electronic", "telecom", "entc", "extc"]):
+                    return b
+
+        # Chemical
+        elif "chemical" in tb_l:
+            for b in b_names:
+                b_l = b.lower()
+                if "chemical" in b_l:
+                    return b
+
+        # Medical (NEET)
+        elif "mbbs" in tb_l:
+            for b in b_names:
+                if "mbbs" in b.lower():
+                    return b
+        elif "bds" in tb_l or "dental" in tb_l:
+            for b in b_names:
+                if "bds" in b.lower() or "dental" in b.lower():
+                    return b
+        elif "bams" in tb_l or "ayurved" in tb_l:
+            for b in b_names:
+                if "bams" in b.lower() or "ayurved" in b.lower():
+                    return b
+
+    return None
+
+
 def algorithmic_rebalance(
     student_score: float,
     exam_type: str,
     category: str,
     cap_round: str,
     strategy_type: str = "golden_ratio",
-    prompt: str = ""
+    prompt: str = "",
+    current_choices: Optional[List[Dict[str, Any]]] = None,
+    preferred_branch: Optional[str] = None,
+    preferred_branches: Optional[List[str]] = None
 ) -> List[Dict[str, Any]]:
     """
-    Algorithmic selector that uses official catalog cutoffs and student score
-    to pick properly distributed Dream, Target, and Safe colleges and branches.
+    Algorithmic selector that strictly preserves user's selected branch(es)
+    and distributes Dream, Target, and Safe colleges according to strategy.
     """
     catalog = get_exam_catalog(exam_type)
     prompt_lower = (prompt or "").lower()
@@ -128,152 +225,226 @@ def algorithmic_rebalance(
     is_pune_only = ("pune" in prompt_lower and "mumbai" not in prompt_lower and strategy_type != "pune_mumbai_hub")
     is_mumbai_only = ("mumbai" in prompt_lower and "pune" not in prompt_lower and strategy_type != "pune_mumbai_hub")
     is_pune_mumbai = (strategy_type == "pune_mumbai_hub") or ("pune" in prompt_lower and "mumbai" in prompt_lower)
-
-    # Domain / Branch filter
-    is_tech_only = (strategy_type == "tech_cs_only") or any(k in prompt_lower for k in ["cs", "computer", "it", "software", "tech"])
-    is_ai_ds_only = any(k in prompt_lower for k in ["ai", "data science", "machine learning", "robotics"])
-    is_core_only = any(k in prompt_lower for k in ["mechanical", "civil", "electrical", "core"])
     is_safe_guarantee = (strategy_type == "guaranteed_lock") or any(k in prompt_lower for k in ["safe", "guarantee", "round 1 lock", "zero allotment", "backup"])
 
-    tech_keywords = ["computer", "information technology", "artificial intelligence", "data science", "machine learning", "robotics"]
-    ai_ds_keywords = ["artificial intelligence", "data science", "machine learning", "robotics"]
-    core_keywords = ["mechanical", "civil", "electrical", "instrumentation", "metallurgy", "production"]
+    # 1. Determine user's selected branch strictly
+    # Priority: explicit preferred_branch > explicit prompt keyword > first current choice branch > default
+    user_branches = []
+    prompt_branch = None
+    if any(k in prompt_lower for k in ["mechanical", "mech"]):
+        prompt_branch = "Mechanical Engineering"
+    elif any(k in prompt_lower for k in ["civil"]):
+        prompt_branch = "Civil Engineering"
+    elif any(k in prompt_lower for k in ["electrical"]):
+        prompt_branch = "Electrical Engineering"
+    elif any(k in prompt_lower for k in ["chemical"]):
+        prompt_branch = "Chemical Engineering"
+    elif any(k in prompt_lower for k in ["electronics", "entc", "extc", "telecom"]):
+        prompt_branch = "Electronics & Telecommunication"
+    elif any(k in prompt_lower for k in ["information technology", " info tech "]) or re.search(r"\bit\b", prompt_lower):
+        prompt_branch = "Information Technology"
+    elif any(k in prompt_lower for k in ["artificial intelligence", "data science", "aiml", "aids", "machine learning"]) or re.search(r"\bai\b", prompt_lower):
+        prompt_branch = "Artificial Intelligence & Data Science"
+    elif any(k in prompt_lower for k in ["computer", "cse"]) or re.search(r"\bcs\b", prompt_lower):
+        prompt_branch = "Computer Engineering"
 
+    if prompt_branch:
+        user_branches = [prompt_branch]
+    elif preferred_branch and preferred_branch.strip() and preferred_branch.strip() != "auto":
+        # Strict branch lock from user's explicit selection
+        user_branches = [preferred_branch.strip()]
+    elif preferred_branches and len(preferred_branches) > 0 and preferred_branches[0] != "auto":
+        user_branches = [b.strip() for b in preferred_branches if b and b.strip() and b.strip() != "auto"]
+    elif current_choices and len(current_choices) > 0:
+        first_branch = current_choices[0].get("selected_branch") or current_choices[0].get("branch")
+        if first_branch and first_branch.strip():
+            user_branches = [first_branch.strip()]
+
+    if not user_branches:
+        user_branches = ["MBBS"] if "NEET" in exam_type.upper() else ["Computer Engineering"]
+
+    target_discipline = user_branches[0]
+
+    # Map catalog for fast college branch lookup
+    catalog_by_code = {c["college_code"]: c for c in catalog}
+
+    # 2. Evaluate and preserve user's hand-picked choices strictly aligned with target discipline and city
+    user_existing = []
+    if current_choices:
+        for c in current_choices:
+            code = c.get("college_code")
+            if not code:
+                continue
+            cat_col = catalog_by_code.get(code)
+            if not cat_col:
+                continue
+
+            col_city = cat_col.get("city", "")
+            if is_pune_only and col_city != "Pune":
+                continue
+            if is_mumbai_only and col_city != "Mumbai":
+                continue
+            if is_pune_mumbai and col_city not in ["Pune", "Mumbai"]:
+                continue
+
+            col_branches = cat_col.get("branches", [])
+            matched_br = find_matching_branch_for_college(col_branches, user_branches)
+            if not matched_br:
+                continue
+
+            row = calculate_cap_row(code, matched_br, category, cap_round, student_score, exam_type)
+            if row.get("is_branch_offered"):
+                user_existing.append({
+                    "college_code": row["college_code"],
+                    "college_name": row["college_name"],
+                    "short_name": row["short_name"],
+                    "city": row["city"],
+                    "nirf_rank": row.get("nirf_rank", "N/A"),
+                    "annual_fees": row.get("annual_fees", 110000),
+                    "selected_branch": matched_br,
+                    "cutoff_2026": row["cutoff_2026"],
+                    "admission_probability": row["admission_probability"],
+                    "tier": row["tier"],
+                    "score_margin": row["score_margin"]
+                })
+
+    # 3. Scan catalog for candidate colleges strictly offering the user's selected branch
     candidates = []
     for col in catalog:
         # City filter
-        if is_pune_only and col["city"] != "Pune":
+        col_city = col.get("city", "")
+        if is_pune_only and col_city != "Pune":
             continue
-        if is_mumbai_only and col["city"] != "Mumbai":
+        if is_mumbai_only and col_city != "Mumbai":
             continue
-        if is_pune_mumbai and col["city"] not in ["Pune", "Mumbai"]:
+        if is_pune_mumbai and col_city not in ["Pune", "Mumbai"]:
             continue
 
-        for br in col["branches"]:
-            b_name = br["branch"]
-            b_domain = br.get("domain", "")
+        matched_branch = find_matching_branch_for_college(col.get("branches", []), user_branches)
+        if not matched_branch:
+            continue
 
-            if is_ai_ds_only:
-                if not any(k in b_name.lower() or k in b_domain.lower() for k in ai_ds_keywords):
-                    continue
-            elif is_tech_only:
-                if not any(k in b_name.lower() or k in b_domain.lower() for k in tech_keywords):
-                    continue
-            elif is_core_only:
-                if not any(k in b_name.lower() or k in b_domain.lower() for k in core_keywords):
-                    continue
+        row = calculate_cap_row(col["college_code"], matched_branch, category, cap_round, student_score, exam_type)
+        if not row["is_branch_offered"]:
+            continue
 
-            # Evaluate row
-            row = calculate_cap_row(col["college_code"], b_name, category, cap_round, student_score, exam_type)
-            if not row["is_branch_offered"]:
-                continue
-
-            candidates.append({
-                "college_code": col["college_code"],
-                "college_name": col["college_name"],
-                "short_name": col["short_name"],
-                "city": col["city"],
-                "nirf_rank": col["nirf_rank"],
-                "annual_fees": col["annual_fees"],
-                "selected_branch": b_name,
-                "cutoff_2026": row["cutoff_2026"],
-                "admission_probability": row["admission_probability"],
-                "tier": row["tier"],
-                "score_margin": row["score_margin"]
-            })
+        candidates.append({
+            "college_code": col["college_code"],
+            "college_name": col["college_name"],
+            "short_name": col["short_name"],
+            "city": col_city,
+            "nirf_rank": col.get("nirf_rank", "N/A"),
+            "annual_fees": col.get("annual_fees", 110000),
+            "selected_branch": matched_branch,
+            "cutoff_2026": row["cutoff_2026"],
+            "admission_probability": row["admission_probability"],
+            "tier": row["tier"],
+            "score_margin": row["score_margin"]
+        })
 
     # Group into Dream, Target, Safe
     dreams = [c for c in candidates if c["tier"] == "Dream"]
     targets = [c for c in candidates if c["tier"] == "Target"]
     safes = [c for c in candidates if c["tier"] == "Safe"]
 
-    # If Safe or Target options are insufficient under strict filters (e.g. asking for safe CS in Pune at 92%),
-    # gracefully widen candidate pool from full catalog to ensure seat safety
-    if len(safes) < 2 or len(targets) < 2:
+    # Only widen city scope if the user did NOT specify a strict geographic preference
+    allow_city_widen = not (is_pune_only or is_mumbai_only or is_pune_mumbai)
+    if (len(safes) < 3 or len(targets) < 2) and allow_city_widen:
         for col in catalog:
-            for br in col["branches"]:
-                b_name = br["branch"]
-                row = calculate_cap_row(col["college_code"], b_name, category, cap_round, student_score, exam_type)
-                if not row["is_branch_offered"]:
-                    continue
-                cand_item = {
-                    "college_code": col["college_code"],
-                    "college_name": col["college_name"],
-                    "short_name": col["short_name"],
-                    "city": col["city"],
-                    "nirf_rank": col["nirf_rank"],
-                    "annual_fees": col["annual_fees"],
-                    "selected_branch": b_name,
-                    "cutoff_2026": row["cutoff_2026"],
-                    "admission_probability": row["admission_probability"],
-                    "tier": row["tier"],
-                    "score_margin": row["score_margin"]
-                }
-                if row["tier"] == "Safe" and len(safes) < 5 and not any(s["college_code"] == col["college_code"] and s["selected_branch"] == b_name for s in safes):
-                    safes.append(cand_item)
-                elif row["tier"] == "Target" and len(targets) < 5 and not any(t["college_code"] == col["college_code"] and t["selected_branch"] == b_name for t in targets):
-                    targets.append(cand_item)
-                elif row["tier"] == "Dream" and len(dreams) < 3 and not any(d["college_code"] == col["college_code"] and d["selected_branch"] == b_name for d in dreams):
-                    dreams.append(cand_item)
+            matched_branch = find_matching_branch_for_college(col.get("branches", []), user_branches)
+            if not matched_branch:
+                continue
+            row = calculate_cap_row(col["college_code"], matched_branch, category, cap_round, student_score, exam_type)
+            if not row["is_branch_offered"]:
+                continue
+            cand_item = {
+                "college_code": col["college_code"],
+                "college_name": col["college_name"],
+                "short_name": col["short_name"],
+                "city": col.get("city", ""),
+                "nirf_rank": col.get("nirf_rank", "N/A"),
+                "annual_fees": col.get("annual_fees", 110000),
+                "selected_branch": matched_branch,
+                "cutoff_2026": row["cutoff_2026"],
+                "admission_probability": row["admission_probability"],
+                "tier": row["tier"],
+                "score_margin": row["score_margin"]
+            }
+            if row["tier"] == "Safe" and len(safes) < 6 and not any(s["college_code"] == col["college_code"] for s in safes):
+                safes.append(cand_item)
+            elif row["tier"] == "Target" and len(targets) < 6 and not any(t["college_code"] == col["college_code"] for t in targets):
+                targets.append(cand_item)
+            elif row["tier"] == "Dream" and len(dreams) < 3 and not any(d["college_code"] == col["college_code"] for d in dreams):
+                dreams.append(cand_item)
 
-    # Sort each group by cutoff descending (highest quality first)
+    # Sort each group by cutoff descending (highest prestige first)
     dreams.sort(key=lambda x: x["cutoff_2026"], reverse=True)
     targets.sort(key=lambda x: x["cutoff_2026"], reverse=True)
     safes.sort(key=lambda x: x["cutoff_2026"], reverse=True)
 
-    # Deduplicate by college to give breadth unless necessary
-    def pick_diverse(group: List[Dict[str, Any]], count: int) -> List[Dict[str, Any]]:
-        picked = []
-        seen_colleges = set()
-        for item in group:
-            if item["college_code"] not in seen_colleges and len(picked) < count:
-                picked.append(item)
-                seen_colleges.add(item["college_code"])
-        # If still need more, take remaining
-        if len(picked) < count:
-            for item in group:
-                if item not in picked and len(picked) < count:
-                    picked.append(item)
-        return picked
+    # Target quotas based on strategy
+    if is_safe_guarantee:
+        dream_quota = 1
+        target_quota = 2
+        safe_quota = 6
+    elif strategy_type == "golden_ratio" or is_pune_mumbai or strategy_type == "tech_cs_only":
+        dream_quota = 2
+        target_quota = 4
+        safe_quota = 3
+    else:
+        dream_quota = 2
+        target_quota = 4
+        safe_quota = 3
 
     final_list = []
-    if is_safe_guarantee:
-        # 1-2 Target, 5-6 Safe
-        final_list.extend(pick_diverse(targets, 2))
-        final_list.extend(pick_diverse(safes, 6))
-        if len(final_list) < 5 and dreams:
-            final_list.extend(pick_diverse(dreams, 2))
-    elif strategy_type == "tech_cs_only":
-        # 2 Dream, 4 Target, 3 Safe
-        final_list.extend(pick_diverse(dreams, 2))
-        final_list.extend(pick_diverse(targets, 4))
-        final_list.extend(pick_diverse(safes, 3))
-    elif is_pune_mumbai:
-        # 2 Dream, 4 Target, 3 Safe in Pune/Mumbai
-        final_list.extend(pick_diverse(dreams, 2))
-        final_list.extend(pick_diverse(targets, 4))
-        final_list.extend(pick_diverse(safes, 3))
-    else:
-        # Default Golden Ratio: 2 Dream, 4 Target, 3 Safe
-        final_list.extend(pick_diverse(dreams, 2))
-        final_list.extend(pick_diverse(targets, 4))
-        final_list.extend(pick_diverse(safes, 3))
+    seen_colleges = set()
 
-    # If still empty or fewer than 4 choices, backfill from available candidates
-    if len(final_list) < 4:
-        all_rem = [c for c in (dreams + targets + safes) if c not in final_list]
-        for item in all_rem:
-            if len(final_list) < 7:
-                final_list.append(item)
+    # 1. Fill Dreams: First from user's existing choices, then from catalog dreams
+    for d in user_existing:
+        if d["tier"] == "Dream" and len([x for x in final_list if x["tier"] == "Dream"]) < dream_quota and d["college_code"] not in seen_colleges:
+            final_list.append(d)
+            seen_colleges.add(d["college_code"])
+    for d in dreams:
+        if len([x for x in final_list if x["tier"] == "Dream"]) < dream_quota and d["college_code"] not in seen_colleges:
+            final_list.append(d)
+            seen_colleges.add(d["college_code"])
 
-    # Ensure list is strictly ordered by cutoff descending (highest prestige at #1)
+    # 2. Fill Targets: First from user's existing choices, then from catalog targets
+    for t in user_existing:
+        if t["tier"] == "Target" and len([x for x in final_list if x["tier"] == "Target"]) < target_quota and t["college_code"] not in seen_colleges:
+            final_list.append(t)
+            seen_colleges.add(t["college_code"])
+    for t in targets:
+        if len([x for x in final_list if x["tier"] == "Target"]) < target_quota and t["college_code"] not in seen_colleges:
+            final_list.append(t)
+            seen_colleges.add(t["college_code"])
+
+    # 3. Fill Safes: First from user's existing choices, then from catalog safes
+    for s in user_existing:
+        if s["tier"] == "Safe" and len([x for x in final_list if x["tier"] == "Safe"]) < safe_quota and s["college_code"] not in seen_colleges:
+            final_list.append(s)
+            seen_colleges.add(s["college_code"])
+    for s in safes:
+        if len([x for x in final_list if x["tier"] == "Safe"]) < safe_quota and s["college_code"] not in seen_colleges:
+            final_list.append(s)
+            seen_colleges.add(s["college_code"])
+
+    # Backfill if list is still below 6
+    if len(final_list) < 6:
+        for c in (safes + targets + dreams):
+            if c["college_code"] not in seen_colleges and len(final_list) < 8:
+                final_list.append(c)
+                seen_colleges.add(c["college_code"])
+
+    # Strictly order by Cutoff descending (Prestige order)
     final_list.sort(key=lambda x: x["cutoff_2026"], reverse=True)
 
-    # Format result choices
+    # Format result
     formatted = []
-    for idx, item in enumerate(final_list):
+    for item in final_list:
         formatted.append({
             "college_code": item["college_code"],
+            "college_name": item["college_name"],
             "selected_branch": item["selected_branch"],
             "short_name": item["short_name"],
             "city": item["city"],
@@ -281,7 +452,7 @@ def algorithmic_rebalance(
             "admission_probability": item["admission_probability"],
             "cutoff_2026": item["cutoff_2026"],
             "reason": (
-                f"Top aspirational dream ({item['cutoff_2026']}%ile)" if item["tier"] == "Dream"
+                f"Top aspirational reach ({item['cutoff_2026']}%ile)" if item["tier"] == "Dream"
                 else f"Realistic match with {item['admission_probability']}% probability" if item["tier"] == "Target"
                 else f"Guaranteed safety net ({item['admission_probability']}% chance)"
             )
@@ -297,7 +468,9 @@ async def rebalance_with_ai(
     cap_round: str,
     current_choices: List[Dict[str, Any]],
     strategy_type: str = "golden_ratio",
-    user_prompt: str = ""
+    user_prompt: str = "",
+    preferred_branch: Optional[str] = None,
+    preferred_branches: Optional[List[str]] = None
 ) -> Dict[str, Any]:
     """
     Orchestrate portfolio risk analysis, algorithmic rebalancing, and Gemini AI strategic explanation.
@@ -307,31 +480,35 @@ async def rebalance_with_ai(
     # 1. Evaluate Before Portfolio
     before_eval = evaluate_portfolio(current_choices, category, cap_round, student_score, canonical_exam)
 
-    # 2. Compute Rebalanced Choices Algorithmic Foundation
+    # 2. Compute Rebalanced Choices Algorithmic Foundation (Preserving User's Selected Branch)
     rebalanced_choices = algorithmic_rebalance(
         student_score=student_score,
         exam_type=canonical_exam,
         category=category,
         cap_round=cap_round,
         strategy_type=strategy_type,
-        prompt=user_prompt
+        prompt=user_prompt,
+        current_choices=current_choices,
+        preferred_branch=preferred_branch,
+        preferred_branches=preferred_branches
     )
 
     # 3. Evaluate After Portfolio
     after_eval = evaluate_portfolio(rebalanced_choices, category, cap_round, student_score, canonical_exam)
 
     # 4. Generate AI Counselor Advice
+    target_branch_label = preferred_branch if (preferred_branch and preferred_branch != "auto") else (rebalanced_choices[0]["selected_branch"] if rebalanced_choices else "Target Discipline")
     headline = ""
     if strategy_type == "golden_ratio":
-        headline = "🪄 Golden Ratio Rebalanced: 20% Dream • 50% Target • 30% Safe"
+        headline = f"🪄 Golden Ratio Rebalanced ({target_branch_label}): 20% Dream • 50% Target • 30% Safe"
     elif strategy_type == "tech_cs_only":
-        headline = "💻 Top Tech & CS/IT Elite: Calibrated Computer & AI Programs"
+        headline = f"💻 Top Tech & CS/IT Elite ({target_branch_label}): Calibrated Discipline Programs"
     elif strategy_type == "pune_mumbai_hub":
-        headline = "📍 Pune & Mumbai Elite Hub: Top Autonomous Institutions"
+        headline = f"📍 Pune & Mumbai Elite Hub ({target_branch_label}): Top Autonomous Institutions"
     elif strategy_type == "guaranteed_lock":
-        headline = "🛡️ 100% Round 1 Seat Lock: Zero Allotment Risk Eliminated"
+        headline = f"🛡️ 100% Round 1 Seat Lock ({target_branch_label}): Zero Allotment Risk Eliminated"
     else:
-        headline = f"🎯 Custom AI Strategy: Optimized for '{user_prompt[:40]}...'"
+        headline = f"🎯 Custom AI Strategy ({target_branch_label}): Optimized for '{user_prompt[:40]}...'"
 
     # Counselor reasoning generator (Gemini fallback built-in)
     advice_text = ""

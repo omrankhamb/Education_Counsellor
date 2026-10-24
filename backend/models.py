@@ -75,4 +75,6 @@ class CapRebalanceRequest(BaseModel):
     strategy_type: Optional[str] = "golden_ratio"
     prompt: Optional[str] = ""
     user_id: Optional[str] = None
+    preferred_branch: Optional[str] = None
+    preferred_branches: Optional[List[str]] = []
 

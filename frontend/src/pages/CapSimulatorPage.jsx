@@ -7,7 +7,8 @@ import {
   FaSlidersH, FaFilter, FaLayerGroup, FaCheck, FaInfoCircle,
   FaUserGraduate, FaExchangeAlt, FaShieldAlt, FaStethoscope,
   FaRobot, FaMagic, FaPaperPlane, FaUndo, FaBullseye, FaBolt,
-  FaFire, FaCheckDouble
+  FaFire, FaCheckDouble, FaTable, FaThLarge, FaListUl, FaChevronDown,
+  FaChevronUp, FaFileAlt, FaShareAlt, FaEye, FaTimes
 } from "react-icons/fa";
 import { MdVerified, MdOutlineSchool, MdSwapVert, MdTimeline, MdAutoAwesome, MdDragIndicator } from "react-icons/md";
 import ReactMarkdown from "react-markdown";
@@ -927,6 +928,22 @@ function detectExamType(profile) {
   return "MHT-CET";
 }
 
+// Format official 9-digit DTE Choice Code (4-digit Institute + 3-digit Branch + 2-digit Shift/Status)
+function getOfficialChoiceCode(collegeCode, branchName) {
+  const digits = String(collegeCode || "").replace(/\D/g, "");
+  const code = digits.length >= 4 ? digits.slice(0, 4) : String(collegeCode || "6006").padEnd(4, "0").slice(0, 4);
+  const b = (branchName || "").toLowerCase();
+  let courseCode = "242"; // Computer Engineering
+  if (b.includes("info") || b.includes("it")) courseCode = "246";
+  else if (b.includes("ai") || b.includes("data") || b.includes("robot") || b.includes("cyber")) courseCode = "995";
+  else if (b.includes("telecom") || b.includes("entc") || b.includes("extc") || b.includes("electronics")) courseCode = "372";
+  else if (b.includes("mech") || b.includes("auto")) courseCode = "612";
+  else if (b.includes("civil") || b.includes("infra")) courseCode = "191";
+  else if (b.includes("electr") || b.includes("power")) courseCode = "293";
+  else if (b.includes("chem") || b.includes("paint") || b.includes("petro")) courseCode = "507";
+  return `${code}${courseCode}10`;
+}
+
 // Immediate deterministic calculation function to ensure zero blank states
 function computeLocalRow(choice, category, round, studentMarks, currentConfig, extraCatalog = []) {
   const catalog = (extraCatalog && extraCatalog.length > 0) ? extraCatalog : currentConfig.catalog;
@@ -1236,8 +1253,13 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
     )
   );
 
+  // View mode & Layout states
+  const [viewMode, setViewMode] = useState("table"); // "table" | "tiers" | "official" | "compact"
+  const [isAiToolsOpen, setIsAiToolsOpen] = useState(true); // Open by default for immediate accessibility
+  const [filterQuery, setFilterQuery] = useState("");
+
   const activeSimulatedData = useMemo(() => {
-    if (simulatedData && simulatedData.rows && simulatedData.rows.length > 0) {
+    if (simulatedData && simulatedData.rows && simulatedData.rows.length === tableChoices.length) {
       return simulatedData;
     }
     return computeLocalTable(tableChoices, selectedCategory, selectedRound, studentScore, currentConfig, collegesCatalog);
@@ -1245,7 +1267,39 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
 
   const [isLoading, setIsLoading] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
+  const [copyCodeSuccess, setCopyCodeSuccess] = useState(false);
+  const [copiedCodeIdx, setCopiedCodeIdx] = useState(null);
   const [showDocModal, setShowDocModal] = useState(false);
+
+  const filteredRows = useMemo(() => {
+    const rows = activeSimulatedData?.rows || [];
+    if (!filterQuery.trim()) return rows;
+    const q = filterQuery.toLowerCase();
+    return rows.filter(r =>
+      (r.college_name || "").toLowerCase().includes(q) ||
+      (r.short_name || "").toLowerCase().includes(q) ||
+      (r.selected_branch || "").toLowerCase().includes(q) ||
+      (r.city || "").toLowerCase().includes(q) ||
+      String(r.college_code || "").includes(q) ||
+      (r.tier || "").toLowerCase().includes(q)
+    );
+  }, [activeSimulatedData, filterQuery]);
+
+  const handleCopyAllOfficialCodes = () => {
+    const codes = (activeSimulatedData?.rows || []).map(r => getOfficialChoiceCode(r.college_code, r.selected_branch));
+    if (codes.length === 0) return;
+    navigator.clipboard.writeText(codes.join(", ")).then(() => {
+      setCopyCodeSuccess(true);
+      setTimeout(() => setCopyCodeSuccess(false), 2500);
+    });
+  };
+
+  const handleCopySingleCode = (code, idx) => {
+    navigator.clipboard.writeText(code).then(() => {
+      setCopiedCodeIdx(idx);
+      setTimeout(() => setCopiedCodeIdx(null), 2000);
+    });
+  };
 
   // AI Option Form Auto-Rebalancer & Risk Matrix State (Feature 2)
   const [aiRebalanceResult, setAiRebalanceResult] = useState(null);
@@ -1254,6 +1308,35 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
   const [previousChoicesBackup, setPreviousChoicesBackup] = useState(null);
   const [appliedAlert, setAppliedAlert] = useState(null);
   const [activeStrategyPreset, setActiveStrategyPreset] = useState("golden_ratio");
+  const [aiTab, setAiTab] = useState("strategies"); // "strategies" | "chat"
+
+  // Selected Target Branch for Auto-Rebalancer & Option Form Management
+  const [selectedRebalanceBranch, setSelectedRebalanceBranch] = useState("auto");
+
+  // Available major disciplines for current exam counseling
+  const availableExamBranches = useMemo(() => {
+    if ((selectedExam || "").toLowerCase().includes("neet")) {
+      return ["MBBS", "BDS (Dental Surgery)", "BAMS (Ayurvedic Medicine)", "BHMS (Homeopathic Medicine)"];
+    }
+    return [
+      "Computer Engineering",
+      "Information Technology",
+      "Artificial Intelligence & Data Science",
+      "Electronics & Telecommunication",
+      "Mechanical Engineering",
+      "Civil Engineering",
+      "Electrical Engineering",
+      "Chemical Engineering"
+    ];
+  }, [selectedExam]);
+
+  // Dynamically resolve target branch for rebalancing
+  const activeTargetBranch = useMemo(() => {
+    if (selectedRebalanceBranch && selectedRebalanceBranch !== "auto") {
+      return selectedRebalanceBranch;
+    }
+    return tableChoices[0]?.selected_branch || (selectedExam.includes("NEET") ? "MBBS" : "Computer Engineering");
+  }, [selectedRebalanceBranch, tableChoices, selectedExam]);
 
   // Calculate real-time portfolio risk metrics live from active table
   const portfolioStats = useMemo(() => {
@@ -1319,12 +1402,14 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
     };
   }, [activeSimulatedData]);
 
-  // Execute AI Rebalancing Request
-  const handleRunRebalance = async (strategyType = "golden_ratio", customPrompt = "") => {
+  // Execute AI Rebalancing Request with strict branch locking
+  const handleRunRebalance = async (strategyType = "golden_ratio", customPrompt = "", autoApply = false, overrideBranch = null) => {
     setActiveStrategyPreset(strategyType);
     setAiRebalanceLoading(true);
     setAppliedAlert(null);
     try {
+      const targetBranch = overrideBranch || activeTargetBranch;
+
       const payload = {
         student_score: studentScore,
         exam_type: selectedExam,
@@ -1332,6 +1417,8 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
         cap_round: selectedRound,
         strategy_type: strategyType,
         prompt: customPrompt,
+        preferred_branch: targetBranch,
+        preferred_branches: [targetBranch],
         current_choices: tableChoices.map(c => ({
           college_code: c.college_code,
           selected_branch: c.selected_branch
@@ -1346,6 +1433,27 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
       const data = await res.json();
       if (data.success) {
         setAiRebalanceResult(data);
+        if (autoApply && data.recommended_choices && data.recommended_choices.length > 0) {
+          setPreviousChoicesBackup([...tableChoices]);
+          const newChoices = data.recommended_choices.map(c => ({
+            college_code: c.college_code,
+            college_name: c.college_name || c.short_name,
+            short_name: c.short_name,
+            city: c.city,
+            selected_branch: c.selected_branch
+          }));
+          setSimulatedData(null);
+          setTableChoices(newChoices);
+          const strategyLabels = {
+            golden_ratio: "Golden Ratio (20:50:30)",
+            tech_cs_only: "Top Tech & CS Only",
+            pune_mumbai_hub: "Pune & Mumbai Elite Hub",
+            guaranteed_lock: "100% Round 1 Seat Lock",
+            custom_chat: "AI Counselor Recommendation"
+          };
+          const label = strategyLabels[strategyType] || "AI Strategy";
+          setAppliedAlert(`🎉 Automatically applied ${label}! Live table updated with ${newChoices.length} choices strictly in your selected branch (${targetBranch}).`);
+        }
       }
     } catch (err) {
       console.error("AI Rebalance Error:", err);
@@ -1360,19 +1468,45 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
     setPreviousChoicesBackup([...tableChoices]);
     const newChoices = recommendedChoices.map(c => ({
       college_code: c.college_code,
+      college_name: c.college_name || c.short_name,
+      short_name: c.short_name,
+      city: c.city,
       selected_branch: c.selected_branch
     }));
+    setSimulatedData(null);
     setTableChoices(newChoices);
-    setAppliedAlert(`🎉 Option Form successfully updated with ${newChoices.length} AI-optimized choices! Cutoffs and probabilities recalculated.`);
+    const branchName = newChoices[0]?.selected_branch || activeTargetBranch;
+    setAppliedAlert(`🎉 Option Form successfully updated with ${newChoices.length} AI-optimized choices strictly for ${branchName}! Cutoffs and probabilities recalculated.`);
     const tableEl = document.getElementById("cap-simulation-table");
     if (tableEl) {
       tableEl.scrollIntoView({ behavior: "smooth" });
     }
   };
 
+  // Helper: Apply target branch across all current table choices
+  const handleApplyBranchToAllChoices = (targetBranch) => {
+    if (!targetBranch) return;
+    setSelectedRebalanceBranch(targetBranch);
+    setPreviousChoicesBackup([...tableChoices]);
+    setTableChoices(prev => prev.map(c => {
+      const catalogCol = collegesCatalog.find(col => String(col.college_code) === String(c.college_code));
+      const available = catalogCol?.available_branches || (catalogCol?.branches ? catalogCol.branches.map(b => b.branch) : null) || c.available_branches || [c.selected_branch];
+      const matched = available.find(b => b.toLowerCase() === targetBranch.toLowerCase())
+        || available.find(b => b.toLowerCase().includes(targetBranch.toLowerCase()) || targetBranch.toLowerCase().includes(b.toLowerCase()))
+        || c.selected_branch;
+      return {
+        ...c,
+        selected_branch: matched
+      };
+    }));
+    setSimulatedData(null);
+    setAppliedAlert(`Switched existing choices to ${targetBranch} where offered.`);
+  };
+
   // Revert back to previous option list
   const handleUndoRebalance = () => {
     if (previousChoicesBackup) {
+      setSimulatedData(null);
       setTableChoices(previousChoicesBackup);
       setPreviousChoicesBackup(null);
       setAppliedAlert("Reverted option form back to previous list.");
@@ -1389,7 +1523,12 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
     // Pick suitable category
     const foundCat = nextCfg.categories.find(c => c.toLowerCase().includes((selectedCategory || "").toLowerCase())) || nextCfg.categories[0];
     setSelectedCategory(foundCat);
-    setStudentScore(nextCfg.defaultScore);
+    const pMarks = parseFloat(activeProfile.marks);
+    if (!isNaN(pMarks) && pMarks > 0) {
+      setStudentScore(pMarks);
+    } else {
+      setStudentScore(nextCfg.defaultScore);
+    }
     setSearchQuery("");
     setIsSearchOpen(false);
 
@@ -1414,7 +1553,7 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
     if (activeProfile.marks && !isNaN(activeProfile.marks)) {
       setStudentScore(parseFloat(activeProfile.marks));
     }
-  }, [activeProfile.exam_type, activeProfile.stream]);
+  }, [activeProfile.exam_type, activeProfile.stream, activeProfile.marks]);
 
   // Load full catalog on mount or when selectedExam changes
   useEffect(() => {
@@ -1613,7 +1752,12 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
     const branches = college.available_branches || (college.branches ? college.branches.map(b => b.branch) : null) || [
       "Computer Engineering", "Information Technology", "Artificial Intelligence & Data Science", "Electronics & Telecommunication", "Mechanical Engineering", "Civil Engineering"
     ];
-    const firstBranch = branches[0] || "Computer Engineering";
+    const target = activeTargetBranch || "Computer Engineering";
+    const matchedBranch = branches.find(b => b.toLowerCase() === target.toLowerCase())
+      || branches.find(b => b.toLowerCase().includes(target.toLowerCase()) || target.toLowerCase().includes(b.toLowerCase()))
+      || branches[0]
+      || "Computer Engineering";
+
     setCollegesCatalog(prev => {
       if (prev.some(c => String(c.college_code) === String(college.college_code))) return prev;
       return [college, ...prev];
@@ -1623,7 +1767,7 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
       {
         college_code: college.college_code,
         college_name: college.college_name,
-        selected_branch: firstBranch,
+        selected_branch: matchedBranch,
         available_branches: branches
       }
     ]);
@@ -1737,6 +1881,8 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
 
   // Handle changing branch for specific row
   const handleChangeRowBranch = (index, newBranch) => {
+    // When user changes branch in a row, automatically sync rebalancer to manage for this branch!
+    setSelectedRebalanceBranch(newBranch);
     setTableChoices(prev => {
       const updated = [...prev];
       updated[index] = { ...updated[index], selected_branch: newBranch };
@@ -1793,7 +1939,11 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
       {/* Top Navbar */}
       <nav
         className="navbar navbar-dark px-3 px-md-4 py-2.5 shadow-sm sticky-top"
-        style={{ background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)" }}
+        style={{
+          background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)",
+          zIndex: 1060,
+          boxShadow: "0 2px 12px rgba(13, 20, 87, 0.25)"
+        }}
       >
         <div className="container-fluid d-flex align-items-center justify-content-between p-0">
           <div className="d-flex align-items-center gap-3">
@@ -2024,43 +2174,33 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
               </p>
             </div>
 
-            {/* Student Live Profile Badge */}
+            {/* Student Verified Profile Badge (Directly from Profile, No manual entry needed) */}
             <div className="col-lg-4 mt-3 mt-lg-0 text-lg-end">
               <div className="d-inline-block bg-white text-dark p-3 rounded-4 shadow-sm text-start" style={{ minWidth: 260 }}>
-                <div className="small text-muted fw-bold text-uppercase" style={{ fontSize: 10, letterSpacing: "0.5px" }}>
-                  Candidate Score ({currentConfig.scoreLabel})
+                <div className="d-flex align-items-center justify-content-between mb-1">
+                  <span className="small text-muted fw-bold text-uppercase" style={{ fontSize: 10, letterSpacing: "0.5px" }}>
+                    Verified Profile Score
+                  </span>
+                  <span className="badge bg-success-subtle text-success border border-success-subtle fw-semibold" style={{ fontSize: 9.5 }}>
+                    ✓ Academic Profile
+                  </span>
                 </div>
                 <div className="d-flex align-items-center justify-content-between my-1">
-                  <span className="fw-bold fs-5 text-primary">{studentScore.toFixed(2)} {currentConfig.scoreUnit}</span>
+                  <span className="fw-bold fs-4 text-primary">{studentScore.toFixed(2)} {currentConfig.scoreUnit}</span>
                   <span className="badge bg-primary-subtle text-primary border">{selectedExam}</span>
                 </div>
-                <div className="d-flex align-items-center gap-1 mt-2">
+                <div className="d-flex align-items-center justify-content-between pt-2 border-top mt-2">
+                  <span className="text-muted small" style={{ fontSize: 11 }}>
+                    Category: <strong className="text-dark">{selectedCategory}</strong>
+                  </span>
                   <button
-                    className="btn btn-xs py-0 px-2 rounded fw-semibold shadow-none"
-                    style={{ fontSize: 11, background: "#F1F5F9", border: "1px solid #CBD5E1", color: "#334155" }}
-                    onClick={() => setStudentScore(prev => Math.max(10, parseFloat((prev - 0.5).toFixed(2))))}
-                    title="Simulate -0.5 score"
+                    className="btn btn-xs btn-link p-0 text-decoration-none fw-semibold d-flex align-items-center gap-1"
+                    style={{ fontSize: 11 }}
+                    onClick={() => navigate("/profile")}
+                    title="Edit your marks or category in your official profile"
                   >
-                    -0.5
+                    ✏️ Edit Profile
                   </button>
-                  <button
-                    className="btn btn-xs py-0 px-2 rounded fw-semibold shadow-none"
-                    style={{ fontSize: 11, background: "#F1F5F9", border: "1px solid #CBD5E1", color: "#334155" }}
-                    onClick={() => setStudentScore(prev => Math.min(99.99, parseFloat((prev + 0.5).toFixed(2))))}
-                    title="Simulate +0.5 score"
-                  >
-                    +0.5
-                  </button>
-                  <input
-                    type="number"
-                    step="0.1"
-                    min="1"
-                    max="100"
-                    className="form-control form-control-sm py-0 px-2 ms-auto text-end"
-                    style={{ width: 85, fontSize: 12 }}
-                    value={studentScore}
-                    onChange={(e) => setStudentScore(parseFloat(e.target.value) || 0)}
-                  />
                 </div>
               </div>
             </div>
@@ -2290,16 +2430,91 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
               </div>
             </div>
 
-            {/* Live Risk Status Badge */}
-            <div className="d-flex flex-column align-items-end">
-              <span className="small text-muted fw-bold mb-1" style={{ fontSize: 10, letterSpacing: "0.5px" }}>CURRENT PORTFOLIO HEALTH</span>
-              <span className={`badge px-3 py-1.5 rounded-pill fw-bold shadow-sm ${portfolioStats.badgeClass}`} style={{ fontSize: 12 }}>
-                {portfolioStats.statusBadge}
-              </span>
+            {/* Live Risk Status Badge & Collapsible Toggle */}
+            <div className="d-flex align-items-center gap-2">
+              <div className="d-flex flex-column align-items-end">
+                <span className="small text-muted fw-bold mb-1" style={{ fontSize: 10, letterSpacing: "0.5px" }}>CURRENT PORTFOLIO HEALTH</span>
+                <span className={`badge px-3 py-1.5 rounded-pill fw-bold shadow-sm ${portfolioStats.badgeClass}`} style={{ fontSize: 12 }}>
+                  {portfolioStats.statusBadge}
+                </span>
+              </div>
+              <button
+                type="button"
+                className="btn btn-sm border rounded-pill px-3 py-1.5 ms-2 d-flex align-items-center gap-1.5 shadow-sm fw-semibold"
+                style={{ background: "#FFFFFF", color: "#334155", fontSize: 11 }}
+                onClick={() => setIsAiToolsOpen(!isAiToolsOpen)}
+                title={isAiToolsOpen ? "Minimize AI Optimizer" : "Open AI Optimizer & Counselor"}
+              >
+                <MdAutoAwesome className="text-warning" size={13} />
+                <span>{isAiToolsOpen ? "Minimize AI" : "Open AI Panel"}</span>
+                {isAiToolsOpen ? <FaChevronUp size={10} /> : <FaChevronDown size={10} />}
+              </button>
             </div>
           </div>
 
-          <div className="p-4">
+          {!isAiToolsOpen ? (
+            <div className="p-3 px-4 bg-light border-top d-flex align-items-center justify-content-between flex-wrap gap-2">
+              <div className="d-flex align-items-center gap-2 flex-wrap">
+                <span className="small text-dark fw-bold d-flex align-items-center gap-1.5" style={{ fontSize: 12 }}>
+                  <FaBolt color="#F59E0B" /> Quick Rebalance:
+                </span>
+                <div className="d-flex align-items-center gap-1.5 bg-white border shadow-sm px-2.5 py-1 rounded-pill" title="Target discipline managed by AI Rebalancer">
+                  <span className="text-secondary fw-semibold" style={{ fontSize: 11 }}>🎯 Discipline:</span>
+                  <select
+                    className="form-select form-select-sm border-0 bg-transparent fw-bold text-primary p-0 shadow-none"
+                    style={{ fontSize: 11.5, width: "auto", cursor: "pointer" }}
+                    value={activeTargetBranch}
+                    onChange={(e) => setSelectedRebalanceBranch(e.target.value)}
+                  >
+                    {availableExamBranches.map(br => (
+                      <option key={br} value={br}>{br}</option>
+                    ))}
+                  </select>
+                </div>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold shadow-none"
+                  style={{ fontSize: 11.5 }}
+                  onClick={() => { setIsAiToolsOpen(true); handleRunRebalance("golden_ratio"); }}
+                >
+                  🪄 Golden Ratio (20:50:30)
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 fw-semibold shadow-none"
+                  style={{ fontSize: 11.5 }}
+                  onClick={() => { setIsAiToolsOpen(true); handleRunRebalance("tech_cs_only"); }}
+                >
+                  💻 CS & AI Only
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 fw-semibold shadow-none"
+                  style={{ fontSize: 11.5 }}
+                  onClick={() => { setIsAiToolsOpen(true); handleRunRebalance("pune_mumbai_hub"); }}
+                >
+                  📍 Pune & Mumbai
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-success rounded-pill px-3 py-1 fw-bold shadow-none"
+                  style={{ fontSize: 11.5 }}
+                  onClick={() => { setIsAiToolsOpen(true); handleRunRebalance("guaranteed_lock"); }}
+                >
+                  🛡️ 100% Seat Lock
+                </button>
+              </div>
+              <button
+                type="button"
+                className="btn btn-sm btn-primary rounded-pill px-3.5 py-1.5 fw-bold d-flex align-items-center gap-1.5 shadow-sm"
+                style={{ fontSize: 12 }}
+                onClick={() => setIsAiToolsOpen(true)}
+              >
+                <FaRobot size={12} /> Open Full Optimizer Panel
+              </button>
+            </div>
+          ) : (
+            <div className="p-4">
 
             {/* Undo / Applied Notification Bar */}
             {appliedAlert && (
@@ -2433,131 +2648,79 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
               </div>
             </div>
 
-            {/* 2. 1-Click AI Strategy Presets */}
-            <div className="mb-4">
-              <label className="form-label small fw-bold text-dark d-flex align-items-center justify-content-between mb-2">
-                <span className="d-flex align-items-center gap-1.5">
-                  <FaBolt color="#F59E0B" size={12} /> 1-Click AI Strategy Auto-Rebalancers:
+            {/* 2. Target Discipline Selector & Sync Bar */}
+            <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 pb-2 border-bottom">
+              <div className="d-flex align-items-center gap-2">
+                <span className="badge px-3 py-1.5 rounded-pill fw-bold text-uppercase d-flex align-items-center gap-1.5 shadow-sm" style={{ background: "linear-gradient(135deg, #4F46E5, #6366F1)", color: "#FFFFFF", fontSize: 11 }}>
+                  <FaRobot size={12} /> AI Strategy Engine
                 </span>
-                <span className="text-muted" style={{ fontSize: 11 }}>Instant portfolio calculation & live mutation</span>
-              </label>
+                <span className="text-secondary small fw-medium" style={{ fontSize: 12 }}>
+                  Calibrate your CAP Option Form for maximum allotment security & dream reaches
+                </span>
+              </div>
 
-              <div className="row g-2">
-                {/* Preset 1: Golden Ratio */}
-                <div className="col-md-3">
-                  <button
-                    className={`btn w-100 text-start p-2.5 rounded-3 border h-100 shadow-sm transition-all ${
-                      activeStrategyPreset === "golden_ratio" ? "border-primary bg-primary-subtle" : "bg-white"
-                    }`}
-                    disabled={aiRebalanceLoading}
-                    onClick={() => handleRunRebalance("golden_ratio")}
+              <div className="d-flex align-items-center gap-2 flex-wrap">
+                <div className="d-flex align-items-center gap-1.5 bg-white border shadow-sm px-2.5 py-1 rounded-pill" title="Target discipline strictly managed by AI Rebalancer">
+                  <span className="text-secondary fw-semibold" style={{ fontSize: 11 }}>🎯 Target Discipline:</span>
+                  <select
+                    className="form-select form-select-sm border-0 bg-transparent fw-bold text-primary p-0 shadow-none"
+                    style={{ fontSize: 11.5, width: "auto", cursor: "pointer" }}
+                    value={activeTargetBranch}
+                    onChange={(e) => setSelectedRebalanceBranch(e.target.value)}
                   >
-                    <div className="d-flex align-items-center justify-content-between mb-1">
-                      <span className="fw-bold small text-dark d-flex align-items-center gap-1" style={{ fontSize: 12 }}>
-                        🪄 Golden Ratio
-                      </span>
-                      <span className="badge bg-primary rounded-pill" style={{ fontSize: 9 }}>20:50:30</span>
-                    </div>
-                    <div className="text-secondary" style={{ fontSize: 11 }}>
-                      2-3 Dream + 4-5 Target + 2-3 Safe backups. Eliminates zero allotment.
-                    </div>
-                  </button>
+                    {availableExamBranches.map(br => (
+                      <option key={br} value={br}>{br}</option>
+                    ))}
+                  </select>
                 </div>
-
-                {/* Preset 2: Tech Only */}
-                <div className="col-md-3">
-                  <button
-                    className={`btn w-100 text-start p-2.5 rounded-3 border h-100 shadow-sm transition-all ${
-                      activeStrategyPreset === "tech_cs_only" ? "border-primary bg-primary-subtle" : "bg-white"
-                    }`}
-                    disabled={aiRebalanceLoading}
-                    onClick={() => handleRunRebalance("tech_cs_only")}
-                  >
-                    <div className="d-flex align-items-center justify-content-between mb-1">
-                      <span className="fw-bold small text-dark d-flex align-items-center gap-1" style={{ fontSize: 12 }}>
-                        💻 Top Tech & CS Only
-                      </span>
-                      <span className="badge bg-info text-dark rounded-pill" style={{ fontSize: 9 }}>CS / IT / AI</span>
-                    </div>
-                    <div className="text-secondary" style={{ fontSize: 11 }}>
-                      Filters strictly for Computer, IT & AI/DS branches across premier hubs.
-                    </div>
-                  </button>
-                </div>
-
-                {/* Preset 3: Pune & Mumbai Hub */}
-                <div className="col-md-3">
-                  <button
-                    className={`btn w-100 text-start p-2.5 rounded-3 border h-100 shadow-sm transition-all ${
-                      activeStrategyPreset === "pune_mumbai_hub" ? "border-primary bg-primary-subtle" : "bg-white"
-                    }`}
-                    disabled={aiRebalanceLoading}
-                    onClick={() => handleRunRebalance("pune_mumbai_hub")}
-                  >
-                    <div className="d-flex align-items-center justify-content-between mb-1">
-                      <span className="fw-bold small text-dark d-flex align-items-center gap-1" style={{ fontSize: 12 }}>
-                        📍 Pune & Mumbai Hub
-                      </span>
-                      <span className="badge bg-secondary rounded-pill" style={{ fontSize: 9 }}>Metro Hubs</span>
-                    </div>
-                    <div className="text-secondary" style={{ fontSize: 11 }}>
-                      Focuses on premier autonomous institutions in Pune & Mumbai.
-                    </div>
-                  </button>
-                </div>
-
-                {/* Preset 4: 100% Guaranteed Lock */}
-                <div className="col-md-3">
-                  <button
-                    className={`btn w-100 text-start p-2.5 rounded-3 border h-100 shadow-sm transition-all ${
-                      activeStrategyPreset === "guaranteed_lock" ? "border-primary bg-primary-subtle" : "bg-white"
-                    }`}
-                    disabled={aiRebalanceLoading}
-                    onClick={() => handleRunRebalance("guaranteed_lock")}
-                  >
-                    <div className="d-flex align-items-center justify-content-between mb-1">
-                      <span className="fw-bold small text-dark d-flex align-items-center gap-1" style={{ fontSize: 12 }}>
-                        🛡️ 100% Seat Lock
-                      </span>
-                      <span className="badge bg-success rounded-pill" style={{ fontSize: 9 }}>Round 1 Safe</span>
-                    </div>
-                    <div className="text-secondary" style={{ fontSize: 11 }}>
-                      Maximizes high-probability (&gt;90%) safe backups for guaranteed seat.
-                    </div>
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  className="btn btn-xs btn-outline-secondary rounded-pill py-1 px-2.5 fw-semibold"
+                  style={{ fontSize: 10.5 }}
+                  onClick={() => handleApplyBranchToAllChoices(activeTargetBranch)}
+                  title="Switch all choices in preference table to this branch where offered"
+                >
+                  Sync table to {activeTargetBranch}
+                </button>
               </div>
             </div>
 
-            {/* 3. Interactive AI Strategy Chat (Natural Language Optimizer) */}
-            <div className="bg-light p-3 rounded-4 border">
-              <label className="form-label small fw-bold text-dark d-flex align-items-center justify-content-between mb-1">
-                <span className="d-flex align-items-center gap-1.5">
-                  <FaRobot color="#4F46E5" size={13} /> Chat with AI Strategy Counselor to Rebalance Live Table:
-                </span>
-                <span className="text-muted" style={{ fontSize: 11 }}>Natural Language Option Form Optimizer</span>
-              </label>
+            {/* 3. Interactive AI Prompt Counselor (Natural Language Optimizer) */}
+            <div className="card border shadow-sm rounded-4 p-3 bg-white mb-3">
+              <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                <div>
+                  <h6 className="fw-bold text-dark mb-0 d-flex align-items-center gap-1.5" style={{ fontSize: 13 }}>
+                    <FaRobot color="#4F46E5" size={15} /> Chat with AI Strategy Counselor:
+                  </h6>
+                  <span className="text-muted small" style={{ fontSize: 11 }}>
+                    Type your request in plain English (e.g. cities, preferred branches, cutoff criteria) or pick a quick prompt:
+                  </span>
+                </div>
+              </div>
 
-              {/* Suggestion Chips */}
+              {/* Quick Prompts Chips */}
               <div className="d-flex align-items-center gap-1.5 flex-wrap mb-2.5">
-                <span className="text-muted small fw-semibold" style={{ fontSize: 10 }}>Quick Prompts:</span>
+                <span className="text-muted small fw-semibold" style={{ fontSize: 10.5 }}>Quick Prompts:</span>
                 {[
-                  "Fix my zero allotment risk with safe Pune CS backups",
-                  "Only autonomous colleges in Pune and Mumbai",
-                  "Add colleges where my admission chance is >85%",
-                  "Optimize my list for Round 2 Betterment (Float)"
-                ].map((chip, idx) => (
+                  { label: "Mumbai IT Colleges Only", prompt: "Add only colleges near Mumbai for Information Technology" },
+                  { label: "Safe Pune CS Backups", prompt: "Fix my zero allotment risk with safe Pune CS backups" },
+                  { label: "Autonomous Colleges Only", prompt: "Only autonomous colleges in Pune and Mumbai" },
+                  { label: "High Probability (>85%)", prompt: "Add colleges where my admission chance is >85%" },
+                  { label: "Round 2 Float Betterment", prompt: "Optimize my list for Round 2 Betterment (Float)" }
+                ].map((item, idx) => (
                   <button
                     key={idx}
                     type="button"
-                    className="btn btn-xs rounded-pill py-0.5 px-2.5 bg-white border text-secondary fw-semibold shadow-none"
-                    style={{ fontSize: 10 }}
+                    className="btn btn-xs rounded-pill py-1 px-2.5 bg-white border border-primary-subtle text-primary fw-medium shadow-sm d-flex align-items-center gap-1"
+                    style={{ fontSize: 11, transition: "all 0.15s ease" }}
                     onClick={() => {
-                      setAiPromptInput(chip);
-                      handleRunRebalance("custom_chat", chip);
+                      setAiPromptInput(item.prompt);
+                      handleRunRebalance("custom_chat", item.prompt, false);
                     }}
+                    disabled={aiRebalanceLoading}
                   >
-                    ✨ {chip}
+                    <span className="text-warning">✨</span>
+                    <span>{item.label}</span>
                   </button>
                 ))}
               </div>
@@ -2567,143 +2730,358 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
                 onSubmit={(e) => {
                   e.preventDefault();
                   if (aiPromptInput.trim()) {
-                    handleRunRebalance("custom_chat", aiPromptInput.trim());
+                    handleRunRebalance("custom_chat", aiPromptInput.trim(), false);
                   }
                 }}
               >
-                <div className="input-group">
-                  <span className="input-group-text bg-white border-end-0 text-primary">
-                    <FaRobot size={14} />
+                <div className="input-group shadow-sm rounded-3 overflow-hidden border">
+                  <span className="input-group-text bg-white border-0 text-primary ps-3">
+                    <FaRobot size={15} />
                   </span>
                   <input
                     type="text"
-                    className="form-control border-start-0 border-end-0 shadow-none"
-                    placeholder={`e.g. "I have ${studentScore.toFixed(1)} score. Give me top Pune tech colleges with safe CS backup" or "Remove branches other than AI/DS"...`}
+                    className="form-control border-0 shadow-none py-2"
+                    placeholder={`e.g. "Add only colleges near Mumbai for Information Technology" or "Give me safe Pune colleges for ${studentScore.toFixed(1)} percentile"...`}
                     style={{ fontSize: 13 }}
                     value={aiPromptInput}
                     onChange={(e) => setAiPromptInput(e.target.value)}
                     disabled={aiRebalanceLoading}
                   />
+                  {aiPromptInput && (
+                    <button
+                      type="button"
+                      className="btn bg-white border-0 text-muted px-2"
+                      onClick={() => setAiPromptInput("")}
+                      title="Clear prompt"
+                    >
+                      <FaTimes size={12} />
+                    </button>
+                  )}
                   <button
-                    className="btn btn-primary px-4 fw-semibold d-flex align-items-center gap-1.5 shadow-sm"
+                    className="btn btn-primary px-4 fw-bold d-flex align-items-center gap-1.5"
                     type="submit"
                     disabled={aiRebalanceLoading || !aiPromptInput.trim()}
-                    style={{ background: "linear-gradient(135deg, #4F46E5, #6366F1)", border: "none" }}
+                    style={{ background: "linear-gradient(135deg, #4F46E5, #6366F1)", border: "none", fontSize: 13 }}
                   >
                     {aiRebalanceLoading ? (
                       <>
                         <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
-                        <span>Optimizing...</span>
+                        <span>Analyzing Cutoffs...</span>
                       </>
                     ) : (
                       <>
                         <FaPaperPlane size={11} />
-                        <span>Ask AI Counselor</span>
+                        <span>Rebalance with AI</span>
                       </>
                     )}
                   </button>
                 </div>
               </form>
+            </div>
 
-              {/* AI Counselor Strategy Result Box */}
-              {aiRebalanceResult && (
-                <div className="mt-3 p-3 bg-white rounded-3 border shadow-sm animate__animated animate__fadeIn">
-                  
-                  {/* Result Header Bar */}
-                  <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 pb-2 mb-2 border-bottom">
-                    <div className="d-flex align-items-center gap-2">
-                      <span className="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1 fw-bold" style={{ fontSize: 11 }}>
-                        <MdAutoAwesome className="me-1 text-warning" /> {aiRebalanceResult.headline}
-                      </span>
-                      {aiRebalanceResult.gemini_powered && (
-                        <span className="badge bg-success-subtle text-success border rounded-pill px-2 py-0.5" style={{ fontSize: 10 }}>
-                          ✓ Grounded in DTE Official Cutoffs
+            {/* 4. 1-Click Proven Strategy Presets */}
+            <div className="mb-4">
+              <div className="d-flex align-items-center justify-content-between mb-2">
+                <span className="small fw-bold text-dark d-flex align-items-center gap-1.5" style={{ fontSize: 12 }}>
+                  <FaBolt color="#F59E0B" /> Or Select a 1-Click Proven Strategy Preset:
+                </span>
+                <span className="text-muted small" style={{ fontSize: 11 }}>
+                  Calculated dynamically from official DTE past round cutoff thresholds
+                </span>
+              </div>
+
+              <div className="row g-3">
+                {/* Preset 1: Golden Ratio */}
+                <div className="col-md-3">
+                  <div className={`card h-100 border rounded-3 p-3 shadow-sm d-flex flex-column justify-content-between transition-all ${
+                    activeStrategyPreset === "golden_ratio" ? "border-primary bg-primary-subtle" : "bg-white"
+                  }`}>
+                    <div>
+                      <div className="d-flex align-items-center justify-content-between mb-1.5">
+                        <span className="fw-bold text-dark d-flex align-items-center gap-1" style={{ fontSize: 13 }}>
+                          🪄 Golden Ratio
                         </span>
-                      )}
-                    </div>
-
-                    {/* Before -> After Comparison Pill */}
-                    <div className="d-flex align-items-center gap-2 small">
-                      <span className="badge bg-light text-muted border" style={{ fontSize: 10 }}>
-                        Before: {aiRebalanceResult.before_portfolio.dream}D • {aiRebalanceResult.before_portfolio.target}T • {aiRebalanceResult.before_portfolio.safe}S
-                      </span>
-                      <FaExchangeAlt size={10} className="text-muted" />
-                      <span className="badge bg-success text-white border-0 shadow-sm" style={{ fontSize: 10 }}>
-                        Rebalanced: {aiRebalanceResult.after_portfolio.dream}D • {aiRebalanceResult.after_portfolio.target}T • {aiRebalanceResult.after_portfolio.safe}S
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Strategic Counseling Reasoning */}
-                  <div className="mb-3 text-dark small" style={{ fontSize: 13, lineHeight: 1.6 }}>
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                      {aiRebalanceResult.counselor_advice}
-                    </ReactMarkdown>
-                  </div>
-
-                  {/* Rebalanced College Choices Preview Badges */}
-                  <div className="mb-3">
-                    <div className="small text-muted fw-bold mb-1.5" style={{ fontSize: 11 }}>
-                      RECOMMENDED PREFERENCE ORDER ({aiRebalanceResult.recommended_choices?.length || 0} CHOICES):
-                    </div>
-                    <div className="d-flex align-items-center gap-1.5 flex-wrap">
-                      {aiRebalanceResult.recommended_choices?.map((item, idx) => (
-                        <div
-                          key={idx}
-                          className={`badge p-1.5 px-2.5 border rounded-2 d-flex align-items-center gap-1.5 ${
-                            item.tier === "Dream"
-                              ? "bg-warning-subtle text-dark border-warning"
-                              : item.tier === "Target"
-                              ? "bg-primary-subtle text-primary border-primary"
-                              : "bg-success-subtle text-success border-success"
-                          }`}
-                          style={{ fontSize: 11 }}
-                          title={item.reason}
-                        >
-                          <span className="fw-bold">#{idx + 1}</span>
-                          <span>{item.short_name}</span>
-                          <span className="opacity-75">({item.selected_branch.split(" ")[0]})</span>
-                          <span className="badge bg-white text-dark border px-1 py-0" style={{ fontSize: 9 }}>
-                            {item.admission_probability}%
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* High Visibility Action Button to Mutate Live Table */}
-                  <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 pt-2 border-top">
-                    <div className="text-muted small" style={{ fontSize: 11 }}>
-                      Click below to instantly update your live simulation table with these {aiRebalanceResult.recommended_choices?.length || 0} optimized preferences.
+                        <span className="badge bg-primary text-white rounded-pill px-2 py-0.5" style={{ fontSize: 9 }}>
+                          20:50:30
+                        </span>
+                      </div>
+                      <p className="text-muted small mb-3" style={{ fontSize: 11.5, lineHeight: 1.5 }}>
+                        2-3 Dream reaches + 4-5 Target matches + 2-3 Safe backups. Eliminates zero allotment risk.
+                      </p>
                     </div>
                     <button
-                      className="btn btn-primary rounded-pill px-4 py-2 fw-bold d-flex align-items-center gap-2 shadow"
-                      style={{
-                        background: "linear-gradient(135deg, #10B981, #059669)",
-                        border: "none",
-                        fontSize: 13
-                      }}
-                      onClick={() => handleApplyRebalancedList(aiRebalanceResult.recommended_choices)}
+                      type="button"
+                      className="btn btn-primary btn-sm rounded-pill w-100 fw-bold d-flex align-items-center justify-content-center gap-1.5 shadow-sm"
+                      disabled={aiRebalanceLoading}
+                      onClick={() => handleRunRebalance("golden_ratio")}
                     >
-                      <FaCheckDouble size={14} />
-                      <span>✨ Apply AI Rebalanced List to Table ({aiRebalanceResult.recommended_choices?.length || 0} Choices)</span>
+                      <FaBolt size={11} /> Apply Golden Ratio
                     </button>
+                  </div>
+                </div>
+
+                {/* Preset 2: Tech Only */}
+                <div className="col-md-3">
+                  <div className={`card h-100 border rounded-3 p-3 shadow-sm d-flex flex-column justify-content-between transition-all ${
+                    activeStrategyPreset === "tech_cs_only" ? "border-primary bg-primary-subtle" : "bg-white"
+                  }`}>
+                    <div>
+                      <div className="d-flex align-items-center justify-content-between mb-1.5">
+                        <span className="fw-bold text-dark d-flex align-items-center gap-1" style={{ fontSize: 13 }}>
+                          💻 Tech & CS Only
+                        </span>
+                        <span className="badge bg-info text-dark rounded-pill px-2 py-0.5" style={{ fontSize: 9 }}>
+                          CS / IT / AI
+                        </span>
+                      </div>
+                      <p className="text-muted small mb-3" style={{ fontSize: 11.5, lineHeight: 1.5 }}>
+                        Filters strictly for Computer, IT & AI/DS branches across top engineering colleges.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary btn-sm rounded-pill w-100 fw-bold d-flex align-items-center justify-content-center gap-1.5 shadow-sm"
+                      disabled={aiRebalanceLoading}
+                      onClick={() => handleRunRebalance("tech_cs_only")}
+                    >
+                      <FaBolt size={11} /> Apply Tech Only
+                    </button>
+                  </div>
+                </div>
+
+                {/* Preset 3: Pune & Mumbai Hub */}
+                <div className="col-md-3">
+                  <div className={`card h-100 border rounded-3 p-3 shadow-sm d-flex flex-column justify-content-between transition-all ${
+                    activeStrategyPreset === "pune_mumbai_hub" ? "border-primary bg-primary-subtle" : "bg-white"
+                  }`}>
+                    <div>
+                      <div className="d-flex align-items-center justify-content-between mb-1.5">
+                        <span className="fw-bold text-dark d-flex align-items-center gap-1" style={{ fontSize: 13 }}>
+                          📍 Metro Hubs
+                        </span>
+                        <span className="badge bg-secondary text-white rounded-pill px-2 py-0.5" style={{ fontSize: 9 }}>
+                          Pune & Mumbai
+                        </span>
+                      </div>
+                      <p className="text-muted small mb-3" style={{ fontSize: 11.5, lineHeight: 1.5 }}>
+                        Restricts choices to premier autonomous and state institutions in Pune & Mumbai tech corridors.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary btn-sm rounded-pill w-100 fw-bold d-flex align-items-center justify-content-center gap-1.5 shadow-sm"
+                      disabled={aiRebalanceLoading}
+                      onClick={() => handleRunRebalance("pune_mumbai_hub")}
+                    >
+                      <FaBolt size={11} /> Apply Metro Hubs
+                    </button>
+                  </div>
+                </div>
+
+                {/* Preset 4: 100% Guaranteed Lock */}
+                <div className="col-md-3">
+                  <div className={`card h-100 border rounded-3 p-3 shadow-sm d-flex flex-column justify-content-between transition-all ${
+                    activeStrategyPreset === "guaranteed_lock" ? "border-primary bg-primary-subtle" : "bg-white"
+                  }`}>
+                    <div>
+                      <div className="d-flex align-items-center justify-content-between mb-1.5">
+                        <span className="fw-bold text-dark d-flex align-items-center gap-1" style={{ fontSize: 13 }}>
+                          🛡️ 100% Seat Lock
+                        </span>
+                        <span className="badge bg-success text-white rounded-pill px-2 py-0.5" style={{ fontSize: 9 }}>
+                          Zero Risk
+                        </span>
+                      </div>
+                      <p className="text-muted small mb-3" style={{ fontSize: 11.5, lineHeight: 1.5 }}>
+                        Maximizes high-probability (&gt;85%) safe backup colleges to ensure a guaranteed provisional seat.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      className="btn btn-outline-success btn-sm rounded-pill w-100 fw-bold d-flex align-items-center justify-content-center gap-1.5 shadow-sm"
+                      disabled={aiRebalanceLoading}
+                      onClick={() => handleRunRebalance("guaranteed_lock")}
+                    >
+                      <FaShieldAlt size={11} /> Apply Seat Lock
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Rebalance Proposal Card (Clean Structured View) */}
+            {aiRebalanceResult && (
+              <div className="card border-primary-subtle shadow-sm rounded-4 overflow-hidden mb-2 animate__animated animate__fadeIn">
+                {/* Proposal Header */}
+                <div className="p-3 px-4 bg-primary-subtle border-bottom d-flex align-items-center justify-content-between flex-wrap gap-2">
+                  <div className="d-flex align-items-center gap-2">
+                    <span className="badge bg-primary text-white rounded-pill px-3 py-1.5 fw-bold d-flex align-items-center gap-1.5" style={{ fontSize: 12 }}>
+                      <MdAutoAwesome size={13} /> {aiRebalanceResult.headline}
+                    </span>
+                    {aiRebalanceResult.gemini_powered && (
+                      <span className="badge bg-white text-success border border-success-subtle rounded-pill px-2.5 py-1" style={{ fontSize: 10.5 }}>
+                        ✓ Grounded in Official DTE Cutoffs
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Before vs After Metric Pill */}
+                  <div className="d-flex align-items-center gap-2 bg-white px-3 py-1 rounded-pill border shadow-sm">
+                    <span className="text-muted small" style={{ fontSize: 11 }}>Portfolio Shift:</span>
+                    <span className="badge bg-light text-secondary border px-2 py-0.5" style={{ fontSize: 10.5 }}>
+                      Before: {aiRebalanceResult.before_portfolio.dream}D • {aiRebalanceResult.before_portfolio.target}T • {aiRebalanceResult.before_portfolio.safe}S
+                    </span>
+                    <FaExchangeAlt size={10} className="text-muted" />
+                    <span className="badge bg-success text-white px-2 py-0.5 shadow-none" style={{ fontSize: 10.5 }}>
+                      Rebalanced: {aiRebalanceResult.after_portfolio.dream}D • {aiRebalanceResult.after_portfolio.target}T • {aiRebalanceResult.after_portfolio.safe}S
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-4 bg-white">
+                  {/* Strategic Counseling Insights */}
+                  <div className="p-3 bg-light rounded-3 border mb-3">
+                    <div className="small fw-bold text-dark text-uppercase mb-2 d-flex align-items-center gap-1.5" style={{ fontSize: 11, letterSpacing: "0.5px" }}>
+                      <FaInfoCircle color="#4F46E5" /> AI Admission Officer Strategic Assessment:
+                    </div>
+                    <div className="text-dark small" style={{ fontSize: 13, lineHeight: 1.65 }}>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {aiRebalanceResult.counselor_advice}
+                      </ReactMarkdown>
+                    </div>
+                  </div>
+
+                  {/* Proposed Preference Order (Clean Structured Preview Table) */}
+                  <div className="mb-3">
+                    <div className="d-flex align-items-center justify-content-between mb-2">
+                      <span className="small text-dark fw-bold d-flex align-items-center gap-1.5" style={{ fontSize: 12.5 }}>
+                        📋 Proposed Preference Sequence ({aiRebalanceResult.recommended_choices?.length || 0} Institutions):
+                      </span>
+                      <span className="text-muted small" style={{ fontSize: 11 }}>
+                        Strictly arranged descending from Dream Reaches down to Confirmed Safety Backups
+                      </span>
+                    </div>
+
+                    <div className="table-responsive rounded-3 border overflow-hidden shadow-sm">
+                      <table className="table table-sm table-hover align-middle mb-0">
+                        <thead className="table-light text-secondary" style={{ fontSize: 11 }}>
+                          <tr>
+                            <th style={{ width: 60 }} className="text-center py-2">Pref #</th>
+                            <th className="py-2">Institute Name & City</th>
+                            <th className="py-2">Selected Program / Branch</th>
+                            <th className="text-center py-2" style={{ width: 110 }}>Cutoff Score</th>
+                            <th className="text-center py-2" style={{ width: 140 }}>Allotment Probability</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {aiRebalanceResult.recommended_choices?.map((item, idx) => {
+                            const isDream = item.tier === "Dream";
+                            const isTarget = item.tier === "Target";
+                            const tierBadgeClass = isDream
+                              ? "bg-warning-subtle text-dark border border-warning"
+                              : isTarget
+                              ? "bg-primary-subtle text-primary border border-primary-subtle"
+                              : "bg-success-subtle text-success border border-success-subtle";
+
+                            return (
+                              <tr key={idx} style={{ fontSize: 12 }}>
+                                <td className="text-center fw-bold">
+                                  <span className="badge bg-light text-dark border rounded-circle d-inline-flex align-items-center justify-content-center" style={{ width: 24, height: 24, fontSize: 11 }}>
+                                    {idx + 1}
+                                  </span>
+                                </td>
+                                <td>
+                                  <span className="fw-bold text-dark">{item.short_name || item.college_name}</span>
+                                  <span className="text-muted small ms-1.5" style={{ fontSize: 11 }}>📍 {item.city}</span>
+                                </td>
+                                <td>
+                                  <span className="badge bg-light text-primary border border-primary-subtle fw-semibold px-2 py-1" style={{ fontSize: 11 }}>
+                                    {item.selected_branch}
+                                  </span>
+                                </td>
+                                <td className="text-center font-monospace small">
+                                  <strong>{item.cutoff_2026}</strong>%ile
+                                </td>
+                                <td className="text-center">
+                                  <span className={`badge px-2.5 py-1 rounded-pill fw-bold ${tierBadgeClass}`} style={{ fontSize: 10.5 }}>
+                                    {item.tier} • {item.admission_probability}%
+                                  </span>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  {/* Action Footer: Completely Clear, Unambiguous Action Buttons */}
+                  <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 pt-3 border-top mt-3 bg-light p-3 rounded-3 border">
+                    <div className="d-flex align-items-center gap-2">
+                      <div className="badge bg-success-subtle text-success p-1.5 rounded-circle">
+                        <FaCheckCircle size={14} />
+                      </div>
+                      <div>
+                        <div className="fw-bold text-dark small" style={{ fontSize: 12 }}>
+                          {appliedAlert ? "Active in Preference Table" : "Ready to Apply"}
+                        </div>
+                        <div className="text-muted small" style={{ fontSize: 11 }}>
+                          {appliedAlert
+                            ? `These ${aiRebalanceResult.recommended_choices?.length || 0} choices are loaded into your live option form table below.`
+                            : `Click below to update your preference form with these ${aiRebalanceResult.recommended_choices?.length || 0} choices.`}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="d-flex align-items-center gap-2 flex-wrap">
+                      {previousChoicesBackup && (
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1.5 fw-semibold d-flex align-items-center gap-1.5"
+                          style={{ fontSize: 12 }}
+                          onClick={handleUndoRebalance}
+                        >
+                          <FaUndo size={11} /> Undo & Restore Previous
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-outline-primary rounded-pill px-3 py-1.5 fw-bold d-flex align-items-center gap-1.5"
+                        style={{ fontSize: 12 }}
+                        onClick={() => {
+                          const el = document.getElementById("cap-simulation-table");
+                          if (el) el.scrollIntoView({ behavior: "smooth" });
+                        }}
+                      >
+                        <FaTable size={12} /> View in Table Below
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-success rounded-pill px-4 py-2 fw-bold d-flex align-items-center gap-1.5 shadow"
+                        style={{ fontSize: 12.5 }}
+                        onClick={() => handleApplyRebalancedList(aiRebalanceResult.recommended_choices)}
+                      >
+                        <FaCheckDouble size={13} />
+                        <span>Apply to Preference Form</span>
+                      </button>
+                    </div>
                   </div>
 
                 </div>
-              )}
-            </div>
-
+              </div>
+            )}
           </div>
-        </div>
+        )}
+      </div>
 
-        {/* 5. Live Simulation Table Card */}
+        {/* 5. Live Simulation Table Card with Multi-View Modes */}
         <div id="cap-simulation-table" className="bg-white rounded-4 shadow-sm border overflow-hidden mb-4">
+          
           {/* Table Header Bar */}
           <div className="p-3 px-4 bg-light border-bottom d-flex align-items-center justify-content-between flex-wrap gap-2">
             <div>
               <h5 className="fw-bold mb-0 text-dark d-flex align-items-center gap-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
-                <span>📋 Official Preference List & Allotment Probability Matrix</span>
+                <span>📋 Official Preference List & Allotment Simulator</span>
                 <span className="badge bg-primary rounded-pill">{tableChoices.length} Choices</span>
               </h5>
               <div className="d-flex align-items-center gap-2 mt-1 flex-wrap">
@@ -2726,14 +3104,16 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
                   border: copySuccess ? "none" : "1px solid #BFDBFE"
                 }}
                 onClick={handleCopyOptionForm}
+                title="Copy full preference list with cutoffs and admission chance"
               >
                 {copySuccess ? <FaCheck size={11} /> : <FaCopy size={11} />}
-                <span>{copySuccess ? "Copied Form!" : "Copy Form Codes"}</span>
+                <span>{copySuccess ? "Copied Form!" : "Copy Full Form"}</span>
               </button>
               <button
                 className="btn btn-sm rounded-pill px-3 py-1 fw-semibold d-flex align-items-center gap-1 shadow-sm"
                 style={{ fontSize: 12, background: "#F1F5F9", border: "1px solid #CBD5E1", color: "#334155" }}
                 onClick={() => window.print()}
+                title="Print option form document"
               >
                 <FaPrint size={11} />
                 <span>Print Form</span>
@@ -2741,302 +3121,1063 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
             </div>
           </div>
 
-          {/* The Table */}
-          <div className="table-responsive">
-            <table className="table table-hover align-middle mb-0 text-center" style={{ minWidth: 980 }}>
-              <thead className="table-dark" style={{ backgroundColor: "#1A237E", color: "#FFFFFF" }}>
-                <tr>
-                  <th style={{ width: 85, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">
-                    <div className="d-flex align-items-center justify-content-center gap-1" title="Drag row or handle to change preference hierarchy">
-                      <MdDragIndicator size={14} color="#FFB300" />
-                      <span>Pref #</span>
-                    </div>
-                  </th>
-                  <th style={{ textAlign: "left", width: 260, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">College Name & {currentConfig.codeLabel}</th>
-                  <th style={{ textAlign: "left", width: 230, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">Selected Branch Program</th>
-                  <th style={{ width: 95, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">2024 Cutoff</th>
-                  <th style={{ width: 95, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">2025 Cutoff</th>
-                  <th style={{ width: 95, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">2026 Cutoff</th>
-                  <th style={{ width: 135, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">
-                    <span className="text-white">2027 Proj. Benchmark</span>
-                    <span className="d-block text-warning fw-normal" style={{ fontSize: 9.5 }}>Trajectory Slope</span>
-                  </th>
-                  <th style={{ width: 180, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">
-                    <span className="text-white">Admission Probability</span>
-                    <span className="d-block text-warning fw-normal" style={{ fontSize: 9.5 }}>For Your {studentScore}{currentConfig.scoreUnit}</span>
-                  </th>
-                  <th style={{ width: 75, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableChoices.length === 0 ? (
-                  <tr>
-                    <td colSpan="9" className="py-5 text-center text-muted">
-                      <div className="p-4">
-                        <MdOutlineSchool size={48} className="text-muted mb-2" />
-                        <h6 className="fw-bold">No colleges added to your {selectedExam} preference list yet.</h6>
-                        <p className="small text-secondary mb-3">Search any institution above or click one of the quick templates to populate options.</p>
-                        <button
-                          className="btn btn-primary btn-sm rounded-pill px-4"
-                          onClick={() => setTableChoices(currentConfig.presets[0]?.choices || currentConfig.defaultChoices)}
-                        >
-                          Load Recommended {selectedExam} Choices
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ) : (
-                  (activeSimulatedData?.rows || []).map((row, idx) => {
-                    const catalogCollege = collegesCatalog.find(c => c.college_code === row.college_code);
-                    const availableBranches = catalogCollege?.available_branches ||
-                      (catalogCollege?.branches ? catalogCollege.branches.map(b => b.branch) : null) ||
-                      row.available_branches || [row.selected_branch];
-                    const isOffered = row.is_branch_offered;
+          {/* VIEW SWITCHER & SEARCH TOOLBAR */}
+          <div className="p-2.5 px-4 bg-white border-bottom d-flex align-items-center justify-content-between flex-wrap gap-2">
+            {/* View Mode Pills */}
+            <div className="d-flex align-items-center gap-1.5 flex-wrap">
+              <span className="small text-muted fw-bold me-1 text-uppercase" style={{ fontSize: 10.5, letterSpacing: "0.5px" }}>
+                View Options:
+              </span>
+              <div className="btn-group p-1 bg-light rounded-pill border" role="group">
+                <button
+                  type="button"
+                  className={`btn btn-sm rounded-pill px-3 py-1 fw-semibold d-flex align-items-center gap-1.5 transition-all ${
+                    viewMode === "table"
+                      ? "btn-primary text-white shadow-sm"
+                      : "btn-light text-secondary border-0"
+                  }`}
+                  style={{ fontSize: 12 }}
+                  onClick={() => setViewMode("table")}
+                  title="Full Matrix Table with historical cutoff trajectories and probability meters"
+                >
+                  <FaTable size={12} />
+                  <span>Matrix Table</span>
+                </button>
 
-                    // Probability Meter styling
-                    let probBg = "#10B981";
-                    let probBadgeClass = "bg-success text-white";
-                    if (!isOffered) {
-                      probBg = "#94A3B8";
-                      probBadgeClass = "bg-secondary text-white";
-                    } else if (row.tier === "Target") {
-                      probBg = "#F59E0B";
-                      probBadgeClass = "bg-warning text-dark";
-                    } else if (row.tier === "Dream") {
-                      probBg = "#EF4444";
-                      probBadgeClass = "bg-danger text-white";
-                    }
+                <button
+                  type="button"
+                  className={`btn btn-sm rounded-pill px-3 py-1 fw-semibold d-flex align-items-center gap-1.5 transition-all ${
+                    viewMode === "tiers"
+                      ? "btn-primary text-white shadow-sm"
+                      : "btn-light text-secondary border-0"
+                  }`}
+                  style={{ fontSize: 12 }}
+                  onClick={() => setViewMode("tiers")}
+                  title="Categorized Kanbans: Dream Reaches, Target Matches, Safe Backups"
+                >
+                  <FaThLarge size={12} />
+                  <span>Tier Cards</span>
+                  <span className="badge bg-warning text-dark ms-0.5" style={{ fontSize: 9 }}>
+                    {portfolioStats.dream}D • {portfolioStats.target}T • {portfolioStats.safe}S
+                  </span>
+                </button>
 
-                    const isBeingDragged = draggedIdx === idx;
-                    const isDragTarget = dragOverIdx === idx && draggedIdx !== idx;
+                <button
+                  type="button"
+                  className={`btn btn-sm rounded-pill px-3 py-1 fw-semibold d-flex align-items-center gap-1.5 transition-all ${
+                    viewMode === "official"
+                      ? "btn-primary text-white shadow-sm"
+                      : "btn-light text-secondary border-0"
+                  }`}
+                  style={{ fontSize: 12 }}
+                  onClick={() => setViewMode("official")}
+                  title="Official Government DTE Maharashtra 9-Digit Choice Code Form"
+                >
+                  <FaFileAlt size={12} />
+                  <span>Official DTE Codes</span>
+                  <span className="badge bg-success-subtle text-success border border-success-subtle ms-0.5" style={{ fontSize: 9 }}>
+                    9-Digit
+                  </span>
+                </button>
 
-                    // Row dynamic drag styling
-                    let rowStyle = {
-                      transition: "all 0.15s ease",
-                      cursor: "grab",
-                    };
-                    if (!isOffered) {
-                      rowStyle.background = "#FFF1F2";
-                    }
-                    if (isBeingDragged) {
-                      rowStyle.opacity = 0.35;
-                      rowStyle.background = "#EEF2FF";
-                      rowStyle.outline = "2px dashed #4F46E5";
-                    } else if (isDragTarget) {
-                      rowStyle.background = "#F0FDF4";
-                      if (draggedIdx !== null && draggedIdx < idx) {
-                        rowStyle.boxShadow = "inset 0 -3px 0 #4F46E5";
-                      } else if (draggedIdx !== null && draggedIdx > idx) {
-                        rowStyle.boxShadow = "inset 0 3px 0 #4F46E5";
-                      }
-                    }
+                <button
+                  type="button"
+                  className={`btn btn-sm rounded-pill px-3 py-1 fw-semibold d-flex align-items-center gap-1.5 transition-all ${
+                    viewMode === "compact"
+                      ? "btn-primary text-white shadow-sm"
+                      : "btn-light text-secondary border-0"
+                  }`}
+                  style={{ fontSize: 12 }}
+                  onClick={() => setViewMode("compact")}
+                  title="High-density single-line list for rapid preference ordering"
+                >
+                  <FaListUl size={12} />
+                  <span>Compact List</span>
+                </button>
+              </div>
+            </div>
 
-                    return (
-                      <tr
-                        key={`${row.college_code}-${row.selected_branch}-${idx}`}
-                        draggable={true}
-                        onDragStart={(e) => handleDragStart(e, idx)}
-                        onDragOver={(e) => handleDragOver(e, idx)}
-                        onDrop={(e) => handleDrop(e, idx)}
-                        onDragEnd={handleDragEnd}
-                        style={rowStyle}
-                        className={isBeingDragged ? "table-active" : undefined}
-                        title="Click and drag to reorder preference"
-                      >
-                        {/* 1. Preference Order # with Drag Handle */}
-                        <td style={{ verticalAlign: "middle" }}>
-                          <div className="d-flex align-items-center justify-content-center gap-1">
-                            <span
-                              className="text-secondary d-inline-flex align-items-center justify-content-center p-1 rounded"
-                              style={{
-                                cursor: "grab",
-                                opacity: isBeingDragged ? 0.3 : 0.75,
-                                transition: "opacity 0.15s ease, transform 0.15s ease",
-                              }}
-                              title="Click and drag to move college up or down"
-                            >
-                              <MdDragIndicator size={18} color="#6366F1" />
-                            </span>
-                            <span
-                              className="badge rounded-circle d-inline-flex align-items-center justify-content-center fw-bold shadow-sm"
-                              style={{
-                                width: 28,
-                                height: 28,
-                                background: idx === 0 ? "#FFB300" : "#1A237E",
-                                color: idx === 0 ? "#000000" : "#FFFFFF",
-                                fontSize: 12
-                              }}
-                            >
-                              {idx + 1}
-                            </span>
-                          </div>
-                        </td>
-
-                        {/* 2. College Name & Exam Authority Code */}
-                        <td style={{ textAlign: "left" }}>
-                          <div className="fw-bold text-dark small" style={{ fontSize: 13 }}>
-                            {row.college_name}
-                          </div>
-                          <div className="d-flex align-items-center gap-1 mt-0.5">
-                            <span className="badge bg-light text-primary border" style={{ fontSize: 9 }}>
-                              {currentConfig.codeLabel}: {row.college_code}
-                            </span>
-                            <span className="badge bg-light text-secondary border" style={{ fontSize: 9 }}>
-                              📍 {row.city}
-                            </span>
-                          </div>
-                        </td>
-
-                        {/* 3. Branch Dropdown */}
-                        <td style={{ textAlign: "left" }}>
-                          <select
-                            draggable={false}
-                            onMouseDown={(e) => e.stopPropagation()}
-                            className={`form-select form-select-sm shadow-none ${!isOffered ? "border-danger text-danger fw-bold" : "border-secondary-subtle"}`}
-                            style={{ fontSize: 12, cursor: "pointer" }}
-                            value={row.selected_branch}
-                            onChange={(e) => handleChangeRowBranch(idx, e.target.value)}
-                          >
-                            {availableBranches.map((br) => (
-                              <option key={br} value={br}>
-                                {br}
-                              </option>
-                            ))}
-                            {!availableBranches.includes(row.selected_branch) && (
-                              <option value={row.selected_branch}>
-                                ⚠️ {row.selected_branch} (Not Offered)
-                              </option>
-                            )}
-                          </select>
-                          {!isOffered && (
-                            <span className="badge bg-danger text-white mt-1 d-inline-block" style={{ fontSize: 9 }}>
-                              ⚠️ Program Not Offered by Institute
-                            </span>
-                          )}
-                        </td>
-
-                        {/* 4. 2024 Cutoff */}
-                        <td>
-                          {isOffered ? (
-                            <span className="fw-semibold text-dark small">{row.cutoff_2024}%ile</span>
-                          ) : (
-                            <span className="text-muted small">—</span>
-                          )}
-                        </td>
-
-                        {/* 5. 2025 Cutoff */}
-                        <td>
-                          {isOffered ? (
-                            <span className="fw-semibold text-dark small">{row.cutoff_2025}%ile</span>
-                          ) : (
-                            <span className="text-muted small">—</span>
-                          )}
-                        </td>
-
-                        {/* 6. 2026 Cutoff */}
-                        <td>
-                          {isOffered ? (
-                            <span className="fw-bold text-primary small">{row.cutoff_2026}%ile</span>
-                          ) : (
-                            <span className="text-muted small">—</span>
-                          )}
-                        </td>
-
-                        {/* 7. 2027 Projected Benchmark & Trajectory */}
-                        <td>
-                          {isOffered ? (
-                            <div>
-                              <span className="fw-bold text-indigo small" style={{ color: "#312E81" }}>
-                                {row.cutoff_2027_predicted}%ile
-                              </span>
-                              <div style={{ fontSize: 9.5 }}>
-                                <span className={row.trend_direction === "rising" ? "text-danger fw-semibold" : row.trend_direction === "easing" ? "text-success fw-semibold" : "text-secondary"}>
-                                  {row.trend_label}
-                                </span>
-                              </div>
-                            </div>
-                          ) : (
-                            <span className="badge bg-light text-muted border" style={{ fontSize: 10 }}>Not Provided</span>
-                          )}
-                        </td>
-
-                        {/* 8. Admission Probability for Student Score */}
-                        <td>
-                          {isOffered ? (
-                            <div className="px-2">
-                              <div className="d-flex align-items-center justify-content-between mb-1">
-                                <span className={`badge ${probBadgeClass} px-2 py-0.5 rounded-pill`} style={{ fontSize: 10.5 }}>
-                                  {row.admission_probability}% ({row.tier})
-                                </span>
-                                <span className="small text-secondary fw-semibold" style={{ fontSize: 10 }}>
-                                  {row.score_margin >= 0 ? `+${row.score_margin}` : row.score_margin}
-                                </span>
-                              </div>
-                              <div className="progress" style={{ height: 6 }}>
-                                <div
-                                  className="progress-bar progress-bar-striped progress-bar-animated"
-                                  role="progressbar"
-                                  style={{
-                                    width: `${row.admission_probability}%`,
-                                    background: probBg
-                                  }}
-                                />
-                              </div>
-                              <span className="d-block text-secondary mt-1 text-truncate" style={{ fontSize: 9.5 }}>
-                                {row.probability_label}
-                              </span>
-                            </div>
-                          ) : (
-                            <div className="text-center">
-                              <span className="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1 rounded" style={{ fontSize: 11 }}>
-                                ❌ Not Offered
-                              </span>
-                              <span className="d-block text-muted mt-0.5" style={{ fontSize: 9.5 }}>
-                                Program not available
-                              </span>
-                            </div>
-                          )}
-                        </td>
-
-                        {/* 9. Row Actions */}
-                        <td>
-                          <div
-                            className="d-flex align-items-center justify-content-center gap-1"
-                            draggable={false}
-                            onMouseDown={(e) => e.stopPropagation()}
-                          >
-                            <button
-                              className="btn btn-sm btn-light p-1 rounded text-secondary"
-                              disabled={idx === 0}
-                              onClick={() => handleMoveUp(idx)}
-                              title="Move Up Preference"
-                            >
-                              <FaArrowUp size={11} />
-                            </button>
-                            <button
-                              className="btn btn-sm btn-light p-1 rounded text-secondary"
-                              disabled={idx === tableChoices.length - 1}
-                              onClick={() => handleMoveDown(idx)}
-                              title="Move Down Preference"
-                            >
-                              <FaArrowDown size={11} />
-                            </button>
-                            <button
-                              className="btn btn-sm btn-light p-1 rounded text-danger"
-                              onClick={() => handleRemoveRow(idx)}
-                              title="Remove from List"
-                            >
-                              <FaTrash size={11} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })
+            {/* In-Table Filter & View-Specific Quick Actions */}
+            <div className="d-flex align-items-center gap-2 ms-auto flex-wrap">
+              <div className="input-group input-group-sm" style={{ maxWidth: 240 }}>
+                <span className="input-group-text bg-light border-end-0 text-muted">
+                  <FaSearch size={11} />
+                </span>
+                <input
+                  type="text"
+                  className="form-control form-control-sm border-start-0 shadow-none bg-light"
+                  placeholder="Filter choices..."
+                  style={{ fontSize: 12 }}
+                  value={filterQuery}
+                  onChange={(e) => setFilterQuery(e.target.value)}
+                />
+                {filterQuery && (
+                  <button
+                    className="btn btn-sm btn-light border border-start-0 text-muted"
+                    onClick={() => setFilterQuery("")}
+                    title="Clear filter"
+                  >
+                    ✕
+                  </button>
                 )}
-              </tbody>
-            </table>
+              </div>
+
+              {viewMode === "official" && (
+                <button
+                  className="btn btn-sm rounded-pill px-3 py-1 fw-semibold d-flex align-items-center gap-1 shadow-sm"
+                  style={{
+                    fontSize: 12,
+                    background: copyCodeSuccess ? "#10B981" : "#EEF2FF",
+                    color: copyCodeSuccess ? "#FFFFFF" : "#4338CA",
+                    border: copyCodeSuccess ? "none" : "1px solid #C7D2FE"
+                  }}
+                  onClick={handleCopyAllOfficialCodes}
+                  title="Copy comma-separated 9-digit choice codes to clipboard for direct paste into CET Cell candidate portal"
+                >
+                  {copyCodeSuccess ? <FaCheck size={11} /> : <FaCopy size={11} />}
+                  <span>{copyCodeSuccess ? "Copied All Codes!" : "Copy 9-Digit Codes"}</span>
+                </button>
+              )}
+            </div>
           </div>
+
+          {/* ========================================================================= */}
+          {/* VIEW 1: MATRIX TABLE (Historical Trajectories & Interactive Drag/Drop)     */}
+          {/* ========================================================================= */}
+          {viewMode === "table" && (
+            <div className="table-responsive">
+              <table className="table table-hover align-middle mb-0 text-center" style={{ minWidth: 980 }}>
+                <thead className="table-dark" style={{ backgroundColor: "#1A237E", color: "#FFFFFF" }}>
+                  <tr>
+                    <th style={{ width: 85, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">
+                      <div className="d-flex align-items-center justify-content-center gap-1" title="Drag row or handle to change preference hierarchy">
+                        <MdDragIndicator size={14} color="#FFB300" />
+                        <span>Pref #</span>
+                      </div>
+                    </th>
+                    <th style={{ textAlign: "left", width: 260, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">College Name & {currentConfig.codeLabel}</th>
+                    <th style={{ textAlign: "left", width: 230, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">Selected Branch Program</th>
+                    <th style={{ width: 95, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">2024 Cutoff</th>
+                    <th style={{ width: 95, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">2025 Cutoff</th>
+                    <th style={{ width: 95, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">2026 Cutoff</th>
+                    <th style={{ width: 135, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">
+                      <span className="text-white">2027 Proj. Benchmark</span>
+                      <span className="d-block text-warning fw-normal" style={{ fontSize: 9.5 }}>Trajectory Slope</span>
+                    </th>
+                    <th style={{ width: 180, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">
+                      <span className="text-white">Admission Probability</span>
+                      <span className="d-block text-warning fw-normal" style={{ fontSize: 9.5 }}>For Your {studentScore}{currentConfig.scoreUnit}</span>
+                    </th>
+                    <th style={{ width: 75, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tableChoices.length === 0 ? (
+                    <tr>
+                      <td colSpan="9" className="py-5 text-center text-muted">
+                        <div className="p-4">
+                          <MdOutlineSchool size={48} className="text-muted mb-2" />
+                          <h6 className="fw-bold">No colleges added to your {selectedExam} preference list yet.</h6>
+                          <p className="small text-secondary mb-3">Search any institution above or click one of the quick templates to populate options.</p>
+                          <button
+                            className="btn btn-primary btn-sm rounded-pill px-4"
+                            onClick={() => setTableChoices(currentConfig.presets[0]?.choices || currentConfig.defaultChoices)}
+                          >
+                            Load Recommended {selectedExam} Choices
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : filteredRows.length === 0 ? (
+                    <tr>
+                      <td colSpan="9" className="py-5 text-center text-muted">
+                        <div className="p-4">
+                          <FaSearch size={32} className="text-muted mb-2 opacity-50" />
+                          <h6 className="fw-bold">No choices match "{filterQuery}".</h6>
+                          <p className="small text-secondary mb-3">Try searching a different college name, branch or city.</p>
+                          <button
+                            className="btn btn-sm btn-outline-primary rounded-pill px-3"
+                            onClick={() => setFilterQuery("")}
+                          >
+                            Clear Filter
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredRows.map((row) => {
+                      const realIdx = row.preference_no - 1;
+                      const catalogCollege = collegesCatalog.find(c => c.college_code === row.college_code);
+                      const availableBranches = catalogCollege?.available_branches ||
+                        (catalogCollege?.branches ? catalogCollege.branches.map(b => b.branch) : null) ||
+                        row.available_branches || [row.selected_branch];
+                      const isOffered = row.is_branch_offered;
+
+                      // Probability Meter styling
+                      let probBg = "#10B981";
+                      let probBadgeClass = "bg-success text-white";
+                      if (!isOffered) {
+                        probBg = "#94A3B8";
+                        probBadgeClass = "bg-secondary text-white";
+                      } else if (row.tier === "Target") {
+                        probBg = "#F59E0B";
+                        probBadgeClass = "bg-warning text-dark";
+                      } else if (row.tier === "Dream") {
+                        probBg = "#EF4444";
+                        probBadgeClass = "bg-danger text-white";
+                      }
+
+                      const isBeingDragged = draggedIdx === realIdx;
+                      const isDragTarget = dragOverIdx === realIdx && draggedIdx !== realIdx;
+
+                      // Row dynamic drag styling
+                      let rowStyle = {
+                        transition: "all 0.15s ease",
+                        cursor: "grab",
+                      };
+                      if (!isOffered) {
+                        rowStyle.background = "#FFF1F2";
+                      }
+                      if (isBeingDragged) {
+                        rowStyle.opacity = 0.35;
+                        rowStyle.background = "#EEF2FF";
+                        rowStyle.outline = "2px dashed #4F46E5";
+                      } else if (isDragTarget) {
+                        rowStyle.background = "#F0FDF4";
+                        if (draggedIdx !== null && draggedIdx < realIdx) {
+                          rowStyle.boxShadow = "inset 0 -3px 0 #4F46E5";
+                        } else if (draggedIdx !== null && draggedIdx > realIdx) {
+                          rowStyle.boxShadow = "inset 0 3px 0 #4F46E5";
+                        }
+                      }
+
+                      return (
+                        <tr
+                          key={`${row.college_code}-${row.selected_branch}-${realIdx}`}
+                          draggable={true}
+                          onDragStart={(e) => handleDragStart(e, realIdx)}
+                          onDragOver={(e) => handleDragOver(e, realIdx)}
+                          onDrop={(e) => handleDrop(e, realIdx)}
+                          onDragEnd={handleDragEnd}
+                          style={rowStyle}
+                          className={isBeingDragged ? "table-active" : undefined}
+                          title="Click and drag to reorder preference"
+                        >
+                          {/* 1. Preference Order # with Drag Handle */}
+                          <td style={{ verticalAlign: "middle" }}>
+                            <div className="d-flex align-items-center justify-content-center gap-1">
+                              <span
+                                className="text-secondary d-inline-flex align-items-center justify-content-center p-1 rounded"
+                                style={{
+                                  cursor: "grab",
+                                  opacity: isBeingDragged ? 0.3 : 0.75,
+                                  transition: "opacity 0.15s ease, transform 0.15s ease",
+                                }}
+                                title="Click and drag to move college up or down"
+                              >
+                                <MdDragIndicator size={18} color="#6366F1" />
+                              </span>
+                              <span
+                                className="badge rounded-circle d-inline-flex align-items-center justify-content-center fw-bold shadow-sm"
+                                style={{
+                                  width: 28,
+                                  height: 28,
+                                  background: row.preference_no === 1 ? "#FFB300" : "#1A237E",
+                                  color: row.preference_no === 1 ? "#000000" : "#FFFFFF",
+                                  fontSize: 12
+                                }}
+                              >
+                                {row.preference_no}
+                              </span>
+                            </div>
+                          </td>
+
+                          {/* 2. College Name & Exam Authority Code */}
+                          <td style={{ textAlign: "left" }}>
+                            <div className="fw-bold text-dark small" style={{ fontSize: 13 }}>
+                              {row.college_name}
+                            </div>
+                            <div className="d-flex align-items-center gap-1 mt-0.5">
+                              <span className="badge bg-light text-primary border" style={{ fontSize: 9 }}>
+                                {currentConfig.codeLabel}: {row.college_code}
+                              </span>
+                              <span className="badge bg-light text-secondary border" style={{ fontSize: 9 }}>
+                                📍 {row.city}
+                              </span>
+                            </div>
+                          </td>
+
+                          {/* 3. Branch Dropdown */}
+                          <td style={{ textAlign: "left" }}>
+                            <select
+                              draggable={false}
+                              onMouseDown={(e) => e.stopPropagation()}
+                              className={`form-select form-select-sm shadow-none ${!isOffered ? "border-danger text-danger fw-bold" : "border-secondary-subtle"}`}
+                              style={{ fontSize: 12, cursor: "pointer" }}
+                              value={row.selected_branch}
+                              onChange={(e) => handleChangeRowBranch(realIdx, e.target.value)}
+                            >
+                              {availableBranches.map((br) => (
+                                <option key={br} value={br}>
+                                  {br}
+                                </option>
+                              ))}
+                              {!availableBranches.includes(row.selected_branch) && (
+                                <option value={row.selected_branch}>
+                                  ⚠️ {row.selected_branch} (Not Offered)
+                                </option>
+                              )}
+                            </select>
+                            {!isOffered && (
+                              <span className="badge bg-danger text-white mt-1 d-inline-block" style={{ fontSize: 9 }}>
+                                ⚠️ Program Not Offered by Institute
+                              </span>
+                            )}
+                          </td>
+
+                          {/* 4. 2024 Cutoff */}
+                          <td>
+                            {isOffered ? (
+                              <span className="fw-semibold text-dark small">{row.cutoff_2024}%ile</span>
+                            ) : (
+                              <span className="text-muted small">—</span>
+                            )}
+                          </td>
+
+                          {/* 5. 2025 Cutoff */}
+                          <td>
+                            {isOffered ? (
+                              <span className="fw-semibold text-dark small">{row.cutoff_2025}%ile</span>
+                            ) : (
+                              <span className="text-muted small">—</span>
+                            )}
+                          </td>
+
+                          {/* 6. 2026 Cutoff */}
+                          <td>
+                            {isOffered ? (
+                              <span className="fw-bold text-primary small">{row.cutoff_2026}%ile</span>
+                            ) : (
+                              <span className="text-muted small">—</span>
+                            )}
+                          </td>
+
+                          {/* 7. 2027 Projected Benchmark & Trajectory */}
+                          <td>
+                            {isOffered ? (
+                              <div>
+                                <span className="fw-bold text-indigo small" style={{ color: "#312E81" }}>
+                                  {row.cutoff_2027_predicted}%ile
+                                </span>
+                                <div style={{ fontSize: 9.5 }}>
+                                  <span className={row.trend_direction === "rising" ? "text-danger fw-semibold" : row.trend_direction === "easing" ? "text-success fw-semibold" : "text-secondary"}>
+                                    {row.trend_label}
+                                  </span>
+                                </div>
+                              </div>
+                            ) : (
+                              <span className="badge bg-light text-muted border" style={{ fontSize: 10 }}>Not Provided</span>
+                            )}
+                          </td>
+
+                          {/* 8. Admission Probability for Student Score */}
+                          <td>
+                            {isOffered ? (
+                              <div className="px-2">
+                                <div className="d-flex align-items-center justify-content-between mb-1">
+                                  <span className={`badge ${probBadgeClass} px-2 py-0.5 rounded-pill`} style={{ fontSize: 10.5 }}>
+                                    {row.admission_probability}% ({row.tier})
+                                  </span>
+                                  <span className="small text-secondary fw-semibold" style={{ fontSize: 10 }}>
+                                    {row.score_margin >= 0 ? `+${row.score_margin}` : row.score_margin}
+                                  </span>
+                                </div>
+                                <div className="progress" style={{ height: 6 }}>
+                                  <div
+                                    className="progress-bar progress-bar-striped progress-bar-animated"
+                                    role="progressbar"
+                                    style={{
+                                      width: `${row.admission_probability}%`,
+                                      background: probBg
+                                    }}
+                                  />
+                                </div>
+                                <span className="d-block text-secondary mt-1 text-truncate" style={{ fontSize: 9.5 }}>
+                                  {row.probability_label}
+                                </span>
+                              </div>
+                            ) : (
+                              <div className="text-center">
+                                <span className="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1 rounded" style={{ fontSize: 11 }}>
+                                  ❌ Not Offered
+                                </span>
+                                <span className="d-block text-muted mt-0.5" style={{ fontSize: 9.5 }}>
+                                  Program not available
+                                </span>
+                              </div>
+                            )}
+                          </td>
+
+                          {/* 9. Row Actions */}
+                          <td>
+                            <div
+                              className="d-flex align-items-center justify-content-center gap-1"
+                              draggable={false}
+                              onMouseDown={(e) => e.stopPropagation()}
+                            >
+                              <button
+                                className="btn btn-sm btn-light p-1 rounded text-secondary"
+                                disabled={realIdx === 0}
+                                onClick={() => handleMoveUp(realIdx)}
+                                title="Move Up Preference"
+                              >
+                                <FaArrowUp size={11} />
+                              </button>
+                              <button
+                                className="btn btn-sm btn-light p-1 rounded text-secondary"
+                                disabled={realIdx === tableChoices.length - 1}
+                                onClick={() => handleMoveDown(realIdx)}
+                                title="Move Down Preference"
+                              >
+                                <FaArrowDown size={11} />
+                              </button>
+                              <button
+                                className="btn btn-sm btn-light p-1 rounded text-danger"
+                                onClick={() => handleRemoveRow(realIdx)}
+                                title="Remove from List"
+                              >
+                                <FaTrash size={11} />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {/* ========================================================================= */}
+          {/* VIEW 2: TIER CARDS (Categorized Strategic Kanbans: Dream / Target / Safe)  */}
+          {/* ========================================================================= */}
+          {viewMode === "tiers" && (
+            <div className="p-3 p-md-4 bg-light">
+              {/* Tiers Distribution Quick Header */}
+              <div className="p-3 bg-white rounded-3 border mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                <div className="d-flex align-items-center gap-2 flex-wrap">
+                  <span className="badge px-2.5 py-1 rounded-pill bg-primary text-white fw-bold" style={{ fontSize: 11 }}>
+                    Golden Ratio Target: 20% Dream : 50% Target : 30% Safe
+                  </span>
+                  <span className="small text-secondary" style={{ fontSize: 12 }}>
+                    Your Distribution: <strong>{portfolioStats.dreamPct}% Dream</strong> • <strong>{portfolioStats.targetPct}% Target</strong> • <strong>{portfolioStats.safePct}% Safe</strong>
+                  </span>
+                </div>
+                <span className={`badge px-3 py-1 rounded-pill fw-bold ${portfolioStats.badgeClass}`} style={{ fontSize: 11 }}>
+                  {portfolioStats.statusBadge}
+                </span>
+              </div>
+
+              {/* 3 Tier Columns */}
+              <div className="row g-3">
+                {/* 1. Dream Reaches Column */}
+                <div className="col-lg-4">
+                  <div className="p-3 rounded-4 border bg-white h-100 shadow-sm">
+                    <div className="d-flex align-items-center justify-content-between pb-2 mb-3 border-bottom">
+                      <div className="d-flex align-items-center gap-1.5 text-warning fw-bold fs-6">
+                        <FaFire size={14} />
+                        <span>🚀 Dream Reaches</span>
+                      </div>
+                      <span className="badge bg-warning text-dark rounded-pill fw-bold" style={{ fontSize: 11 }}>
+                        {filteredRows.filter(r => r.tier === "Dream" && r.is_branch_offered).length} Choices
+                      </span>
+                    </div>
+                    <p className="text-muted small mb-3" style={{ fontSize: 11.5, lineHeight: 1.4 }}>
+                      Cutoff &gt; Score. Placed at Preferences #1-#3 for zero-risk aspirational float.
+                    </p>
+
+                    <div className="d-flex flex-column gap-2.5">
+                      {filteredRows.filter(r => r.tier === "Dream" && r.is_branch_offered).length === 0 ? (
+                        <div className="p-4 rounded-3 text-center border border-dashed bg-light text-muted">
+                          <FaFire size={24} className="mb-2 opacity-40 text-warning" />
+                          <div className="fw-semibold small">No Dream Choices Added</div>
+                          <div className="small text-secondary mt-1" style={{ fontSize: 11 }}>
+                            Add 1-3 top-tier reach colleges (e.g. COEP, VJTI) without risking your target seat.
+                          </div>
+                        </div>
+                      ) : (
+                        filteredRows
+                          .filter(r => r.tier === "Dream" && r.is_branch_offered)
+                          .map((row) => {
+                            const realIdx = row.preference_no - 1;
+                            const choiceCode = getOfficialChoiceCode(row.college_code, row.selected_branch);
+                            return (
+                              <div
+                                key={`${row.college_code}-${row.selected_branch}-${realIdx}`}
+                                className="p-3 rounded-3 border bg-white shadow-sm position-relative border-start border-4 border-start-warning"
+                              >
+                                <div className="d-flex align-items-start justify-content-between gap-1 mb-1">
+                                  <div>
+                                    <span className="badge bg-warning text-dark fw-bold me-1.5" style={{ fontSize: 10 }}>
+                                      Pref #{row.preference_no}
+                                    </span>
+                                    <strong className="text-dark small" title={row.college_name}>
+                                      {row.short_name || row.college_name}
+                                    </strong>
+                                  </div>
+                                  <span className="badge bg-light text-secondary border" style={{ fontSize: 9 }}>
+                                    📍 {row.city}
+                                  </span>
+                                </div>
+
+                                <div className="small text-muted mb-2 fw-semibold" style={{ fontSize: 11.5 }}>
+                                  {row.selected_branch}
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between gap-1 mb-2 small">
+                                  <span
+                                    className="badge font-monospace bg-light text-dark border p-1 px-2 cursor-pointer"
+                                    style={{ fontSize: 10.5 }}
+                                    title="Click to copy official DTE choice code"
+                                    onClick={() => handleCopySingleCode(choiceCode, realIdx)}
+                                  >
+                                    Code: {choiceCode} {copiedCodeIdx === realIdx ? <FaCheck size={9} color="#10B981" /> : <FaCopy size={9} className="opacity-50" />}
+                                  </span>
+                                  <span className="badge bg-danger-subtle text-danger border border-danger-subtle" style={{ fontSize: 10 }}>
+                                    Margin: {row.score_margin}%ile
+                                  </span>
+                                </div>
+
+                                {/* Probability Meter */}
+                                <div className="mb-2">
+                                  <div className="d-flex align-items-center justify-content-between small text-muted mb-1" style={{ fontSize: 10 }}>
+                                    <span>Chance: <strong>{row.admission_probability}%</strong></span>
+                                    <span>2026 Cutoff: <strong>{row.cutoff_2026}%ile</strong></span>
+                                  </div>
+                                  <div className="progress" style={{ height: 5 }}>
+                                    <div className="progress-bar bg-warning" role="progressbar" style={{ width: `${row.admission_probability}%` }} />
+                                  </div>
+                                </div>
+
+                                {/* Quick Actions */}
+                                <div className="d-flex align-items-center justify-content-between pt-2 border-top">
+                                  <span className="small text-secondary" style={{ fontSize: 10 }}>
+                                    2027 Proj: <strong>{row.cutoff_2027_predicted}%ile</strong>
+                                  </span>
+                                  <div className="d-flex align-items-center gap-1">
+                                    <button
+                                      className="btn btn-xs btn-light p-1 rounded text-secondary"
+                                      disabled={realIdx === 0}
+                                      onClick={() => handleMoveUp(realIdx)}
+                                      title="Move Up"
+                                    >
+                                      <FaArrowUp size={10} />
+                                    </button>
+                                    <button
+                                      className="btn btn-xs btn-light p-1 rounded text-secondary"
+                                      disabled={realIdx === tableChoices.length - 1}
+                                      onClick={() => handleMoveDown(realIdx)}
+                                      title="Move Down"
+                                    >
+                                      <FaArrowDown size={10} />
+                                    </button>
+                                    <button
+                                      className="btn btn-xs btn-light p-1 rounded text-danger"
+                                      onClick={() => handleRemoveRow(realIdx)}
+                                      title="Remove"
+                                    >
+                                      <FaTrash size={10} />
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. Target Matches Column */}
+                <div className="col-lg-4">
+                  <div className="p-3 rounded-4 border bg-white h-100 shadow-sm">
+                    <div className="d-flex align-items-center justify-content-between pb-2 mb-3 border-bottom">
+                      <div className="d-flex align-items-center gap-1.5 text-primary fw-bold fs-6">
+                        <FaBullseye size={14} />
+                        <span>🎯 Target Matches</span>
+                      </div>
+                      <span className="badge bg-primary rounded-pill fw-bold" style={{ fontSize: 11 }}>
+                        {filteredRows.filter(r => r.tier === "Target" && r.is_branch_offered).length} Choices
+                      </span>
+                    </div>
+                    <p className="text-muted small mb-3" style={{ fontSize: 11.5, lineHeight: 1.4 }}>
+                      Cutoff ≈ Score. Core allotment range with high realistic probability (65–85%).
+                    </p>
+
+                    <div className="d-flex flex-column gap-2.5">
+                      {filteredRows.filter(r => r.tier === "Target" && r.is_branch_offered).length === 0 ? (
+                        <div className="p-4 rounded-3 text-center border border-dashed bg-light text-muted">
+                          <FaBullseye size={24} className="mb-2 opacity-40 text-primary" />
+                          <div className="fw-semibold small">No Target Choices Added</div>
+                          <div className="small text-secondary mt-1" style={{ fontSize: 11 }}>
+                            Add colleges with cutoffs within 1-2% of your score ({studentScore}%ile).
+                          </div>
+                        </div>
+                      ) : (
+                        filteredRows
+                          .filter(r => r.tier === "Target" && r.is_branch_offered)
+                          .map((row) => {
+                            const realIdx = row.preference_no - 1;
+                            const choiceCode = getOfficialChoiceCode(row.college_code, row.selected_branch);
+                            return (
+                              <div
+                                key={`${row.college_code}-${row.selected_branch}-${realIdx}`}
+                                className="p-3 rounded-3 border bg-white shadow-sm position-relative border-start border-4 border-start-primary"
+                              >
+                                <div className="d-flex align-items-start justify-content-between gap-1 mb-1">
+                                  <div>
+                                    <span className="badge bg-primary text-white fw-bold me-1.5" style={{ fontSize: 10 }}>
+                                      Pref #{row.preference_no}
+                                    </span>
+                                    <strong className="text-dark small" title={row.college_name}>
+                                      {row.short_name || row.college_name}
+                                    </strong>
+                                  </div>
+                                  <span className="badge bg-light text-secondary border" style={{ fontSize: 9 }}>
+                                    📍 {row.city}
+                                  </span>
+                                </div>
+
+                                <div className="small text-muted mb-2 fw-semibold" style={{ fontSize: 11.5 }}>
+                                  {row.selected_branch}
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between gap-1 mb-2 small">
+                                  <span
+                                    className="badge font-monospace bg-light text-dark border p-1 px-2 cursor-pointer"
+                                    style={{ fontSize: 10.5 }}
+                                    title="Click to copy official DTE choice code"
+                                    onClick={() => handleCopySingleCode(choiceCode, realIdx)}
+                                  >
+                                    Code: {choiceCode} {copiedCodeIdx === realIdx ? <FaCheck size={9} color="#10B981" /> : <FaCopy size={9} className="opacity-50" />}
+                                  </span>
+                                  <span className="badge bg-primary-subtle text-primary border border-primary-subtle" style={{ fontSize: 10 }}>
+                                    Margin: {row.score_margin >= 0 ? `+${row.score_margin}` : row.score_margin}%ile
+                                  </span>
+                                </div>
+
+                                {/* Probability Meter */}
+                                <div className="mb-2">
+                                  <div className="d-flex align-items-center justify-content-between small text-muted mb-1" style={{ fontSize: 10 }}>
+                                    <span>Chance: <strong>{row.admission_probability}%</strong></span>
+                                    <span>2026 Cutoff: <strong>{row.cutoff_2026}%ile</strong></span>
+                                  </div>
+                                  <div className="progress" style={{ height: 5 }}>
+                                    <div className="progress-bar bg-primary" role="progressbar" style={{ width: `${row.admission_probability}%` }} />
+                                  </div>
+                                </div>
+
+                                {/* Quick Actions */}
+                                <div className="d-flex align-items-center justify-content-between pt-2 border-top">
+                                  <span className="small text-secondary" style={{ fontSize: 10 }}>
+                                    2027 Proj: <strong>{row.cutoff_2027_predicted}%ile</strong>
+                                  </span>
+                                  <div className="d-flex align-items-center gap-1">
+                                    <button
+                                      className="btn btn-xs btn-light p-1 rounded text-secondary"
+                                      disabled={realIdx === 0}
+                                      onClick={() => handleMoveUp(realIdx)}
+                                      title="Move Up"
+                                    >
+                                      <FaArrowUp size={10} />
+                                    </button>
+                                    <button
+                                      className="btn btn-xs btn-light p-1 rounded text-secondary"
+                                      disabled={realIdx === tableChoices.length - 1}
+                                      onClick={() => handleMoveDown(realIdx)}
+                                      title="Move Down"
+                                    >
+                                      <FaArrowDown size={10} />
+                                    </button>
+                                    <button
+                                      className="btn btn-xs btn-light p-1 rounded text-danger"
+                                      onClick={() => handleRemoveRow(realIdx)}
+                                      title="Remove"
+                                    >
+                                      <FaTrash size={10} />
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. Safe Backups Column */}
+                <div className="col-lg-4">
+                  <div className="p-3 rounded-4 border bg-white h-100 shadow-sm">
+                    <div className="d-flex align-items-center justify-content-between pb-2 mb-3 border-bottom">
+                      <div className="d-flex align-items-center gap-1.5 text-success fw-bold fs-6">
+                        <FaShieldAlt size={14} />
+                        <span>🛡️ Safe Backups</span>
+                      </div>
+                      <span className="badge bg-success text-white rounded-pill fw-bold" style={{ fontSize: 11 }}>
+                        {filteredRows.filter(r => r.tier === "Safe" && r.is_branch_offered).length} Choices
+                      </span>
+                    </div>
+                    <p className="text-muted small mb-3" style={{ fontSize: 11.5, lineHeight: 1.4 }}>
+                      Cutoff &lt; Score. High-probability guarantees (&gt;90%) to prevent zero allotment crisis.
+                    </p>
+
+                    <div className="d-flex flex-column gap-2.5">
+                      {filteredRows.filter(r => r.tier === "Safe" && r.is_branch_offered).length === 0 ? (
+                        <div className="p-4 rounded-3 text-center border border-danger-subtle bg-danger-subtle text-danger">
+                          <FaExclamationTriangle size={26} className="mb-2 text-danger" />
+                          <div className="fw-bold fs-6">🚨 Zero Safe Backups!</div>
+                          <div className="small mt-1 text-danger-emphasis" style={{ fontSize: 11 }}>
+                            80% of candidates who do this get ZERO seat allotments. Add at least 2 safe colleges now!
+                          </div>
+                          <button
+                            className="btn btn-danger btn-sm rounded-pill px-3 mt-2 fw-semibold"
+                            onClick={() => handleRunRebalance("golden_ratio")}
+                          >
+                            Auto-Add Safe Choices
+                          </button>
+                        </div>
+                      ) : (
+                        filteredRows
+                          .filter(r => r.tier === "Safe" && r.is_branch_offered)
+                          .map((row) => {
+                            const realIdx = row.preference_no - 1;
+                            const choiceCode = getOfficialChoiceCode(row.college_code, row.selected_branch);
+                            return (
+                              <div
+                                key={`${row.college_code}-${row.selected_branch}-${realIdx}`}
+                                className="p-3 rounded-3 border bg-white shadow-sm position-relative border-start border-4 border-start-success"
+                              >
+                                <div className="d-flex align-items-start justify-content-between gap-1 mb-1">
+                                  <div>
+                                    <span className="badge bg-success text-white fw-bold me-1.5" style={{ fontSize: 10 }}>
+                                      Pref #{row.preference_no}
+                                    </span>
+                                    <strong className="text-dark small" title={row.college_name}>
+                                      {row.short_name || row.college_name}
+                                    </strong>
+                                  </div>
+                                  <span className="badge bg-light text-secondary border" style={{ fontSize: 9 }}>
+                                    📍 {row.city}
+                                  </span>
+                                </div>
+
+                                <div className="small text-muted mb-2 fw-semibold" style={{ fontSize: 11.5 }}>
+                                  {row.selected_branch}
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between gap-1 mb-2 small">
+                                  <span
+                                    className="badge font-monospace bg-light text-dark border p-1 px-2 cursor-pointer"
+                                    style={{ fontSize: 10.5 }}
+                                    title="Click to copy official DTE choice code"
+                                    onClick={() => handleCopySingleCode(choiceCode, realIdx)}
+                                  >
+                                    Code: {choiceCode} {copiedCodeIdx === realIdx ? <FaCheck size={9} color="#10B981" /> : <FaCopy size={9} className="opacity-50" />}
+                                  </span>
+                                  <span className="badge bg-success-subtle text-success border border-success-subtle" style={{ fontSize: 10 }}>
+                                    Margin: +{row.score_margin}%ile
+                                  </span>
+                                </div>
+
+                                {/* Probability Meter */}
+                                <div className="mb-2">
+                                  <div className="d-flex align-items-center justify-content-between small text-muted mb-1" style={{ fontSize: 10 }}>
+                                    <span>Chance: <strong>{row.admission_probability}%</strong></span>
+                                    <span>2026 Cutoff: <strong>{row.cutoff_2026}%ile</strong></span>
+                                  </div>
+                                  <div className="progress" style={{ height: 5 }}>
+                                    <div className="progress-bar bg-success" role="progressbar" style={{ width: `${row.admission_probability}%` }} />
+                                  </div>
+                                </div>
+
+                                {/* Quick Actions */}
+                                <div className="d-flex align-items-center justify-content-between pt-2 border-top">
+                                  <span className="small text-secondary" style={{ fontSize: 10 }}>
+                                    2027 Proj: <strong>{row.cutoff_2027_predicted}%ile</strong>
+                                  </span>
+                                  <div className="d-flex align-items-center gap-1">
+                                    <button
+                                      className="btn btn-xs btn-light p-1 rounded text-secondary"
+                                      disabled={realIdx === 0}
+                                      onClick={() => handleMoveUp(realIdx)}
+                                      title="Move Up"
+                                    >
+                                      <FaArrowUp size={10} />
+                                    </button>
+                                    <button
+                                      className="btn btn-xs btn-light p-1 rounded text-secondary"
+                                      disabled={realIdx === tableChoices.length - 1}
+                                      onClick={() => handleMoveDown(realIdx)}
+                                      title="Move Down"
+                                    >
+                                      <FaArrowDown size={10} />
+                                    </button>
+                                    <button
+                                      className="btn btn-xs btn-light p-1 rounded text-danger"
+                                      onClick={() => handleRemoveRow(realIdx)}
+                                      title="Remove"
+                                    >
+                                      <FaTrash size={10} />
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================================= */}
+          {/* VIEW 3: OFFICIAL DTE OPTION FORM (Government 9-Digit Choice Code Standard) */}
+          {/* ========================================================================= */}
+          {viewMode === "official" && (
+            <div className="p-3 p-md-4 bg-white" id="official-option-form-print-area">
+              {/* Official Seal & Header Banner */}
+              <div className="p-3.5 p-md-4 border rounded-3 mb-3" style={{ background: "#F8FAFC", borderColor: "#CBD5E1" }}>
+                <div className="text-center pb-3 border-bottom mb-3">
+                  <div className="d-flex align-items-center justify-content-center gap-2 mb-1">
+                    <FaGraduationCap size={24} color="#1A237E" />
+                    <h5 className="fw-bold mb-0 text-dark" style={{ fontFamily: "'Poppins', serif", letterSpacing: "0.5px" }}>
+                      GOVERNMENT OF MAHARASHTRA
+                    </h5>
+                  </div>
+                  <div className="text-secondary small fw-semibold mb-1.5" style={{ fontSize: 12 }}>
+                    STATE COMMON ENTRANCE TEST CELL, MAHARASHTRA STATE, MUMBAI
+                  </div>
+                  <div className="badge px-3 py-1 text-uppercase fw-bold shadow-sm" style={{ background: "#1E1B4B", color: "#FFD54F", fontSize: 11, letterSpacing: "0.8px" }}>
+                    Centralized Admission Process (CAP) 2026–2027 • Candidate Preference Option Form
+                  </div>
+                </div>
+
+                {/* Candidate Verification Grid */}
+                <div className="row g-2 small text-dark" style={{ fontSize: 12 }}>
+                  <div className="col-md-3 col-6">
+                    <span className="text-muted d-block" style={{ fontSize: 10 }}>CANDIDATE NAME:</span>
+                    <strong className="text-dark">{activeProfile.name.toUpperCase()}</strong>
+                  </div>
+                  <div className="col-md-3 col-6">
+                    <span className="text-muted d-block" style={{ fontSize: 10 }}>APPLICATION ID:</span>
+                    <strong className="font-monospace text-primary">EN26108942</strong>
+                  </div>
+                  <div className="col-md-2 col-4">
+                    <span className="text-muted d-block" style={{ fontSize: 10 }}>MERIT SCORE:</span>
+                    <strong className="text-dark">{studentScore} {currentConfig.scoreUnit}</strong>
+                  </div>
+                  <div className="col-md-2 col-4">
+                    <span className="text-muted d-block" style={{ fontSize: 10 }}>SEAT CATEGORY:</span>
+                    <strong className="text-success">{selectedCategory}</strong>
+                  </div>
+                  <div className="col-md-2 col-4">
+                    <span className="text-muted d-block" style={{ fontSize: 10 }}>ADMISSION ROUND:</span>
+                    <strong className="text-dark">{selectedRound}</strong>
+                  </div>
+                </div>
+              </div>
+
+              {/* DTE Official Table with 9-Digit Choice Codes */}
+              <div className="table-responsive border rounded-3 mb-3">
+                <table className="table table-bordered table-sm align-middle mb-0" style={{ fontSize: 12 }}>
+                  <thead style={{ background: "#F1F5F9", color: "#1E293B" }}>
+                    <tr className="text-center fw-bold">
+                      <th style={{ width: 65 }} className="py-2.5">Pref #</th>
+                      <th style={{ width: 145 }} className="py-2.5">Official 9-Digit Choice Code</th>
+                      <th style={{ textAlign: "left" }} className="py-2.5">Institute Name & DTE Code</th>
+                      <th style={{ textAlign: "left" }} className="py-2.5">Course / Program Name</th>
+                      <th style={{ width: 120 }} className="py-2.5">Quota / Shift</th>
+                      <th style={{ width: 190 }} className="py-2.5">Provisional Allotment Simulation</th>
+                      <th style={{ width: 60 }} className="py-2.5">Copy</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredRows.map((row) => {
+                      const realIdx = row.preference_no - 1;
+                      const choiceCode = getOfficialChoiceCode(row.college_code, row.selected_branch);
+                      const isAllottedChoice = activeSimulatedData.predicted_allotment?.preference_no === row.preference_no;
+                      const isBettermentEligible = activeSimulatedData.predicted_allotment && row.preference_no < activeSimulatedData.predicted_allotment.preference_no;
+
+                      return (
+                        <tr
+                          key={`official-${row.college_code}-${realIdx}`}
+                          className={isAllottedChoice ? "table-success" : undefined}
+                        >
+                          <td className="text-center fw-bold" style={{ verticalAlign: "middle" }}>
+                            <span className="badge rounded-circle bg-dark text-white" style={{ width: 24, height: 24, lineHeight: "17px", fontSize: 11 }}>
+                              {row.preference_no}
+                            </span>
+                          </td>
+                          <td className="text-center" style={{ verticalAlign: "middle" }}>
+                            <span className="font-monospace fw-bold px-2 py-0.5 rounded bg-light border text-primary" style={{ fontSize: 12 }}>
+                              {choiceCode}
+                            </span>
+                          </td>
+                          <td style={{ textAlign: "left", verticalAlign: "middle" }}>
+                            <div className="fw-bold text-dark">{row.college_name}</div>
+                            <span className="small text-muted" style={{ fontSize: 10.5 }}>
+                              {currentConfig.codeLabel}: {row.college_code} • {row.city}
+                            </span>
+                          </td>
+                          <td style={{ textAlign: "left", verticalAlign: "middle" }}>
+                            <span className="fw-semibold text-dark">{row.selected_branch}</span>
+                          </td>
+                          <td className="text-center" style={{ verticalAlign: "middle" }}>
+                            <span className="badge bg-light text-secondary border" style={{ fontSize: 10 }}>
+                              State Level (Shift 1)
+                            </span>
+                          </td>
+                          <td className="text-center" style={{ verticalAlign: "middle" }}>
+                            {isAllottedChoice ? (
+                              <span className="badge bg-success text-white px-2 py-1 shadow-sm d-inline-flex align-items-center gap-1" style={{ fontSize: 11 }}>
+                                🎯 ALLOTTED IN {selectedRound.toUpperCase()}
+                              </span>
+                            ) : isBettermentEligible ? (
+                              <span className="badge bg-warning-subtle text-dark border border-warning" style={{ fontSize: 10 }}>
+                                ⚡ Float Betterment Contested
+                              </span>
+                            ) : (
+                              <span className="text-muted small" style={{ fontSize: 10.5 }}>
+                                Backup Choice
+                              </span>
+                            )}
+                          </td>
+                          <td className="text-center" style={{ verticalAlign: "middle" }}>
+                            <button
+                              className="btn btn-xs btn-light border p-1 rounded"
+                              onClick={() => handleCopySingleCode(choiceCode, realIdx)}
+                              title="Copy this 9-digit code"
+                            >
+                              {copiedCodeIdx === realIdx ? <FaCheck size={11} color="#10B981" /> : <FaCopy size={11} className="text-secondary" />}
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Official Candidate Statutory Declaration */}
+              <div className="p-3 bg-light rounded-3 border small text-secondary" style={{ fontSize: 11, lineHeight: 1.5 }}>
+                <strong>Candidate Statutory Undertaking:</strong> I hereby certify that the 9-digit choice codes listed above have been checked against the official DTE Maharashtra Seat Matrix 2026–2027. I am aware that if <strong>Choice #1</strong> is provisionally allotted, it results in <strong>Auto-Freeze</strong>, and I will not be permitted to contest subsequent CAP rounds. For Choices #2 onwards, I am eligible to choose <strong>Float (Betterment)</strong>.
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================================= */}
+          {/* VIEW 4: COMPACT LIST (High Density Single-Line Scanning)                  */}
+          {/* ========================================================================= */}
+          {viewMode === "compact" && (
+            <div className="p-2 p-md-3 bg-white">
+              <div className="table-responsive">
+                <table className="table table-sm table-hover align-middle mb-0" style={{ fontSize: 12 }}>
+                  <thead className="bg-light">
+                    <tr className="text-muted text-uppercase" style={{ fontSize: 10.5, letterSpacing: "0.5px" }}>
+                      <th style={{ width: 75 }} className="text-center py-2">Pref #</th>
+                      <th className="py-2">College Name & City</th>
+                      <th style={{ width: 220 }} className="py-2">Branch</th>
+                      <th style={{ width: 125 }} className="text-center py-2">DTE Choice Code</th>
+                      <th style={{ width: 95 }} className="text-center py-2">Tier</th>
+                      <th style={{ width: 120 }} className="text-center py-2">Admission Chance</th>
+                      <th style={{ width: 85 }} className="text-center py-2">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredRows.map((row) => {
+                      const realIdx = row.preference_no - 1;
+                      const choiceCode = getOfficialChoiceCode(row.college_code, row.selected_branch);
+                      return (
+                        <tr key={`compact-${row.college_code}-${realIdx}`}>
+                          <td className="text-center" style={{ verticalAlign: "middle" }}>
+                            <div className="d-flex align-items-center justify-content-center gap-1">
+                              <span className="text-muted" style={{ cursor: "grab" }}>
+                                <MdDragIndicator size={14} />
+                              </span>
+                              <span className="fw-bold">{row.preference_no}</span>
+                            </div>
+                          </td>
+                          <td style={{ verticalAlign: "middle" }}>
+                            <span className="fw-bold text-dark">{row.short_name || row.college_name}</span>
+                            <span className="text-muted small ms-1.5" style={{ fontSize: 11 }}>({row.city})</span>
+                          </td>
+                          <td style={{ verticalAlign: "middle" }}>
+                            <span className="text-secondary small fw-semibold">{row.selected_branch}</span>
+                          </td>
+                          <td className="text-center font-monospace" style={{ verticalAlign: "middle", fontSize: 11 }}>
+                            <span className="bg-light px-1.5 py-0.5 rounded border">{choiceCode}</span>
+                          </td>
+                          <td className="text-center" style={{ verticalAlign: "middle" }}>
+                            <span className={`badge ${
+                              row.tier === "Dream"
+                                ? "bg-warning text-dark"
+                                : row.tier === "Target"
+                                ? "bg-primary text-white"
+                                : "bg-success text-white"
+                            }`} style={{ fontSize: 10 }}>
+                              {row.tier}
+                            </span>
+                          </td>
+                          <td className="text-center" style={{ verticalAlign: "middle" }}>
+                            <span className="fw-bold" style={{
+                              color: row.tier === "Safe" ? "#10B981" : row.tier === "Target" ? "#2563EB" : "#DC2626"
+                            }}>
+                              {row.admission_probability}%
+                            </span>
+                            <span className="text-muted ms-1 small" style={{ fontSize: 10 }}>
+                              ({row.score_margin >= 0 ? `+${row.score_margin}` : row.score_margin})
+                            </span>
+                          </td>
+                          <td className="text-center" style={{ verticalAlign: "middle" }}>
+                            <div className="d-flex align-items-center justify-content-center gap-1">
+                              <button
+                                className="btn btn-xs btn-light p-1 rounded text-secondary"
+                                disabled={realIdx === 0}
+                                onClick={() => handleMoveUp(realIdx)}
+                                title="Move Up"
+                              >
+                                <FaArrowUp size={10} />
+                              </button>
+                              <button
+                                className="btn btn-xs btn-light p-1 rounded text-secondary"
+                                disabled={realIdx === tableChoices.length - 1}
+                                onClick={() => handleMoveDown(realIdx)}
+                                title="Move Down"
+                              >
+                                <FaArrowDown size={10} />
+                              </button>
+                              <button
+                                className="btn btn-xs btn-light p-1 rounded text-danger"
+                                onClick={() => handleRemoveRow(realIdx)}
+                                title="Remove"
+                              >
+                                <FaTrash size={10} />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
         </div>
 
         {/* 6. Analytics & Tactical Strategy Summary Banner */}

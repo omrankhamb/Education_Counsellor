@@ -234,7 +234,9 @@ async def cap_rebalance_endpoint(req: CapRebalanceRequest):
         cap_round=req.cap_round or "CAP Round 1",
         current_choices=choices_dicts,
         strategy_type=req.strategy_type or "golden_ratio",
-        user_prompt=req.prompt or ""
+        user_prompt=req.prompt or "",
+        preferred_branch=req.preferred_branch,
+        preferred_branches=req.preferred_branches or []
     )
     return result
 

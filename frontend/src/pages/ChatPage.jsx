@@ -1292,7 +1292,7 @@ export default function ChatPage({ studentProfile, currentUser, onLogout }) {
       <DocumentVerificationModal
         isOpen={showDocModal}
         onClose={() => setShowDocModal(false)}
-        studentProfile={profile}
+        studentProfile={activeProfile}
       />
     </div>
   );
