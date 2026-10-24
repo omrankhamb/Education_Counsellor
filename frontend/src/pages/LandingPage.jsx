@@ -13,6 +13,9 @@ import {
   FaAward,
   FaUsers,
   FaChartBar,
+  FaBullseye,
+  FaCoins,
+  FaFileAlt,
 } from "react-icons/fa";
 import { MdSchool } from "react-icons/md";
 import CollegeCard from "../components/CollegeCard";

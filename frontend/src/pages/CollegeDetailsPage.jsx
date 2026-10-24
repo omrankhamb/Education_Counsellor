@@ -7,7 +7,8 @@ import {
   FaBriefcase, FaIdCard, FaListAlt, FaFilter, FaPaperPlane,
   FaHistory, FaFileAlt, FaShieldAlt, FaChartLine,
   FaHeart, FaRegHeart, FaThumbsUp, FaCamera, FaPlus,
-  FaFire, FaClock, FaCheck, FaTimes, FaQuoteLeft, FaImage, FaLightbulb
+  FaFire, FaClock, FaCheck, FaTimes, FaQuoteLeft, FaImage, FaLightbulb,
+  FaBullseye, FaCoins
 } from "react-icons/fa";
 import { APP_NAME } from "./LandingPage";
 import { formatScore } from "../utils/scoreUtils";
