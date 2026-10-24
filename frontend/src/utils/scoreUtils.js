@@ -128,3 +128,14 @@ export function formatScore(score, examType, unit) {
   }
   return `${num.toFixed(1)}%`;
 }
+
+export function formatAnnualFees(fees) {
+  if (!fees || isNaN(fees)) return "₹1.2 Lakh/yr";
+  const num = Number(fees);
+  if (num < 100000) {
+    return `₹${num.toLocaleString("en-IN")}/yr`;
+  }
+  const inLakh = num / 100000;
+  const formatted = inLakh % 1 === 0 ? inLakh.toString() : inLakh.toFixed(2).replace(/\.?0+$/, "");
+  return `₹${formatted} Lakh/yr`;
+}

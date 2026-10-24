@@ -6,7 +6,7 @@ import {
   FaTimesCircle, FaInfoCircle, FaHeart, FaRegHeart, FaBalanceScale,
   FaUniversity, FaBuilding, FaGraduationCap, FaComments
 } from "react-icons/fa";
-import { formatScore } from "../utils/scoreUtils";
+import { formatScore, formatAnnualFees } from "../utils/scoreUtils";
 
 export function EligibilityBadge({ status }) {
   if (status === "eligible")
@@ -48,10 +48,6 @@ export default function CollegeCard({
   }, []);
 
   if (!college) return null;
-
-  const feesInLakh = college.annual_fees
-    ? (college.annual_fees / 100000).toFixed(1)
-    : "1.2";
 
   const examType = college.exam_type || "12th %";
   const scoreUnit = college.score_unit;
@@ -258,7 +254,7 @@ export default function CollegeCard({
               {college.nirf_rank || "Top Ranked"}
             </span>
             <span className="fw-bold text-dark">
-              ₹{feesInLakh} Lakh/yr
+              {formatAnnualFees(college.annual_fees)}
             </span>
           </div>
           <div className="d-flex justify-content-between text-secondary" style={{ fontSize: 11 }}>

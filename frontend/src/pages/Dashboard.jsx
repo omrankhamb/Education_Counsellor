@@ -14,7 +14,7 @@ import CapSimulatorModal from "../components/CapSimulatorModal";
 import ScholarshipModal from "../components/ScholarshipModal";
 import DocumentVerificationModal from "../components/DocumentVerificationModal";
 import { APP_NAME } from "./LandingPage";
-import { formatScore } from "../utils/scoreUtils";
+import { formatScore, formatAnnualFees } from "../utils/scoreUtils";
 
 const API_BASE = "/api";
 
@@ -1348,7 +1348,7 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
                         <td className="fw-bold text-start bg-light">Annual Tuition Fees</td>
                         {selectedForCompare.map((c, i) => (
                           <td key={i} className="fw-bold text-dark">
-                            ₹{(c.annual_fees / 100000).toFixed(1)} Lakh/yr
+                            {formatAnnualFees(c.annual_fees)}
                           </td>
                         ))}
                       </tr>
@@ -1471,7 +1471,7 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
                               {c.eligibility?.status === "eligible" ? "Above cutoff" : c.eligibility?.status === "borderline" ? "Near cutoff" : "Below cutoff"}
                             </span>
                           </td>
-                          <td>₹{(c.annual_fees / 100000).toFixed(1)}L</td>
+                          <td>{formatAnnualFees(c.annual_fees)}</td>
                         </tr>
                       ))}
                     </tbody>

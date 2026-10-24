@@ -1376,10 +1376,12 @@ async def get_detailed_college_info_async(
             fees = 180000 if is_govt else 280000
         elif is_design:
             fees = 250000 if is_govt else 380000
-        elif is_commerce:
-            fees = 45000 if is_govt else 140000
         else:
-            fees = 95000 if is_govt else 190000
+            try:
+                from services.recommender import resolve_college_fee
+                fees = resolve_college_fee(college_name, college_code or "", "", stream, "Maharashtra")
+            except Exception:
+                fees = 95000 if is_govt else 165000
 
         rating = db_doc.get("rating") if db_doc else 4.6
         established = db_doc.get("established") if db_doc else 1980

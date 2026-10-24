@@ -31,6 +31,72 @@ export default function LandingPage({ studentProfile, currentUser, onLogout }) {
   const [loading, setLoading] = useState(true);
   const [showDocModal, setShowDocModal] = useState(false);
 
+  // Dynamic Feature 1: Hero Carousel Auto-Play in React
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % 3);
+    }, 5500);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Dynamic Feature 2: Typewriter Animated Headline that types on page load / refresh
+  const rotatingPhrases = [
+    "Based on Your Real Score",
+    "Grounded in 5-Year Cutoffs",
+    "Covering 3,000+ Colleges",
+    "With Zero Allotment Risk",
+    "For MHT-CET, NEET & JEE"
+  ];
+  const [phraseIdx, setPhraseIdx] = useState(0);
+  const [typedHeadline, setTypedHeadline] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const targetPhrase = rotatingPhrases[phraseIdx];
+    const typingSpeed = isDeleting ? 30 : 65;
+
+    const timer = setTimeout(() => {
+      if (!isDeleting && typedHeadline === targetPhrase) {
+        setTimeout(() => setIsDeleting(true), 1800);
+      } else if (isDeleting && typedHeadline === "") {
+        setIsDeleting(false);
+        setPhraseIdx((prev) => (prev + 1) % rotatingPhrases.length);
+      } else {
+        setTypedHeadline(targetPhrase.substring(0, typedHeadline.length + (isDeleting ? -1 : 1)));
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [typedHeadline, isDeleting, phraseIdx]);
+
+  // Dynamic Feature 3: Live Number Counting Animation on every browser load / refresh
+  const [statCounters, setStatCounters] = useState({ colleges: 0, live: 0, years: 0 });
+
+  useEffect(() => {
+    let currentStep = 0;
+    const totalSteps = 45;
+    const stepDuration = 25; // 1.1s total
+
+    const interval = setInterval(() => {
+      currentStep++;
+      const ratio = currentStep / totalSteps;
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - ratio, 3);
+      setStatCounters({
+        colleges: Math.round(eased * 3000),
+        live: Math.round(eased * 100),
+        years: Math.round(eased * 5)
+      });
+      if (currentStep >= totalSteps) {
+        clearInterval(interval);
+      }
+    }, stepDuration);
+
+    return () => clearInterval(interval);
+  }, []);
+
   // Fetch featured colleges for the landing page showcase
   useEffect(() => {
     const fetchFeatured = async () => {
@@ -66,6 +132,19 @@ export default function LandingPage({ studentProfile, currentUser, onLogout }) {
 
   return (
     <div style={{ fontFamily: "'Inter', sans-serif", background: "#F8F9FA" }}>
+      <style>{`
+        @keyframes blinkCursor {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        @keyframes fadeInSlide {
+          from { opacity: 0; transform: translateY(6px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fadeInSlide 0.4s ease-out forwards;
+        }
+      `}</style>
       {/* 1. HEADER / NAVBAR */}
       <nav
         className="navbar navbar-expand-lg px-4 px-md-5 py-3 sticky-top shadow-sm"
@@ -175,72 +254,141 @@ export default function LandingPage({ studentProfile, currentUser, onLogout }) {
         </div>
       </nav>
 
-      {/* 2. HERO SLIDER / CAROUSEL */}
+      {/* Dynamic Live Admission Ticker Ribbon (Active on every browser refresh) */}
+      <div
+        className="py-1.5 px-3 text-center text-white-50 small border-bottom border-white border-opacity-10 d-flex align-items-center justify-content-center gap-2 flex-wrap"
+        style={{ background: "#0F172A", fontSize: 11.5 }}
+      >
+        <span className="badge rounded-pill bg-danger d-inline-flex align-items-center gap-1.5 px-2.5 py-0.5 shadow-sm">
+          <span className="spinner-grow spinner-grow-sm text-white" style={{ width: 6, height: 6 }} role="status" />
+          <span className="fw-bold" style={{ letterSpacing: "0.5px" }}>LIVE UPDATE</span>
+        </span>
+        <span className="text-white-50">
+          {studentProfile ? (
+            <span>
+              Profile Active: <strong className="text-warning">{studentProfile.name}</strong> • <strong>{studentProfile.marks}%ile</strong> ({studentProfile.stream}) • 3,240 Colleges Benchmarked • Real-Time Cutoffs Active
+            </span>
+          ) : (
+            <span>
+              Centralized Admission Process 2026 Forecasts Active • 3,240 All-India Colleges Indexed • CAP Simulator Ready
+            </span>
+          )}
+        </span>
+      </div>
+
+      {/* 2. DYNAMIC HERO SLIDER & AUTO-CAROUSEL */}
       <div
         id="heroCarousel"
-        className="carousel slide text-white"
-        data-bs-ride="carousel"
+        className="text-white position-relative overflow-hidden"
         style={{
           background:
             "linear-gradient(135deg, #1A237E 0%, #283593 50%, #1565C0 100%)",
         }}
       >
-        <div className="carousel-indicators">
-          <button
-            type="button"
-            data-bs-target="#heroCarousel"
-            data-bs-slide-to="0"
-            className="active"
-            aria-current="true"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#heroCarousel"
-            data-bs-slide-to="1"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#heroCarousel"
-            data-bs-slide-to="2"
-          ></button>
-        </div>
-
-        <div className="carousel-inner py-5 text-center">
+        <div className="py-5 text-center">
           {/* Slide 1 */}
-          <div className="carousel-item active py-4">
-            <div className="container" style={{ maxWidth: 840 }}>
-              <span
-                className="badge px-4 py-2 rounded-pill mb-3"
-                style={{
-                  background: "rgba(255,179,0,0.2)",
-                  border: "1px solid #FFB300",
-                  color: "#FFD54F",
-                }}
-              >
-                ✨ Live AI Indian College Recommendations
-              </span>
-              <h1
-                className="fw-black mb-3"
-                style={{
-                  fontSize: "clamp(34px, 5.5vw, 64px)",
-                  lineHeight: 1.15,
-                  fontFamily: "'Poppins', sans-serif",
-                }}
-              >
-                Find Your Ideal College <br />
-                <span style={{ color: "#FFB300" }}>
-                  Based on Your Real Score
+          {currentSlide === 0 && (
+            <div className="py-4 animate-fade-in">
+              <div className="container" style={{ maxWidth: 840 }}>
+                <span
+                  className="badge px-4 py-2 rounded-pill mb-3"
+                  style={{
+                    background: "rgba(255,179,0,0.2)",
+                    border: "1px solid #FFB300",
+                    color: "#FFD54F",
+                  }}
+                >
+                  ✨ Live AI Indian College Recommendations
                 </span>
-              </h1>
-              <p
-                className="fs-5 text-white-50 mx-auto mb-4"
-                style={{ maxWidth: 650 }}
-              >
-                Enter your marks and stream — our AI dynamically evaluates
-                5-year cutoffs, placement packages, and merit lists to find your
-                best matches.
-              </p>
-              <div className="d-flex justify-content-center gap-3 flex-wrap">
+                <h1
+                  className="fw-black mb-3"
+                  style={{
+                    fontSize: "clamp(34px, 5.5vw, 64px)",
+                    lineHeight: 1.18,
+                    fontFamily: "'Poppins', sans-serif",
+                    minHeight: "2.35em"
+                  }}
+                >
+                  Find Your Ideal College <br />
+                  <span style={{ color: "#FFB300" }}>
+                    {typedHeadline}
+                  </span>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      width: 4,
+                      height: "0.85em",
+                      backgroundColor: "#FFB300",
+                      marginLeft: 6,
+                      verticalAlign: "baseline",
+                      animation: "blinkCursor 0.8s infinite"
+                    }}
+                  />
+                </h1>
+                <p
+                  className="fs-5 text-white-50 mx-auto mb-4"
+                  style={{ maxWidth: 650 }}
+                >
+                  Enter your marks and stream — our AI dynamically evaluates
+                  5-year cutoffs, placement packages, and merit lists to find your
+                  best matches.
+                </p>
+                <div className="d-flex justify-content-center gap-3 flex-wrap">
+                  <button
+                    className="btn btn-warning btn-lg fw-bold px-5 py-3 rounded-pill shadow-lg"
+                    style={{
+                      background: "linear-gradient(135deg, #FFB300, #FF8F00)",
+                      color: "#1A237E",
+                      border: "none",
+                    }}
+                    onClick={() =>
+                      navigate(studentProfile ? "/dashboard" : "/profile")
+                    }
+                  >
+                    🚀{" "}
+                    {studentProfile
+                      ? "Open My Dashboard"
+                      : "Get Started (Free Profile)"}
+                  </button>
+                  <a
+                    href="#colleges-section"
+                    className="btn btn-lg fw-semibold px-4 py-3 rounded-pill shadow-sm"
+                    style={{ background: "rgba(255, 255, 255, 0.22)", border: "1.5px solid rgba(255, 255, 255, 0.5)", color: "#FFFFFF" }}
+                  >
+                    Explore Top Colleges ↓
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Slide 2 */}
+          {currentSlide === 1 && (
+            <div className="py-4 animate-fade-in">
+              <div className="container" style={{ maxWidth: 840 }}>
+                <span className="badge px-4 py-2 rounded-pill mb-3 bg-success bg-opacity-25 border border-success text-white">
+                  🏛️ Premier Institutes Across Maharashtra & India
+                </span>
+                <h1
+                  className="fw-black mb-3"
+                  style={{
+                    fontSize: "clamp(34px, 5.5vw, 64px)",
+                    lineHeight: 1.18,
+                    fontFamily: "'Poppins', sans-serif",
+                    minHeight: "2.35em"
+                  }}
+                >
+                  COEP, VJTI, AIIMS & <br />
+                  <span style={{ color: "#FFB300" }}>Top Tier-1 Campuses</span>
+                </h1>
+                <p
+                  className="fs-5 text-white-50 mx-auto mb-4"
+                  style={{ maxWidth: 650 }}
+                >
+                  Compare average placement CTC, campus facilities, NIRF rankings,
+                  and closing cutoff percentiles for general and reserved
+                  categories.
+                </p>
                 <button
                   className="btn btn-warning btn-lg fw-bold px-5 py-3 rounded-pill shadow-lg"
                   style={{
@@ -252,129 +400,95 @@ export default function LandingPage({ studentProfile, currentUser, onLogout }) {
                     navigate(studentProfile ? "/dashboard" : "/profile")
                   }
                 >
-                  🚀{" "}
-                  {studentProfile
-                    ? "Open My Dashboard"
-                    : "Get Started (Free Profile)"}
+                  Check My Eligibility Now →
                 </button>
-                <a
-                  href="#colleges-section"
-                  className="btn btn-lg fw-semibold px-4 py-3 rounded-pill shadow-sm"
-                  style={{ background: "rgba(255, 255, 255, 0.22)", border: "1.5px solid rgba(255, 255, 255, 0.5)", color: "#FFFFFF" }}
-                >
-                  Explore Top Colleges ↓
-                </a>
               </div>
             </div>
-          </div>
-
-          {/* Slide 2 */}
-          <div className="carousel-item py-4">
-            <div className="container" style={{ maxWidth: 840 }}>
-              <span className="badge px-4 py-2 rounded-pill mb-3 bg-success bg-opacity-25 border border-success text-white">
-                🏛️ Premier Institutes Across Maharashtra & India
-              </span>
-              <h1
-                className="fw-black mb-3"
-                style={{
-                  fontSize: "clamp(34px, 5.5vw, 64px)",
-                  lineHeight: 1.15,
-                  fontFamily: "'Poppins', sans-serif",
-                }}
-              >
-                COEP, VJTI, AIIMS & <br />
-                <span style={{ color: "#FFB300" }}>Top Tier-1 Campuses</span>
-              </h1>
-              <p
-                className="fs-5 text-white-50 mx-auto mb-4"
-                style={{ maxWidth: 650 }}
-              >
-                Compare average placement CTC, campus facilities, NIRF rankings,
-                and closing cutoff percentiles for general and reserved
-                categories.
-              </p>
-              <button
-                className="btn btn-warning btn-lg fw-bold px-5 py-3 rounded-pill shadow-lg"
-                style={{
-                  background: "linear-gradient(135deg, #FFB300, #FF8F00)",
-                  color: "#1A237E",
-                  border: "none",
-                }}
-                onClick={() =>
-                  navigate(studentProfile ? "/dashboard" : "/profile")
-                }
-              >
-                Check My Eligibility Now →
-              </button>
-            </div>
-          </div>
+          )}
 
           {/* Slide 3 */}
-          <div className="carousel-item py-4">
-            <div className="container" style={{ maxWidth: 840 }}>
-              <span className="badge px-4 py-2 rounded-pill mb-3 bg-info bg-opacity-25 border border-info text-white">
-                🤖 AI Counselor with Interactive Tables
-              </span>
-              <h1
-                className="fw-black mb-3"
-                style={{
-                  fontSize: "clamp(34px, 5.5vw, 64px)",
-                  lineHeight: 1.15,
-                  fontFamily: "'Poppins', sans-serif",
-                }}
-              >
-                Instant Cutoff Tables & <br />
-                <span style={{ color: "#FFB300" }}>Admission Deadlines</span>
-              </h1>
-              <p
-                className="fs-5 text-white-50 mx-auto mb-4"
-                style={{ maxWidth: 650 }}
-              >
-                Ask detailed questions like{" "}
-                <em>"5-year cutoff comparison for CSE"</em> and get organized
-                tables and counselor insights in seconds.
-              </p>
-              <button
-                className="btn btn-warning btn-lg fw-bold px-5 py-3 rounded-pill shadow-lg"
-                style={{
-                  background: "linear-gradient(135deg, #FFB300, #FF8F00)",
-                  color: "#1A237E",
-                  border: "none",
-                }}
-                onClick={() => navigate(studentProfile ? "/chat" : "/profile")}
-              >
-                Chat with AI Counselor →
-              </button>
+          {currentSlide === 2 && (
+            <div className="py-4 animate-fade-in">
+              <div className="container" style={{ maxWidth: 840 }}>
+                <span className="badge px-4 py-2 rounded-pill mb-3 bg-info bg-opacity-25 border border-info text-white">
+                  🤖 AI Counselor with Interactive Tables
+                </span>
+                <h1
+                  className="fw-black mb-3"
+                  style={{
+                    fontSize: "clamp(34px, 5.5vw, 64px)",
+                    lineHeight: 1.18,
+                    fontFamily: "'Poppins', sans-serif",
+                    minHeight: "2.35em"
+                  }}
+                >
+                  Instant Cutoff Tables & <br />
+                  <span style={{ color: "#FFB300" }}>Admission Deadlines</span>
+                </h1>
+                <p
+                  className="fs-5 text-white-50 mx-auto mb-4"
+                  style={{ maxWidth: 650 }}
+                >
+                  Ask detailed questions like{" "}
+                  <em>"5-year cutoff comparison for CSE"</em> and get organized
+                  tables and counselor insights in seconds.
+                </p>
+                <button
+                  className="btn btn-warning btn-lg fw-bold px-5 py-3 rounded-pill shadow-lg"
+                  style={{
+                    background: "linear-gradient(135deg, #FFB300, #FF8F00)",
+                    color: "#1A237E",
+                    border: "none",
+                  }}
+                  onClick={() => navigate(studentProfile ? "/chat" : "/profile")}
+                >
+                  Chat with AI Counselor →
+                </button>
+              </div>
             </div>
+          )}
+
+          {/* Dynamic Carousel Indicators */}
+          <div className="d-flex align-items-center justify-content-center gap-2 mt-4 pt-2">
+            {[0, 1, 2].map((idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => setCurrentSlide(idx)}
+                className="border-0 rounded-pill p-0 transition-all shadow-sm"
+                style={{
+                  width: currentSlide === idx ? 28 : 10,
+                  height: 8,
+                  backgroundColor: currentSlide === idx ? "#FFB300" : "rgba(255, 255, 255, 0.4)",
+                  cursor: "pointer",
+                  transition: "all 0.3s ease"
+                }}
+                title={`Slide ${idx + 1}`}
+              />
+            ))}
           </div>
         </div>
 
-        {/* Carousel controls */}
+        {/* Carousel Prev/Next Arrow Buttons */}
         <button
           className="carousel-control-prev"
           type="button"
-          data-bs-target="#heroCarousel"
-          data-bs-slide="prev"
+          onClick={() => setCurrentSlide((prev) => (prev - 1 + 3) % 3)}
+          style={{ width: "8%", zIndex: 5 }}
         >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
         </button>
         <button
           className="carousel-control-next"
           type="button"
-          data-bs-target="#heroCarousel"
-          data-bs-slide="next"
+          onClick={() => setCurrentSlide((prev) => (prev + 1) % 3)}
+          style={{ width: "8%", zIndex: 5 }}
         >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
+          <span className="carousel-control-next-icon" aria-hidden="true"></span>
         </button>
       </div>
 
-      {/* Quick Stats Bar */}
+      {/* Dynamic Quick Stats Bar with Live Counter Animation */}
       <div
         className="container"
         style={{ marginTop: -35, position: "relative", zIndex: 10 }}
@@ -383,17 +497,17 @@ export default function LandingPage({ studentProfile, currentUser, onLogout }) {
           <div className="row text-center g-3">
             {[
               {
-                num: "3000+",
+                num: `${statCounters.colleges.toLocaleString()}+`,
                 label: "Verified Indian Colleges",
                 icon: <FaUniversity className="text-primary fs-3 mb-1" />,
               },
               {
-                num: "100% Live",
+                num: `${statCounters.live}% Live`,
                 label: "Real-Time AI Evaluation",
                 icon: <FaUserGraduate className="text-warning fs-3 mb-1" />,
               },
               {
-                num: "5-Year",
+                num: `${statCounters.years}-Year`,
                 label: "Cutoff Trend Analytics",
                 icon: <FaChartBar className="text-success fs-3 mb-1" />,
               },
