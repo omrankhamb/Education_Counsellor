@@ -239,11 +239,11 @@ async def get_db_stats() -> Dict[str, Any]:
 
 
 async def seed_default_reviews_for_college(college_name: str):
-    """Seed initial high-quality campus insider reviews for a college if none exist."""
+    """Seed initial high-quality campus insider reviews for a college if none exist or fewer than 5 exist."""
     reviews = get_reviews_collection()
     c_lower = college_name.lower()
     is_med = any(k in c_lower for k in ["medical", "aiims", "jipmer", "hospital", "afmc", "kem", "gmc", "bjmc"])
-    is_tech = any(k in c_lower for k in ["iit", "nit", "iiit", "coep", "vjti", "pict", "technology", "engineering"])
+    is_tech = any(k in c_lower for k in ["iit", "nit", "iiit", "coep", "vjti", "pict", "technology", "engineering", "polytechnic", "agnel", "institute", "college"])
 
     if is_med:
         samples = [
@@ -282,6 +282,30 @@ async def seed_default_reviews_for_college(college_name: str):
                 "photos": ["https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&auto=format&fit=crop&q=80"],
                 "helpful_count": 45,
                 "created_at": "2026-10-02T09:45:00Z"
+            },
+            {
+                "user_id": "seed_student_4",
+                "user_name": "Dr. Neha Sharma",
+                "college_name": college_name,
+                "student_role": "Intern Doctor • Surgical OPD",
+                "tag": "Emergency Triage & Surgical Skills",
+                "rating": 5,
+                "review_text": "Hands-on trauma and surgical ICU postings offer unmatched clinical confidence. Senior consultants guide patient diagnosis step-by-step. The casualty ward exposure prepares you thoroughly for any residency program.",
+                "photos": ["https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&auto=format&fit=crop&q=80"],
+                "helpful_count": 39,
+                "created_at": "2026-10-10T11:15:00Z"
+            },
+            {
+                "user_id": "seed_student_5",
+                "user_name": "Varun Kulkarni",
+                "college_name": college_name,
+                "student_role": "Final Year Medical Scholar",
+                "tag": "NEET PG Preparation & Study Culture",
+                "rating": 5,
+                "review_text": "Active peer study circles and clinical grand rounds make cracking NEET PG on the first attempt much easier. Hospital pathology and radiodiagnostic facilities are modern. Supportive senior community and zero ragging campus.",
+                "photos": ["https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800&auto=format&fit=crop&q=80"],
+                "helpful_count": 31,
+                "created_at": "2026-10-14T16:20:00Z"
             }
         ]
     elif is_tech:
@@ -290,10 +314,10 @@ async def seed_default_reviews_for_college(college_name: str):
                 "user_id": "seed_student_1",
                 "user_name": "Rohan Kulkarni",
                 "college_name": college_name,
-                "student_role": "Final Year Computer Engineering • Placed @ Microsoft",
+                "student_role": "Final Year Computer Engineering • Placed @ Tier-1 MNC",
                 "tag": "Placements & Coding Culture",
                 "rating": 5,
-                "review_text": "The peer coding culture is truly unbeatable. Active clubs like GDSC and ACM conduct regular DSA contests and hackathons. Top tier-1 MNCs (Google, Microsoft, DE Shaw, Nvidia, Mastercard) visit every year with CTC packages ranging from 18 LPA to 50+ LPA. Pro-tip: Master LeetCode mediums and system design by 5th sem!",
+                "review_text": "The peer coding culture is truly unbeatable. Active clubs like GDSC and ACM conduct regular DSA contests and hackathons. Top tier-1 recruiters (Google, Microsoft, Amazon, Nvidia, Barclays, TCS Digital) visit every year with CTC packages ranging from 12 LPA to 45+ LPA. Pro-tip: Master LeetCode mediums and system design by 5th sem!",
                 "photos": ["https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80"],
                 "helpful_count": 114,
                 "created_at": "2026-09-08T11:20:00Z"
@@ -321,6 +345,30 @@ async def seed_default_reviews_for_college(college_name: str):
                 "photos": ["https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?w=800&auto=format&fit=crop&q=80"],
                 "helpful_count": 52,
                 "created_at": "2026-10-05T12:00:00Z"
+            },
+            {
+                "user_id": "seed_student_4",
+                "user_name": "Shweta Deshmukh",
+                "college_name": college_name,
+                "student_role": "Final Year IT • Incoming SDE",
+                "tag": "Internship Drives & Hackathons",
+                "rating": 5,
+                "review_text": "The Training & Placement Cell hosts exclusive pre-placement bootcamps. Top product firms conduct on-campus coding assessments from 6th semester. Over 90% batch placed in core engineering & tech roles with phenomenal salary packages!",
+                "photos": ["https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&auto=format&fit=crop&q=80"],
+                "helpful_count": 41,
+                "created_at": "2026-10-11T13:45:00Z"
+            },
+            {
+                "user_id": "seed_student_5",
+                "user_name": "Nikhil Shinde",
+                "college_name": college_name,
+                "student_role": "3rd Year Mechanical • Baja SAE Lead",
+                "tag": "Hostels, Mess & 24/7 Campus Wi-Fi",
+                "rating": 4,
+                "review_text": "Hostel rooms are well-maintained with high-speed LAN and Wi-Fi. The campus library and digital reading room stay open late during exam cycles. Canteen food is hygienic, budget-friendly, and offers great food options.",
+                "photos": ["https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&auto=format&fit=crop&q=80"],
+                "helpful_count": 33,
+                "created_at": "2026-10-15T15:30:00Z"
             }
         ]
     else:
@@ -348,12 +396,51 @@ async def seed_default_reviews_for_college(college_name: str):
                 "photos": ["https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&auto=format&fit=crop&q=80"],
                 "helpful_count": 61,
                 "created_at": "2026-09-28T15:30:00Z"
+            },
+            {
+                "user_id": "seed_student_3",
+                "user_name": "Megha Nair",
+                "college_name": college_name,
+                "student_role": "Final Year Academic Scholar",
+                "tag": "Faculty Guidance & Industry Seminars",
+                "rating": 5,
+                "review_text": "Professors are approachable and genuinely invested in student growth. Frequent guest lectures by industry executives and interactive case study discussions make the learning experience highly engaging and practical.",
+                "photos": ["https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&auto=format&fit=crop&q=80"],
+                "helpful_count": 47,
+                "created_at": "2026-10-06T11:00:00Z"
+            },
+            {
+                "user_id": "seed_student_4",
+                "user_name": "Aman Verma",
+                "college_name": college_name,
+                "student_role": "2nd Year Student Representative",
+                "tag": "Student Clubs, Cultural & Sports Fests",
+                "rating": 4,
+                "review_text": "Thriving extracurricular scene with active drama, literary, and sports clubs. Annual cultural fests draw massive participation across universities. Excellent indoor sports complex and gym facilities on campus.",
+                "photos": ["https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800&auto=format&fit=crop&q=80"],
+                "helpful_count": 38,
+                "created_at": "2026-10-12T14:30:00Z"
+            },
+            {
+                "user_id": "seed_student_5",
+                "user_name": "Ananya Sen",
+                "college_name": college_name,
+                "student_role": "Alumni • Corporate Consultant",
+                "tag": "Alumni Network & Career Mentorship",
+                "rating": 5,
+                "review_text": "Strong and supportive alumni base actively mentoring juniors for resume reviews, corporate internships, and government exam preparation. The placement cell maintains strong corporate tie-ups year after year.",
+                "photos": ["https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&auto=format&fit=crop&q=80"],
+                "helpful_count": 34,
+                "created_at": "2026-10-16T17:15:00Z"
             }
         ]
 
     for sample in samples:
         try:
-            await reviews.insert_one(sample)
+            # Upsert by user_id and college_name so existing ones aren't duplicated and missing ones are added
+            exists = await reviews.find_one({"college_name": college_name, "user_id": sample["user_id"]})
+            if not exists:
+                await reviews.insert_one(sample)
         except Exception as e:
             logger.warning(f"[MongoDB] Could not insert seed review: {e}")
 
@@ -397,9 +484,9 @@ async def get_reviews_for_college(college_name: str, limit: int = 50, sort_by: s
     """Get all reviews for a specific college. Default sorts by highest liked/helpful first."""
     reviews = get_reviews_collection()
 
-    # Auto-seed authentic feedback if none exist yet for this college
+    # Auto-seed authentic feedback if none exist or fewer than 5 exist yet for this college
     count = await reviews.count_documents({"college_name": college_name})
-    if count == 0:
+    if count < 5:
         await seed_default_reviews_for_college(college_name)
 
     # Sorting: highest feedback liked shown first by default

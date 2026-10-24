@@ -1869,7 +1869,25 @@ async def get_detailed_college_info_async(
                     "badge": "💼 Placement Record",
                     "color": "success",
                     "title": f"High Placement Packages ({db_doc.get('placement_avg', '₹10.5 LPA') if db_doc else '₹9.5 LPA'})",
-                    "description": f"Consistent campus recruitment with average CTC of {db_doc.get('placement_avg', '₹10.5 LPA') if db_doc else '₹9.5 LPA'}."
+                    "description": f"Consistent campus recruitment with average CTC of {db_doc.get('placement_avg', '₹10.5 LPA') if db_doc else '₹9.5 LPA'} and top tier-1 recruiters."
+                },
+                {
+                    "badge": "🎯 Centralized Admissions",
+                    "color": "warning",
+                    "title": "Merit-Based CAP & State Allotment",
+                    "description": "Admissions governed strictly through centralized state counseling rounds with transparent category seat reservations."
+                },
+                {
+                    "badge": "🔬 Labs & Infrastructure",
+                    "color": "info",
+                    "title": "Advanced Compute Labs & 24/7 Digital Library",
+                    "description": "State-of-the-art laboratory facilities, high-speed campus LAN/Wi-Fi, and extensive research journal subscriptions."
+                },
+                {
+                    "badge": "💰 Fee Concessions",
+                    "color": "secondary",
+                    "title": "Government Scholarships & TFWS Waivers",
+                    "description": "Eligible for MahaDBT / State e-scholarships, TFWS tuition fee waivers, and EBC economic category benefits."
                 }
             ]
 

@@ -53,4 +53,9 @@ build/
 mobile_app/build/
 mobile_app/.dart_tool/
 
+# Temporary & backup folders
+mobile_app_lib_backup/
+crop_*.png
+emoji_child.png
+
 

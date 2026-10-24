@@ -48,6 +48,7 @@ class College {
   final String eligibilityStatus; // "eligible", "borderline", "not_eligible"
   final Map<String, dynamic>? fiveYearTrend;
   final List<BranchCutoff> branches;
+  final String? nirfRank;
   final List<String> highlights;
 
   College({
@@ -68,9 +69,16 @@ class College {
     this.branchSummary,
     required this.eligibilityStatus,
     this.fiveYearTrend,
+    this.nirfRank,
     this.branches = const [],
     this.highlights = const [],
   });
+
+  String get tier {
+    if (eligibilityStatus == 'eligible') return 'Safe';
+    if (eligibilityStatus == 'borderline') return 'Target';
+    return 'Dream';
+  }
 
   bool get isGovernment =>
       RegExp(r'govt|government|national|state|aided|unitary', caseSensitive: false)
@@ -82,6 +90,20 @@ class College {
   bool get isAutonomous =>
       RegExp(r'autonomous', caseSensitive: false).hasMatch(collegeType) ||
       RegExp(r'autonomous', caseSensitive: false).hasMatch(collegeName);
+
+  /// Exactly matches the React Web formatAnnualFees(annual_fees)
+  String get formattedFees {
+    if (annualFees <= 0) return '₹1.2 Lakh/yr';
+    if (annualFees < 100000) {
+      return '₹${annualFees.toInt()}/yr';
+    }
+    final inLakh = annualFees / 100000.0;
+    if (inLakh % 1 == 0) {
+      return '₹${inLakh.toInt()} Lakh/yr';
+    }
+    final str = inLakh.toStringAsFixed(2).replaceAll(RegExp(r'\.?0+$'), '');
+    return '₹$str Lakh/yr';
+  }
 
   factory College.fromJson(Map<String, dynamic> json, {double defaultMarks = 97.4}) {
     final elig = json['eligibility'] as Map<String, dynamic>?;
@@ -104,48 +126,51 @@ class College {
       }).toList();
     }
 
-    List<String> highList = [];
-    if (json['highlights'] is List) {
-      highList = (json['highlights'] as List).map((h) => h.toString()).toList();
-    } else {
-      highList = [
-        'NBA & NAAC Accredited A++',
-        '100% Placement Support',
-        'Modern R&D Labs & Incubators',
-      ];
+    List<String> hl = [];
+    if (json['facilities'] is List) {
+      hl = List<String>.from(json['facilities']);
+    } else if (json['highlights'] is List) {
+      hl = List<String>.from(json['highlights']);
     }
 
+    final loc = json['location'];
+    String locStr = 'Maharashtra';
+    if (loc is Map) {
+      locStr = "${loc['city'] ?? ''}, ${loc['state'] ?? ''}".trim();
+      if (locStr == ',') locStr = 'Maharashtra';
+    } else if (loc != null) {
+      locStr = loc.toString();
+    }
+
+    final double fees = (json['annual_fees_inr'] as num?)?.toDouble() ??
+        (json['annual_fees'] as num?)?.toDouble() ??
+        110000.0;
+
     return College(
-      collegeName: json['college_name']?.toString() ??
-          json['name']?.toString() ??
-          'Engineering College',
-      collegeCode: json['college_code']?.toString() ?? json['code']?.toString(),
-      location: json['location']?.toString() ?? 'Maharashtra, India',
+      collegeName: json['college_name']?.toString() ?? 'Premier Institute',
+      collegeCode: json['college_code']?.toString(),
+      location: locStr,
       stream: json['stream']?.toString() ?? 'Engineering',
-      collegeType: json['college_type']?.toString() ?? json['type']?.toString() ?? 'Autonomous',
+      collegeType: json['college_type']?.toString() ?? 'Autonomous / Govt Aided',
       cutoffMarks: (json['cutoff_marks'] as num?)?.toDouble() ?? 88.0,
       studentMarks: (json['student_marks'] as num?)?.toDouble() ?? defaultMarks,
       scoreUnit: json['score_unit']?.toString() ?? 'percentile',
       examType: json['exam_type']?.toString() ?? 'MHT-CET',
-      rating: (json['rating'] as num?)?.toDouble() ?? 4.6,
+      rating: (json['rating'] as num?)?.toDouble() ?? 4.5,
       placementAvg: json['placement_avg']?.toString() ??
-          (json['placements'] is Map ? json['placements']['average_package']?.toString() : null) ??
-          '₹8.5 - 12.0 LPA',
-      highestPackage: json['placement_highest']?.toString() ??
-          (json['placements'] is Map ? json['placements']['highest_package']?.toString() : null) ??
-          '₹44.0 LPA',
-      annualFees: (json['annual_fees'] as num?)?.toDouble() ??
-          (json['fees'] as num?)?.toDouble() ??
-          140000.0,
-      imageUrl: json['image_url']?.toString() ??
-          'https://images.unsplash.com/photo-1562774053-701939374585?w=800&auto=format&fit=crop&q=80',
-      branchSummary: json['branch_summary']?.toString() ??
-          json['branch']?.toString() ??
-          'Computer Science, IT, AI & Data Science',
+          json['placement_package']?.toString() ??
+          '₹8.5 LPA',
+      highestPackage: json['highest_package']?.toString() ??
+          json['placement_high']?.toString() ??
+          '₹32.0 LPA',
+      annualFees: fees,
+      imageUrl: json['image_url']?.toString(),
+      branchSummary: json['branch_name']?.toString() ?? json['branch']?.toString(),
       eligibilityStatus: status,
       fiveYearTrend: json['five_year_trend'] as Map<String, dynamic>?,
+      nirfRank: json['nirf_rank']?.toString() ?? json['nirf']?.toString() ?? 'Tier-1',
       branches: branchList,
-      highlights: highList,
+      highlights: hl,
     );
   }
 }

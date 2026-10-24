@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from routes import chat, recommend, auth, reviews, documents
+from routes import chat, recommend, auth, reviews, documents, live_intelligence
 from config import APP_NAME
 import database
 
@@ -48,6 +48,7 @@ app.include_router(chat.router, prefix="/api", tags=["AI Chat"])
 app.include_router(recommend.router, prefix="/api", tags=["Recommendations"])
 app.include_router(reviews.router, prefix="/api", tags=["College Reviews"])
 app.include_router(documents.router, prefix="/api", tags=["Live Document Verifier & Proformas"])
+app.include_router(live_intelligence.router, prefix="/api", tags=["Live College Intelligence Multi-Agent"])
 
 # Serve uploaded review photos as static files
 app.mount("/api/review-photos", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "review_uploads")), name="review-photos")
