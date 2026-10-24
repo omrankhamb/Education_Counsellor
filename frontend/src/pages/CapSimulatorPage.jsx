@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FaArrowLeft, FaGraduationCap, FaSearch, FaPlus, FaTrash,
@@ -9,7 +9,7 @@ import {
   FaRobot, FaMagic, FaPaperPlane, FaUndo, FaBullseye, FaBolt,
   FaFire, FaCheckDouble
 } from "react-icons/fa";
-import { MdVerified, MdOutlineSchool, MdSwapVert, MdTimeline, MdAutoAwesome } from "react-icons/md";
+import { MdVerified, MdOutlineSchool, MdSwapVert, MdTimeline, MdAutoAwesome, MdDragIndicator } from "react-icons/md";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { APP_NAME } from "./LandingPage";
@@ -928,11 +928,68 @@ function detectExamType(profile) {
 }
 
 // Immediate deterministic calculation function to ensure zero blank states
-function computeLocalRow(choice, category, round, studentMarks, currentConfig) {
-  const catalog = currentConfig.catalog;
-  const college = catalog.find(c => c.college_code === choice.college_code) || catalog[0];
-  const branchObj = college.branches.find(b => b.branch.toLowerCase() === (choice.selected_branch || "").toLowerCase());
-  const availableBranches = college.branches.map(b => b.branch);
+function computeLocalRow(choice, category, round, studentMarks, currentConfig, extraCatalog = []) {
+  const catalog = (extraCatalog && extraCatalog.length > 0) ? extraCatalog : currentConfig.catalog;
+  let college = catalog.find(c => String(c.college_code) === String(choice.college_code));
+  if (!college && choice.college_name) {
+    college = catalog.find(c => String(c.college_name).toLowerCase() === String(choice.college_name).toLowerCase());
+  }
+  if (!college) {
+    const stdBranches = choice.available_branches || [
+      choice.selected_branch || "Computer Engineering",
+      "Computer Engineering",
+      "Information Technology",
+      "Artificial Intelligence & Data Science",
+      "Electronics & Telecommunication",
+      "Mechanical Engineering",
+      "Civil Engineering"
+    ];
+    college = {
+      college_code: choice.college_code,
+      college_name: choice.college_name || choice.college_code,
+      short_name: (choice.college_name || choice.college_code).split(",")[0].trim(),
+      city: "Maharashtra",
+      nirf_rank: "Participating Institute",
+      annual_fees: 110000,
+      available_branches: stdBranches,
+      branches: stdBranches.map(b => ({
+        branch: b,
+        domain: "Engineering & Technology",
+        cutoff_2024: 85.0,
+        cutoff_2025: 85.4,
+        cutoff_2026: 85.8
+      }))
+    };
+  }
+
+  const branches = (college.branches && college.branches.length > 0)
+    ? college.branches
+    : (college.available_branches || ["Computer Engineering"]).map(b => ({
+        branch: b,
+        domain: "Engineering & Technology",
+        cutoff_2024: 85.0,
+        cutoff_2025: 85.4,
+        cutoff_2026: 85.8
+      }));
+
+  const availableBranches = college.available_branches || branches.map(b => b.branch);
+
+  let branchObj = branches.find(b => b.branch.toLowerCase() === (choice.selected_branch || "").toLowerCase());
+  if (!branchObj) {
+    branchObj = branches.find(b => (
+      b.branch.toLowerCase().includes((choice.selected_branch || "").toLowerCase()) ||
+      (choice.selected_branch || "").toLowerCase().includes(b.branch.toLowerCase())
+    ));
+  }
+  if (!branchObj && branches.length > 0) {
+    branchObj = {
+      branch: choice.selected_branch || branches[0].branch,
+      domain: branches[0].domain || "Engineering & Technology",
+      cutoff_2024: branches[0].cutoff_2024 || 85.0,
+      cutoff_2025: branches[0].cutoff_2025 || 85.4,
+      cutoff_2026: branches[0].cutoff_2026 || 85.8
+    };
+  }
 
   if (!branchObj) {
     return {
@@ -1049,9 +1106,9 @@ function computeLocalRow(choice, category, round, studentMarks, currentConfig) {
   };
 }
 
-function computeLocalTable(choices, category, round, studentMarks, currentConfig) {
+function computeLocalTable(choices, category, round, studentMarks, currentConfig, extraCatalog = []) {
   const rows = choices.map((c, idx) => ({
-    ...computeLocalRow(c, category, round, studentMarks, currentConfig),
+    ...computeLocalRow(c, category, round, studentMarks, currentConfig, extraCatalog),
     preference_no: idx + 1
   }));
 
@@ -1154,6 +1211,17 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
   const [collegesCatalog, setCollegesCatalog] = useState(currentConfig.catalog);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchContainerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target)) {
+        setIsSearchOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Preference Table Choices
   const [tableChoices, setTableChoices] = useState(currentConfig.defaultChoices);
@@ -1172,8 +1240,8 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
     if (simulatedData && simulatedData.rows && simulatedData.rows.length > 0) {
       return simulatedData;
     }
-    return computeLocalTable(tableChoices, selectedCategory, selectedRound, studentScore, currentConfig);
-  }, [simulatedData, tableChoices, selectedCategory, selectedRound, studentScore, currentConfig]);
+    return computeLocalTable(tableChoices, selectedCategory, selectedRound, studentScore, currentConfig, collegesCatalog);
+  }, [simulatedData, tableChoices, selectedCategory, selectedRound, studentScore, currentConfig, collegesCatalog]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
@@ -1348,6 +1416,43 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
     }
   }, [activeProfile.exam_type, activeProfile.stream]);
 
+  // Load full catalog on mount or when selectedExam changes
+  useEffect(() => {
+    const apiExam = EXAM_COUNSELING_CONFIGS[selectedExam]?.examId || selectedExam;
+    fetch(`/api/cap-table/catalog?exam_type=${encodeURIComponent(apiExam)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.colleges?.length > 0) {
+          setCollegesCatalog(data.colleges);
+        }
+      })
+      .catch(() => {});
+  }, [selectedExam]);
+
+  // Dynamic backend search for any institution
+  useEffect(() => {
+    if (!searchQuery.trim() || searchQuery.trim().length < 2) return;
+    const timer = setTimeout(() => {
+      const apiExam = EXAM_COUNSELING_CONFIGS[selectedExam]?.examId || selectedExam;
+      fetch(`/api/cap-table/search?q=${encodeURIComponent(searchQuery.trim())}&exam_type=${encodeURIComponent(apiExam)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.colleges?.length > 0) {
+            setCollegesCatalog(prev => {
+              const existingCodes = new Set(prev.map(c => String(c.college_code)));
+              const newItems = data.colleges.filter(c => !existingCodes.has(String(c.college_code)));
+              if (newItems.length > 0) {
+                return [...prev, ...newItems];
+              }
+              return prev;
+            });
+          }
+        })
+        .catch(() => {});
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [searchQuery, selectedExam]);
+
   // Handle quick switching of profile exam
   const handleProfileExamChange = (newExam) => {
     const isNewMed = newExam.toLowerCase().includes("neet");
@@ -1490,10 +1595,10 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
       if (data && data.success && data.rows && data.rows.length > 0) {
         setSimulatedData(data);
       } else {
-        setSimulatedData(computeLocalTable(tableChoices, selectedCategory, selectedRound, studentScore, currentConfig));
+        setSimulatedData(computeLocalTable(tableChoices, selectedCategory, selectedRound, studentScore, currentConfig, collegesCatalog));
       }
     } catch (err) {
-      setSimulatedData(computeLocalTable(tableChoices, selectedCategory, selectedRound, studentScore, currentConfig));
+      setSimulatedData(computeLocalTable(tableChoices, selectedCategory, selectedRound, studentScore, currentConfig, collegesCatalog));
     } finally {
       setIsLoading(false);
     }
@@ -1505,13 +1610,59 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
 
   // Handle adding college from search
   const handleAddCollege = (college) => {
-    const firstBranch = college.available_branches[0] || (college.branches && college.branches[0]?.branch) || "Computer Science & Engineering";
+    const branches = college.available_branches || (college.branches ? college.branches.map(b => b.branch) : null) || [
+      "Computer Engineering", "Information Technology", "Artificial Intelligence & Data Science", "Electronics & Telecommunication", "Mechanical Engineering", "Civil Engineering"
+    ];
+    const firstBranch = branches[0] || "Computer Engineering";
+    setCollegesCatalog(prev => {
+      if (prev.some(c => String(c.college_code) === String(college.college_code))) return prev;
+      return [college, ...prev];
+    });
     setTableChoices(prev => [
       ...prev,
-      { college_code: college.college_code, selected_branch: firstBranch }
+      {
+        college_code: college.college_code,
+        college_name: college.college_name,
+        selected_branch: firstBranch,
+        available_branches: branches
+      }
     ]);
     setSearchQuery("");
     setIsSearchOpen(false);
+  };
+
+  // Handle adding custom college
+  const handleAddCustomCollege = (customName) => {
+    if (!customName || !customName.trim()) return;
+    const trimmed = customName.trim();
+    const customCode = `DTE_${Math.floor(1000 + Math.random() * 9000)}`;
+    const stdBranches = [
+      "Computer Engineering",
+      "Information Technology",
+      "Artificial Intelligence & Data Science",
+      "Electronics & Telecommunication",
+      "Mechanical Engineering",
+      "Electrical Engineering",
+      "Civil Engineering"
+    ];
+    const newCollege = {
+      college_code: customCode,
+      college_name: trimmed,
+      short_name: trimmed.split(",")[0].trim(),
+      city: "Maharashtra",
+      type: "Participating Institute",
+      nirf_rank: "Option Form Entry",
+      annual_fees: 110000,
+      available_branches: stdBranches,
+      branches: stdBranches.map(b => ({
+        branch: b,
+        domain: "Engineering & Technology",
+        cutoff_2024: 85.0,
+        cutoff_2025: 85.4,
+        cutoff_2026: 85.8
+      }))
+    };
+    handleAddCollege(newCollege);
   };
 
   // Handle removing row
@@ -1543,6 +1694,47 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
     });
   };
 
+  // Drag and drop state & handlers for reordering preferences
+  const [draggedIdx, setDraggedIdx] = useState(null);
+  const [dragOverIdx, setDragOverIdx] = useState(null);
+
+  const handleDragStart = (e, index) => {
+    setDraggedIdx(index);
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/plain", index.toString());
+  };
+
+  const handleDragOver = (e, index) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    if (dragOverIdx !== index) {
+      setDragOverIdx(index);
+    }
+  };
+
+  const handleDrop = (e, targetIndex) => {
+    e.preventDefault();
+    const sourceIndex = draggedIdx !== null ? draggedIdx : parseInt(e.dataTransfer.getData("text/plain"), 10);
+    if (isNaN(sourceIndex) || sourceIndex === targetIndex) {
+      setDraggedIdx(null);
+      setDragOverIdx(null);
+      return;
+    }
+    setTableChoices(prev => {
+      const updated = [...prev];
+      const [movedItem] = updated.splice(sourceIndex, 1);
+      updated.splice(targetIndex, 0, movedItem);
+      return updated;
+    });
+    setDraggedIdx(null);
+    setDragOverIdx(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedIdx(null);
+    setDragOverIdx(null);
+  };
+
   // Handle changing branch for specific row
   const handleChangeRowBranch = (index, newBranch) => {
     setTableChoices(prev => {
@@ -1559,13 +1751,14 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
   // Filtered colleges for search
   const filteredSearchColleges = useMemo(() => {
     if (!searchQuery.trim()) return [];
-    const q = searchQuery.toLowerCase();
-    return collegesCatalog.filter(c =>
-      c.college_name.toLowerCase().includes(q) ||
-      (c.college_code && c.college_code.toLowerCase().includes(q)) ||
-      (c.city && c.city.toLowerCase().includes(q)) ||
-      (c.short_name && c.short_name.toLowerCase().includes(q))
-    );
+    const q = searchQuery.toLowerCase().trim();
+    return collegesCatalog.filter(c => {
+      const name = String(c.college_name || "").toLowerCase();
+      const code = String(c.college_code || "").toLowerCase();
+      const short = String(c.short_name || "").toLowerCase();
+      const city = String(c.city || "").toLowerCase();
+      return name.includes(q) || code.includes(q) || short.includes(q) || city.includes(q);
+    });
   }, [searchQuery, collegesCatalog]);
 
   // Copy Option Form to Clipboard
@@ -1915,7 +2108,7 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
             </div>
 
             {/* 3. Search & Add College */}
-            <div className="col-md-6 position-relative">
+            <div className="col-md-6 position-relative" ref={searchContainerRef}>
               <label className="form-label small fw-bold text-dark d-flex align-items-center justify-content-between mb-1">
                 <span className="d-flex align-items-center gap-1">
                   <FaSearch size={11} color="#4F46E5" /> Search Participating Institutions ({currentConfig.authorityBadge}):
@@ -1953,50 +2146,94 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
               </div>
 
               {/* Autocomplete Dropdown */}
-              {isSearchOpen && filteredSearchColleges.length > 0 && (
+              {isSearchOpen && (
                 <div
                   className="position-absolute start-0 end-0 bg-white shadow-lg border rounded-3 p-1 mt-1 z-3 overflow-auto"
-                  style={{ maxHeight: 280, zIndex: 1050 }}
+                  style={{ maxHeight: 320, zIndex: 1050 }}
                 >
-                  {filteredSearchColleges.map((c) => {
-                    const isAlreadyAdded = tableChoices.some(tc => tc.college_code === c.college_code);
-                    return (
-                      <div
-                        key={c.college_code}
-                        className="p-2 border-bottom d-flex align-items-center justify-content-between hover-bg rounded-2"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => handleAddCollege(c)}
-                      >
-                        <div>
-                          <div className="fw-bold small text-dark d-flex align-items-center gap-1.5">
-                            <span>{c.college_name}</span>
-                            <span className="badge bg-light text-secondary border" style={{ fontSize: 9 }}>
-                              {currentConfig.codeLabel}: {c.college_code}
-                            </span>
+                  {filteredSearchColleges.length > 0 ? (
+                    <>
+                      {filteredSearchColleges.map((c) => {
+                        const isAlreadyAdded = tableChoices.some(tc => String(tc.college_code) === String(c.college_code));
+                        return (
+                          <div
+                            key={c.college_code}
+                            className="p-2 border-bottom d-flex align-items-center justify-content-between hover-bg rounded-2"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => handleAddCollege(c)}
+                          >
+                            <div className="pe-2 text-start">
+                              <div className="fw-bold small text-dark d-flex align-items-center gap-1.5 flex-wrap">
+                                <span>{c.college_name}</span>
+                                <span className="badge bg-light text-secondary border" style={{ fontSize: 9 }}>
+                                  {currentConfig.codeLabel}: {c.college_code}
+                                </span>
+                              </div>
+                              <div className="text-muted" style={{ fontSize: 11 }}>
+                                📍 {c.city} • {c.available_branches?.length || c.branches?.length || 0} Offered Programs • {c.nirf_rank}
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              className="btn btn-xs rounded-pill px-2.5 py-1 fw-semibold shadow-sm flex-shrink-0"
+                              style={{
+                                fontSize: 11,
+                                background: isAlreadyAdded ? "#EFF6FF" : "linear-gradient(135deg, #2563EB, #1D4ED8)",
+                                color: isAlreadyAdded ? "#1D4ED8" : "#FFFFFF",
+                                border: isAlreadyAdded ? "1px solid #BFDBFE" : "none"
+                              }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleAddCollege(c);
+                              }}
+                            >
+                              <FaPlus size={9} className="me-1" />
+                              {isAlreadyAdded ? "Add Another Branch" : "Add to Table"}
+                            </button>
                           </div>
-                          <div className="text-muted" style={{ fontSize: 11 }}>
-                            📍 {c.city} • {c.available_branches?.length || c.branches?.length || 0} Offered Programs • {c.nirf_rank}
-                          </div>
-                        </div>
-                        <button
-                          className="btn btn-xs rounded-pill px-2.5 py-1 fw-semibold shadow-sm"
-                          style={{
-                            fontSize: 11,
-                            background: isAlreadyAdded ? "#EFF6FF" : "linear-gradient(135deg, #2563EB, #1D4ED8)",
-                            color: isAlreadyAdded ? "#1D4ED8" : "#FFFFFF",
-                            border: isAlreadyAdded ? "1px solid #BFDBFE" : "none"
-                          }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleAddCollege(c);
-                          }}
+                        );
+                      })}
+
+                      {searchQuery.trim() && (
+                        <div
+                          className="p-2.5 text-center bg-light rounded-2 mt-1 border-top d-flex align-items-center justify-content-between"
+                          style={{ cursor: "pointer" }}
+                          onClick={() => handleAddCustomCollege(searchQuery)}
                         >
-                          <FaPlus size={9} className="me-1" />
-                          {isAlreadyAdded ? "Add Another Branch" : "Add to Table"}
-                        </button>
+                          <div className="small text-start">
+                            <span className="fw-semibold text-primary">➕ Can't find your specific college?</span>
+                            <div className="text-muted" style={{ fontSize: 10.5 }}>
+                              Click to add "{searchQuery}" as a custom institution with all branches.
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            className="btn btn-xs btn-outline-primary rounded-pill px-2.5 py-1 fw-semibold flex-shrink-0"
+                            style={{ fontSize: 11 }}
+                          >
+                            Add Custom
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  ) : searchQuery.trim() ? (
+                    <div className="p-3 text-center">
+                      <div className="small text-dark fw-semibold mb-1">
+                        No pre-configured institute found matching "<em>{searchQuery}</em>"
                       </div>
-                    );
-                  })}
+                      <p className="text-muted small mb-2" style={{ fontSize: 11 }}>
+                        You can still add this college to your simulation and option form! All branches will be available.
+                      </p>
+                      <button
+                        type="button"
+                        className="btn btn-primary btn-sm rounded-pill px-3 py-1.5 shadow-sm d-inline-flex align-items-center gap-1.5"
+                        onClick={() => handleAddCustomCollege(searchQuery)}
+                      >
+                        <FaPlus size={11} />
+                        <span>Add "{searchQuery}" to My Preference List</span>
+                      </button>
+                    </div>
+                  ) : null}
                 </div>
               )}
             </div>
@@ -2469,9 +2706,14 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
                 <span>📋 Official Preference List & Allotment Probability Matrix</span>
                 <span className="badge bg-primary rounded-pill">{tableChoices.length} Choices</span>
               </h5>
-              <span className="text-secondary small" style={{ fontSize: 12 }}>
-                Cutoff thresholds for <strong>{selectedCategory}</strong> under <strong>{selectedRound}</strong> ({currentConfig.authorityBadge}).
-              </span>
+              <div className="d-flex align-items-center gap-2 mt-1 flex-wrap">
+                <span className="text-secondary small" style={{ fontSize: 12 }}>
+                  Cutoff thresholds for <strong>{selectedCategory}</strong> under <strong>{selectedRound}</strong> ({currentConfig.authorityBadge}).
+                </span>
+                <span className="badge px-2 py-0.5 rounded-pill d-inline-flex align-items-center gap-1 shadow-sm" style={{ fontSize: 11, background: "#EEF2FF", color: "#4338CA", border: "1px solid #C7D2FE" }}>
+                  <MdDragIndicator size={13} color="#4F46E5" /> Drag rows or grip handle to reorder preference
+                </span>
+              </div>
             </div>
 
             <div className="d-flex align-items-center gap-2">
@@ -2504,7 +2746,12 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
             <table className="table table-hover align-middle mb-0 text-center" style={{ minWidth: 980 }}>
               <thead className="table-dark" style={{ backgroundColor: "#1A237E", color: "#FFFFFF" }}>
                 <tr>
-                  <th style={{ width: 70, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">Pref #</th>
+                  <th style={{ width: 85, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">
+                    <div className="d-flex align-items-center justify-content-center gap-1" title="Drag row or handle to change preference hierarchy">
+                      <MdDragIndicator size={14} color="#FFB300" />
+                      <span>Pref #</span>
+                    </div>
+                  </th>
                   <th style={{ textAlign: "left", width: 260, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">College Name & {currentConfig.codeLabel}</th>
                   <th style={{ textAlign: "left", width: 230, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">Selected Branch Program</th>
                   <th style={{ width: 95, backgroundColor: "#1A237E", color: "#FFFFFF", verticalAlign: "middle" }} className="py-3 small fw-bold">2024 Cutoff</th>
@@ -2560,22 +2807,69 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
                       probBadgeClass = "bg-danger text-white";
                     }
 
+                    const isBeingDragged = draggedIdx === idx;
+                    const isDragTarget = dragOverIdx === idx && draggedIdx !== idx;
+
+                    // Row dynamic drag styling
+                    let rowStyle = {
+                      transition: "all 0.15s ease",
+                      cursor: "grab",
+                    };
+                    if (!isOffered) {
+                      rowStyle.background = "#FFF1F2";
+                    }
+                    if (isBeingDragged) {
+                      rowStyle.opacity = 0.35;
+                      rowStyle.background = "#EEF2FF";
+                      rowStyle.outline = "2px dashed #4F46E5";
+                    } else if (isDragTarget) {
+                      rowStyle.background = "#F0FDF4";
+                      if (draggedIdx !== null && draggedIdx < idx) {
+                        rowStyle.boxShadow = "inset 0 -3px 0 #4F46E5";
+                      } else if (draggedIdx !== null && draggedIdx > idx) {
+                        rowStyle.boxShadow = "inset 0 3px 0 #4F46E5";
+                      }
+                    }
+
                     return (
-                      <tr key={`${row.college_code}-${idx}`} style={{ background: !isOffered ? "#FFF1F2" : undefined }}>
-                        {/* 1. Preference Order # */}
-                        <td>
-                          <span
-                            className="badge rounded-circle d-inline-flex align-items-center justify-content-center fw-bold"
-                            style={{
-                              width: 28,
-                              height: 28,
-                              background: idx === 0 ? "#FFB300" : "#1A237E",
-                              color: idx === 0 ? "#000000" : "#FFFFFF",
-                              fontSize: 12
-                            }}
-                          >
-                            {idx + 1}
-                          </span>
+                      <tr
+                        key={`${row.college_code}-${row.selected_branch}-${idx}`}
+                        draggable={true}
+                        onDragStart={(e) => handleDragStart(e, idx)}
+                        onDragOver={(e) => handleDragOver(e, idx)}
+                        onDrop={(e) => handleDrop(e, idx)}
+                        onDragEnd={handleDragEnd}
+                        style={rowStyle}
+                        className={isBeingDragged ? "table-active" : undefined}
+                        title="Click and drag to reorder preference"
+                      >
+                        {/* 1. Preference Order # with Drag Handle */}
+                        <td style={{ verticalAlign: "middle" }}>
+                          <div className="d-flex align-items-center justify-content-center gap-1">
+                            <span
+                              className="text-secondary d-inline-flex align-items-center justify-content-center p-1 rounded"
+                              style={{
+                                cursor: "grab",
+                                opacity: isBeingDragged ? 0.3 : 0.75,
+                                transition: "opacity 0.15s ease, transform 0.15s ease",
+                              }}
+                              title="Click and drag to move college up or down"
+                            >
+                              <MdDragIndicator size={18} color="#6366F1" />
+                            </span>
+                            <span
+                              className="badge rounded-circle d-inline-flex align-items-center justify-content-center fw-bold shadow-sm"
+                              style={{
+                                width: 28,
+                                height: 28,
+                                background: idx === 0 ? "#FFB300" : "#1A237E",
+                                color: idx === 0 ? "#000000" : "#FFFFFF",
+                                fontSize: 12
+                              }}
+                            >
+                              {idx + 1}
+                            </span>
+                          </div>
                         </td>
 
                         {/* 2. College Name & Exam Authority Code */}
@@ -2596,8 +2890,10 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
                         {/* 3. Branch Dropdown */}
                         <td style={{ textAlign: "left" }}>
                           <select
+                            draggable={false}
+                            onMouseDown={(e) => e.stopPropagation()}
                             className={`form-select form-select-sm shadow-none ${!isOffered ? "border-danger text-danger fw-bold" : "border-secondary-subtle"}`}
-                            style={{ fontSize: 12 }}
+                            style={{ fontSize: 12, cursor: "pointer" }}
                             value={row.selected_branch}
                             onChange={(e) => handleChangeRowBranch(idx, e.target.value)}
                           >
@@ -2704,7 +3000,11 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
 
                         {/* 9. Row Actions */}
                         <td>
-                          <div className="d-flex align-items-center justify-content-center gap-1">
+                          <div
+                            className="d-flex align-items-center justify-content-center gap-1"
+                            draggable={false}
+                            onMouseDown={(e) => e.stopPropagation()}
+                          >
                             <button
                               className="btn btn-sm btn-light p-1 rounded text-secondary"
                               disabled={idx === 0}

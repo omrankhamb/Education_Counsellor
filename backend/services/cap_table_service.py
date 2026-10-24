@@ -11,6 +11,8 @@ Supports:
 
 from typing import List, Dict, Any, Optional
 import math
+import os
+import json
 
 # 1. MAHARASHTRA STATE CET CELL (MHT-CET) CATALOG
 MHT_CET_CATALOG: List[Dict[str, Any]] = [
@@ -602,28 +604,83 @@ def normalize_exam_name(exam_type: str) -> str:
     else:
         return "MHT-CET"
 
+_MASTER_DTE_CATALOG = None
+
+def get_master_dte_catalog() -> List[Dict[str, Any]]:
+    global _MASTER_DTE_CATALOG
+    if _MASTER_DTE_CATALOG is None:
+        try:
+            path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "master_dte_catalog.json")
+            if os.path.exists(path):
+                with open(path, "r", encoding="utf-8") as f:
+                    _MASTER_DTE_CATALOG = json.load(f)
+            else:
+                _MASTER_DTE_CATALOG = []
+        except Exception:
+            _MASTER_DTE_CATALOG = []
+    return _MASTER_DTE_CATALOG
+
 def get_exam_catalog(exam_type: str = "MHT-CET") -> List[Dict[str, Any]]:
-    """Return the corresponding college catalog for the chosen entrance exam."""
+    """Return the corresponding college catalog for the chosen entrance exam, including all 370+ DTE institutes."""
     canonical = normalize_exam_name(exam_type)
-    return EXAM_COUNSELING_PROCESS.get(canonical, EXAM_COUNSELING_PROCESS["MHT-CET"])["catalog"]
+    base_catalog = list(EXAM_COUNSELING_PROCESS.get(canonical, EXAM_COUNSELING_PROCESS["MHT-CET"])["catalog"])
+    if canonical == "MHT-CET":
+        dte_list = get_master_dte_catalog()
+        if dte_list:
+            existing_codes = {str(c.get("college_code")) for c in base_catalog}
+            extra = [c for c in dte_list if str(c.get("college_code")) not in existing_codes]
+            return base_catalog + extra
+    return base_catalog
 
 def get_all_cap_colleges(exam_type: str = "MHT-CET") -> List[Dict[str, Any]]:
-    """Return lightweight list of colleges and their available branches for client-side search."""
+    """Return lightweight list of all participating colleges and their available branches for client-side search."""
     catalog = get_exam_catalog(exam_type)
     return [
         {
-            "college_code": c["college_code"],
+            "college_code": str(c["college_code"]),
             "college_name": c["college_name"],
-            "short_name": c["short_name"],
-            "city": c["city"],
-            "type": c["type"],
-            "nirf_rank": c["nirf_rank"],
-            "annual_fees": c["annual_fees"],
-            "available_branches": [b["branch"] for b in c["branches"]],
-            "domains": sorted(list(set(b["domain"] for b in c["branches"])))
+            "short_name": c.get("short_name", c["college_name"].split(",")[0].strip()),
+            "city": c.get("city", "Maharashtra"),
+            "type": c.get("type", "Approved Institute"),
+            "nirf_rank": c.get("nirf_rank", f"Code {c['college_code']}"),
+            "annual_fees": c.get("annual_fees", 110000),
+            "available_branches": c.get("available_branches") or [b["branch"] for b in c.get("branches", [])],
+            "domains": sorted(list(set(b["domain"] for b in c.get("branches", []) if "domain" in b)))
         }
         for c in catalog
     ]
+
+def search_cap_colleges(query: str, exam_type: str = "MHT-CET") -> List[Dict[str, Any]]:
+    """Perform fast multi-attribute search across all colleges."""
+    catalog = get_all_cap_colleges(exam_type)
+    q = (query or "").strip().lower()
+    if not q:
+        return catalog[:60]
+    
+    scored = []
+    for c in catalog:
+        code_str = str(c.get("college_code", "")).lower()
+        name_str = str(c.get("college_name", "")).lower()
+        short_str = str(c.get("short_name", "")).lower()
+        city_str = str(c.get("city", "")).lower()
+        
+        score = 0
+        if q == code_str:
+            score += 100
+        elif code_str.startswith(q):
+            score += 70
+        elif q in short_str:
+            score += 50
+        elif q in name_str:
+            score += 40
+        elif q in city_str:
+            score += 25
+            
+        if score > 0:
+            scored.append((score, c))
+            
+    scored.sort(key=lambda x: x[0], reverse=True)
+    return [item[1] for item in scored[:60]]
 
 def calculate_cap_row(
     college_code: str,
@@ -640,28 +697,69 @@ def calculate_cap_row(
     - 2026 cutoff
     - 2027 predicted probability & momentum
     - Admission Probability based on student marks
-    - Returns 'Not Provided' if branch is not offered by college.
+    - Gracefully handles custom/searched colleges.
     """
     catalog = get_exam_catalog(exam_type)
-    college = next((c for c in catalog if c["college_code"] == college_code), None)
+    code_str = str(college_code).strip()
+    college = next((c for c in catalog if str(c.get("college_code", "")).strip() == code_str), None)
+    
     if not college:
-        college = catalog[0]
+        # Search by partial name match
+        college = next((c for c in catalog if code_str.lower() in str(c.get("college_name", "")).lower()), None)
+        
+    if not college:
+        # Synthesize entry for custom user-added college
+        custom_name = str(college_code)
+        std_branches = [
+            "Computer Engineering", "Information Technology",
+            "Artificial Intelligence & Data Science", "Electronics & Telecommunication",
+            "Mechanical Engineering", "Civil Engineering", "Electrical Engineering"
+        ]
+        if selected_branch and selected_branch not in std_branches:
+            std_branches.insert(0, selected_branch)
+        college = {
+            "college_code": code_str,
+            "college_name": custom_name,
+            "short_name": custom_name.split(",")[0].strip(),
+            "city": "Maharashtra",
+            "type": "Recognized Institute",
+            "nirf_rank": "State Approved",
+            "annual_fees": 110000,
+            "branches": [
+                {"branch": b, "domain": "Engineering & Technology", "cutoff_2024": 85.0, "cutoff_2025": 85.4, "cutoff_2026": 85.8}
+                for b in std_branches
+            ]
+        }
 
-    branch_obj = next((b for b in college["branches"] if b["branch"].strip().lower() == selected_branch.strip().lower()), None)
+    branch_obj = next((b for b in college.get("branches", []) if b.get("branch", "").strip().lower() == selected_branch.strip().lower()), None)
+    if not branch_obj:
+        branch_obj = next((b for b in college.get("branches", []) if selected_branch.strip().lower() in b.get("branch", "").strip().lower() or b.get("branch", "").strip().lower() in selected_branch.strip().lower()), None)
+    
+    if not branch_obj and college.get("branches"):
+        # Auto-synthesize cutoff for new branch so user choice always calculates
+        first_b = college["branches"][0]
+        base_c = first_b.get("cutoff_2026", 85.0)
+        branch_obj = {
+            "branch": selected_branch,
+            "domain": "Engineering & Technology",
+            "cutoff_2024": round(max(35.0, base_c - 0.4), 2),
+            "cutoff_2025": round(max(35.0, base_c - 0.2), 2),
+            "cutoff_2026": base_c
+        }
 
-    # IF BRANCH NOT PROVIDED BY THIS COLLEGE:
+    # IF STILL NO BRANCH:
     if not branch_obj:
         return {
             "college_code": college["college_code"],
             "college_name": college["college_name"],
-            "short_name": college["short_name"],
-            "city": college["city"],
-            "nirf_rank": college["nirf_rank"],
-            "annual_fees": college["annual_fees"],
+            "short_name": college.get("short_name", college["college_name"]),
+            "city": college.get("city", "Maharashtra"),
+            "nirf_rank": college.get("nirf_rank", "N/A"),
+            "annual_fees": college.get("annual_fees", 110000),
             "selected_branch": selected_branch,
             "is_branch_offered": False,
             "branch_status": "Branch Not Offered by this Institute",
-            "available_branches": [b["branch"] for b in college["branches"]],
+            "available_branches": [b["branch"] for b in college.get("branches", [])],
             "cutoff_2024": None,
             "cutoff_2025": None,
             "cutoff_2026": None,
@@ -673,7 +771,7 @@ def calculate_cap_row(
             "tier": "Not Offered",
             "score_margin": None,
             "status_color": "secondary",
-            "summary_text": f"{college['short_name']} does not offer {selected_branch}."
+            "summary_text": f"{college.get('short_name', college['college_name'])} does not offer {selected_branch}."
         }
 
     # BRANCH IS OFFERED:

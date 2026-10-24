@@ -164,6 +164,19 @@ async def get_cap_catalog(exam_type: str = Query("MHT-CET")):
         "colleges": get_all_cap_colleges(norm)
     }
 
+@router.get("/cap-table/search")
+async def search_cap_catalog_endpoint(q: str = Query(""), exam_type: str = Query("MHT-CET")):
+    """Fast search endpoint across all participating and DTE institutions."""
+    from services.cap_table_service import search_cap_colleges, normalize_exam_name
+    norm = normalize_exam_name(exam_type)
+    results = search_cap_colleges(q, norm)
+    return {
+        "success": True,
+        "query": q,
+        "count": len(results),
+        "colleges": results
+    }
+
 class CapTableRowRequest(BaseModel):
     college_code: str = ""
     selected_branch: str = "Computer Engineering"
