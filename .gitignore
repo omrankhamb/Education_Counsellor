@@ -11,6 +11,13 @@ frontend/dist/
 .vite/
 *.log
 
+# Downloaded official admission-source archives and generated accuracy reports
+backend/data/official_sources/
+backend/data/mongodb/
+backend/vector_store/
+*.sqlite3
+
+
 # Python artifacts
 __pycache__/
 */__pycache__/
@@ -35,3 +42,15 @@ desktop.ini
 .idea/
 *.swp
 *.swo
+
+# Large binary builds
+*.apk
+*.aab
+
+# Flutter artifacts
+build/
+.dart_tool/
+mobile_app/build/
+mobile_app/.dart_tool/
+
+

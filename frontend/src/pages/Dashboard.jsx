@@ -1,14 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FaGraduationCap, FaUserGraduate, FaHeadset, FaSearch, FaFilter,
   FaCheckCircle, FaExclamationTriangle, FaTimesCircle,
   FaSyncAlt, FaBriefcase, FaUniversity, FaArrowRight,
   FaChartLine, FaHeart, FaRegHeart, FaBalanceScale,
-  FaCalendarCheck, FaFilePdf, FaPrint, FaTimes, FaTrash,
-  FaChevronLeft, FaChevronRight, FaChevronUp, FaChevronDown
+  FaCalendarCheck, FaCalendarAlt, FaFilePdf, FaFileAlt, FaPrint, FaTimes, FaTrash,
+  FaStar, FaChevronRight, FaChevronDown, FaUndo,
+  FaCoins, FaBullseye, FaLightbulb, FaBuilding, FaSignOutAlt, FaListAlt
 } from "react-icons/fa";
 import CollegeCard from "../components/CollegeCard";
+import CapSimulatorModal from "../components/CapSimulatorModal";
+import ScholarshipModal from "../components/ScholarshipModal";
+import DocumentVerificationModal from "../components/DocumentVerificationModal";
 import { APP_NAME } from "./LandingPage";
 import { formatScore } from "../utils/scoreUtils";
 
@@ -18,8 +22,9 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
   const navigate = useNavigate();
 
   // Profile Fallback Defaults to prevent null errors
-  const profile = studentProfile || {
+  const profile = {
     name: "Student",
+    age: 18,
     stream: "Engineering",
     marks: 85,
     exam_type: "MHT-CET",
@@ -27,7 +32,9 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
     preferred_state: "Maharashtra",
     budget: "Any",
     college_type: "Any",
+    ...(studentProfile || {})
   };
+  if (!profile.age) profile.age = 18;
 
   const [colleges, setColleges] = useState([]);
   const [careers, setCareers] = useState([]);
@@ -36,10 +43,22 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
 
   // Filters and search
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedState, setSelectedState] = useState(() => {
+    return profile.preferred_state && profile.preferred_state !== "Any"
+      ? profile.preferred_state
+      : "All";
+  });
   const [selectedType, setSelectedType] = useState("All");
   const [selectedEligibility, setSelectedEligibility] = useState("All");
   const [sortBy, setSortBy] = useState("recommended");
   const [filterShortlistOnly, setFilterShortlistOnly] = useState(false);
+
+  // Keep state filter synced when student profile changes
+  useEffect(() => {
+    if (profile.preferred_state && profile.preferred_state !== "Any") {
+      setSelectedState(profile.preferred_state);
+    }
+  }, [profile.preferred_state]);
 
   // Shortlist State (Persisted in localStorage)
   const [shortlisted, setShortlisted] = useState(() => {
@@ -51,19 +70,15 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
     }
   });
 
-  // College Comparison State (Max 3 colleges)
+  // College Comparison State (Max 4 colleges)
   const [selectedForCompare, setSelectedForCompare] = useState([]);
   const [showCompareModal, setShowCompareModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
-
-  // Left Sidebar Visibility & Scroll Navigation
-  const [sidebarVisible, setSidebarVisible] = useState(true);
-  const sidebarScrollRef = useRef(null);
-  const chancesRef = useRef(null);
-  const shortlistRef = useRef(null);
-  const compareRef = useRef(null);
-  const deadlinesRef = useRef(null);
-  const reportRef = useRef(null);
+  const [showCapSimulatorModal, setShowCapSimulatorModal] = useState(false);
+  const [showScholarshipModal, setShowScholarshipModal] = useState(false);
+  const [showDeadlinesModal, setShowDeadlinesModal] = useState(false);
+  const [showDocumentModal, setShowDocumentModal] = useState(false);
+  const [selectedCollegeForScholarship, setSelectedCollegeForScholarship] = useState(null);
 
   useEffect(() => {
     try {
@@ -88,8 +103,8 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
       if (exists) {
         return prev.filter((c) => c.college_name !== college.college_name);
       } else {
-        if (prev.length >= 3) {
-          alert("You can compare up to 3 colleges at a time. Please deselect one first.");
+        if (prev.length >= 4) {
+          alert("You can compare up to 4 colleges at a time. Please deselect one first.");
           return prev;
         }
         return [...prev, college];
@@ -149,90 +164,116 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
 
   useEffect(() => {
     let isMounted = true;
+    const adaptCollegeItem = (c) => {
+      const unit = profile.score_unit || "percentile";
+      let cut_val = c.cutoff_marks;
+      if (unit === "marks_720") {
+        cut_val = c.cutoff_neet ? c.cutoff_neet : (cut_val <= 100 ? Math.round(cut_val * 7.2) : cut_val);
+      } else if (unit === "rank") {
+        cut_val = c.cutoff_rank ? c.cutoff_rank : (cut_val <= 100 ? Math.round(Math.max(300, (100 - cut_val) * 1200)) : cut_val);
+      } else {
+        cut_val = c.cutoff_percent ? c.cutoff_percent : cut_val;
+      }
+
+      let status = "eligible";
+      if (unit === "rank") {
+        status = profile.marks <= cut_val ? "eligible" : profile.marks <= cut_val * 1.2 ? "borderline" : "not_eligible";
+      } else if (unit === "marks_720") {
+        const diff = profile.marks - cut_val;
+        status = diff >= 5 ? "eligible" : diff >= -25 ? "borderline" : "not_eligible";
+      } else {
+        const diff = profile.marks - cut_val;
+        status = diff >= 1.5 ? "eligible" : diff >= -5 ? "borderline" : "not_eligible";
+      }
+
+      return {
+        ...c,
+        stream: profile.stream,
+        cutoff_marks: cut_val,
+        student_marks: profile.marks,
+        score_unit: profile.score_unit,
+        exam_type: profile.exam_type,
+        eligibility: {
+          status,
+          label: status === "eligible" ? "Eligible" : status === "borderline" ? "Borderline" : "Aspirational",
+          color: status === "eligible" ? "success" : status === "borderline" ? "warning" : "danger"
+        }
+      };
+    };
+
+    // Group multiple branch records by institution so one card represents one college
+    const groupUniqueInstitutions = (list) => {
+      if (!Array.isArray(list)) return [];
+      const map = new Map();
+      list.forEach((c) => {
+        const key = (c.college_name || "").trim().toLowerCase();
+        if (!key) return;
+        if (!map.has(key)) {
+          const rawBranches = Array.isArray(c.branches) ? [...c.branches] : (c.branch ? [{ branch: c.branch, cutoff_marks: c.cutoff_marks }] : []);
+          map.set(key, {
+            ...c,
+            branches: rawBranches,
+            branch_count: c.branch_count || (rawBranches.length > 0 ? rawBranches.length : 1),
+            branch_summary: c.branch_summary || c.branch || "General Program"
+          });
+        } else {
+          const existing = map.get(key);
+          const existingBranches = existing.branches || [];
+          const newBranchName = c.branch;
+          if (newBranchName && !existingBranches.some((b) => (b.branch || b) === newBranchName)) {
+            existingBranches.push({ branch: newBranchName, cutoff_marks: c.cutoff_marks });
+            existing.branches = existingBranches;
+            existing.branch_count = existingBranches.length;
+            const names = existingBranches.map((b) => b.branch || b);
+            existing.branch_summary = names.slice(0, 3).join(", ") + (names.length > 3 ? ` (+${names.length - 3} more)` : "");
+            const isMed = (c.stream || profile.stream || "").toLowerCase() === "medical";
+            existing.branch = `${existingBranches.length} ${isMed ? "Medical Programs" : "Specialized Branches"} Available`;
+          }
+        }
+      });
+      return Array.from(map.values());
+    };
+
     const fetchRecommendations = async () => {
-      setLoading(true);
       setError(false);
 
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 18000);
+      // STEP 1: Immediately fetch curated 20+ colleges for this exact exam & state (<30ms)
+      try {
+        const stateParam = profile.preferred_state && profile.preferred_state !== "Any" ? `&state=${encodeURIComponent(profile.preferred_state)}` : "";
+        const fastRes = await fetch(
+          `${API_BASE}/featured-colleges?stream=${encodeURIComponent(profile.stream || "Engineering")}&exam_type=${encodeURIComponent(profile.exam_type || "")}${stateParam}`
+        );
+        const fastData = await fastRes.json();
+        if (fastData.success && fastData.colleges?.length > 0 && isMounted) {
+          const adapted = fastData.colleges.map(adaptCollegeItem);
+          const sanitized = sanitizeCollegesForProfile(adapted, profile);
+          const unique = groupUniqueInstitutions(sanitized);
+          setColleges(unique);
+          setLoading(false);
+        }
+      } catch (fErr) {
+        console.warn("Fast college load notice:", fErr);
+      }
 
+      // STEP 2: Background AI refinement
       try {
         const res = await fetch(`${API_BASE}/recommend`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ student_profile: profile }),
-          signal: controller.signal,
         });
-        clearTimeout(timeoutId);
-
         const data = await res.json();
         if (data.success && data.colleges?.length > 0 && isMounted) {
           const sanitized = sanitizeCollegesForProfile(data.colleges, profile);
-          setColleges(sanitized);
-          setCareers(data.career_opportunities || []);
+          const unique = groupUniqueInstitutions(sanitized);
+          setColleges(unique);
+          if (data.career_opportunities?.length > 0) {
+            setCareers(data.career_opportunities);
+          }
           setLoading(false);
-          return;
         }
       } catch (err) {
-        clearTimeout(timeoutId);
         console.warn("Live recommendation notice:", err);
-      }
-
-      // Fast fallback strictly filtered by exam_type to ensure MHT-CET NEVER receives IITs/NITs
-      try {
-        const fallbackRes = await fetch(
-          `${API_BASE}/featured-colleges?stream=${encodeURIComponent(profile.stream || "Engineering")}&exam_type=${encodeURIComponent(profile.exam_type || "")}`
-        );
-        const fallbackData = await fallbackRes.json();
-        if (fallbackData.success && fallbackData.colleges?.length > 0 && isMounted) {
-          const adapted = fallbackData.colleges.map((c) => {
-            const unit = profile.score_unit;
-            let cut_val = c.cutoff_marks;
-            if (unit === "marks_720") {
-              cut_val = c.cutoff_neet ? c.cutoff_neet : (cut_val <= 100 ? Math.round(cut_val * 7.2) : cut_val);
-            } else if (unit === "rank") {
-              cut_val = c.cutoff_rank ? c.cutoff_rank : (cut_val <= 100 ? Math.round(Math.max(300, (100 - cut_val) * 1200)) : cut_val);
-            } else {
-              cut_val = c.cutoff_percent ? c.cutoff_percent : cut_val;
-            }
-
-            let status = "eligible";
-            if (unit === "rank") {
-              status = profile.marks <= cut_val ? "eligible" : profile.marks <= cut_val * 1.2 ? "borderline" : "not_eligible";
-            } else if (unit === "marks_720") {
-              const diff = profile.marks - cut_val;
-              status = diff >= 5 ? "eligible" : diff >= -25 ? "borderline" : "not_eligible";
-            } else {
-              const diff = profile.marks - cut_val;
-              status = diff >= 1.5 ? "eligible" : diff >= -5 ? "borderline" : "not_eligible";
-            }
-
-            return {
-              ...c,
-              stream: profile.stream,
-              cutoff_marks: cut_val,
-              student_marks: profile.marks,
-              score_unit: profile.score_unit,
-              exam_type: profile.exam_type,
-              eligibility: {
-                status,
-                label: status === "eligible" ? "✅ Eligible" : status === "borderline" ? "⚠️ Borderline" : "❌ Aspirational",
-                color: status === "eligible" ? "success" : status === "borderline" ? "warning" : "danger"
-              }
-            };
-          });
-          const sanitizedFallback = sanitizeCollegesForProfile(adapted, profile);
-          setColleges(sanitizedFallback);
-          setLoading(false);
-          return;
-        }
-      } catch (fErr) {
-        console.error("Fallback error", fErr);
-      }
-
-      if (isMounted) {
-        setError(true);
-        setLoading(false);
       }
     };
 
@@ -257,6 +298,25 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
     navigate("/chat", { state: { initialPrompt, selectedCollege: college.college_name } });
   };
 
+  // Compute available states dynamically from current college pool & profile
+  const availableStates = useMemo(() => {
+    const statesSet = new Set();
+    if (profile.preferred_state && profile.preferred_state !== "Any") {
+      statesSet.add(profile.preferred_state.trim());
+    }
+    colleges.forEach((c) => {
+      if (c.state && typeof c.state === "string") {
+        statesSet.add(c.state.trim());
+      } else if (c.location && typeof c.location === "string") {
+        const parts = c.location.split(",").map((p) => p.trim()).filter(Boolean);
+        if (parts.length > 0) {
+          statesSet.add(parts[parts.length - 1]);
+        }
+      }
+    });
+    return ["All", ...Array.from(statesSet).filter(Boolean).sort()];
+  }, [colleges, profile.preferred_state]);
+
   // Filter and sort logic
   const filteredColleges = colleges.filter((c) => {
     const matchesSearch =
@@ -272,14 +332,26 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
       selectedEligibility === "All" ||
       c.eligibility?.status.toLowerCase() === selectedEligibility.toLowerCase();
 
+    const matchesState =
+      selectedState === "All" ||
+      (c.state && c.state.toLowerCase() === selectedState.toLowerCase()) ||
+      (c.location && c.location.toLowerCase().includes(selectedState.toLowerCase()));
+
     const matchesShortlist = filterShortlistOnly
       ? shortlisted.some((s) => s.college_name === c.college_name)
       : true;
 
-    return matchesSearch && matchesType && matchesEligibility && matchesShortlist;
+    return matchesSearch && matchesType && matchesEligibility && matchesShortlist && matchesState;
   });
 
   const sortedColleges = [...filteredColleges].sort((a, b) => {
+    // When viewing "All" states, prioritize the student's preferred state at the top!
+    if (selectedState === "All" && profile.preferred_state && profile.preferred_state !== "Any") {
+      const aIsPref = (a.state || "").toLowerCase() === profile.preferred_state.toLowerCase();
+      const bIsPref = (b.state || "").toLowerCase() === profile.preferred_state.toLowerCase();
+      if (aIsPref && !bIsPref) return -1;
+      if (!aIsPref && bIsPref) return 1;
+    }
     if (sortBy === "cutoffDesc") return b.cutoff_marks - a.cutoff_marks;
     if (sortBy === "cutoffAsc") return a.cutoff_marks - b.cutoff_marks;
     if (sortBy === "rating") return b.rating - a.rating;
@@ -291,10 +363,16 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
   const borderlineCount = colleges.filter((c) => c.eligibility?.status === "borderline").length;
   const aspirationalCount = colleges.filter((c) => c.eligibility?.status === "not_eligible").length;
 
-  const totalCount = colleges.length || 1;
-  const safePercent = Math.round((eligibleCount / totalCount) * 100);
-  const targetPercent = Math.round((borderlineCount / totalCount) * 100);
-  const dreamPercent = Math.round((aspirationalCount / totalCount) * 100);
+  const hasActiveFilters = searchQuery !== "" || selectedState !== (profile.preferred_state && profile.preferred_state !== "Any" ? profile.preferred_state : "All") || selectedType !== "All" || selectedEligibility !== "All" || filterShortlistOnly;
+
+  const resetAllFilters = () => {
+    setSearchQuery("");
+    setSelectedState(profile.preferred_state && profile.preferred_state !== "Any" ? profile.preferred_state : "All");
+    setSelectedType("All");
+    setSelectedEligibility("All");
+    setSortBy("recommended");
+    setFilterShortlistOnly(false);
+  };
 
   // Stream-specific deadlines schedule
   const getStreamDeadlines = () => {
@@ -325,656 +403,842 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
 
   return (
     <div className="min-vh-100 d-flex flex-column" style={{ background: "#F5F7FA", fontFamily: "'Inter', sans-serif" }}>
-      {/* Sleek Custom Scrollbar for Sidebar */}
-      <style>{`
-        .sidebar-scroll-container::-webkit-scrollbar {
-          width: 5px;
-        }
-        .sidebar-scroll-container::-webkit-scrollbar-track {
-          background: rgba(0, 0, 0, 0.03);
-          border-radius: 8px;
-        }
-        .sidebar-scroll-container::-webkit-scrollbar-thumb {
-          background: #CBD5E1;
-          border-radius: 8px;
-        }
-        .sidebar-scroll-container::-webkit-scrollbar-thumb:hover {
-          background: #94A3B8;
-        }
-      `}</style>
-
-      {/* Top Navbar */}
+      
+      {/* ================= HEADER / NAVBAR (Signature Indigo Theme: linear-gradient(135deg, #1A237E, #3949AB)) ================= */}
       <nav
-        className="navbar navbar-expand-lg px-4 py-3 sticky-top shadow-sm"
-        style={{ background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)" }}
+        className="navbar navbar-expand-lg px-3 px-md-4 py-2 sticky-top shadow-sm"
+        style={{
+          background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)",
+          zIndex: 1030
+        }}
       >
-        <div className="container-fluid">
-          <span className="navbar-brand d-flex align-items-center gap-2 text-white fw-bold fs-5" style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
+        <div className="container-fluid px-0 d-flex align-items-center justify-content-between">
+          
+          {/* Brand Logo & Title */}
+          <div
+            className="navbar-brand d-flex align-items-center gap-2 text-white fw-bold mb-0 me-3"
+            style={{ cursor: "pointer", fontFamily: "'Poppins', sans-serif" }}
+            onClick={() => navigate("/")}
+          >
             <FaGraduationCap size={28} color="#FFB300" />
-            <span style={{ fontFamily: "'Poppins', sans-serif" }}>{APP_NAME}</span>
-          </span>
+            <span className="fs-5 text-white">{APP_NAME}</span>
+          </div>
 
-          <div className="d-flex align-items-center gap-3 ms-auto">
-            {/* Student Profile Pill */}
-            <div className="d-none d-md-flex align-items-center gap-2 px-3 py-2 rounded-pill shadow-sm" style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.25)" }}>
-              <span className="badge bg-warning text-dark fw-bold">{profile.stream}</span>
-              <span className="text-white small fw-semibold">{profile.name}</span>
-              <span className="text-white-50">|</span>
-              <span className="text-warning fw-bold small">
+          {/* Right Navigation & Action Items */}
+          <div className="d-flex align-items-center gap-2 gap-md-2.5">
+            
+            {/* Quick Action: CAP Simulator */}
+            <button
+              className="btn btn-sm fw-bold px-3 py-1.5 rounded-pill shadow-sm d-none d-sm-flex align-items-center gap-1.5"
+              onClick={() => navigate("/cap-simulator")}
+              style={{
+                background: "#FFFFFF",
+                border: "1px solid #FFFFFF",
+                fontSize: 12,
+                color: "#1A237E"
+              }}
+              title="Simulate Centralized Admission Process (CAP) Rounds 1-4 Allotment & Preference Table"
+            >
+              <FaBullseye size={12} color="#D97706" />
+              <span>CAP Simulator</span>
+            </button>
+
+            {/* Quick Action: Scholarships */}
+            <button
+              className="btn btn-sm fw-bold px-3 py-1.5 rounded-pill shadow-sm d-flex align-items-center gap-1.5"
+              onClick={() => navigate("/scholarships")}
+              style={{
+                background: "#FFFFFF",
+                border: "1px solid #FFFFFF",
+                fontSize: 12,
+                color: "#1A237E"
+              }}
+              title="Open 24+ Verified Buddy4Study & Government Scholarships"
+            >
+              <FaCoins size={12} color="#D97706" />
+              <span>Scholarships</span>
+            </button>
+
+            {/* Quick Action: Live Document & FC Rules Verifier */}
+            <button
+              className="btn btn-sm fw-bold px-3 py-1.5 rounded-pill shadow-sm d-flex align-items-center gap-1.5"
+              onClick={() => setShowDocumentModal(true)}
+              style={{
+                background: "#FFFFFF",
+                border: "1px solid #FFFFFF",
+                fontSize: 12,
+                color: "#1A237E"
+              }}
+              title="Verify Official Government Admission Documents & Proformas"
+            >
+              <FaFileAlt size={12} color="#059669" />
+              <span>Document Checker</span>
+            </button>
+
+            {/* Quick Action: Deadlines */}
+            <button
+              className="btn btn-sm fw-bold px-3 py-1.5 rounded-pill shadow-sm d-none d-lg-flex align-items-center gap-1.5"
+              onClick={() => setShowDeadlinesModal(true)}
+              style={{
+                background: "#FFFFFF",
+                border: "1px solid #FFFFFF",
+                fontSize: 12,
+                color: "#1A237E"
+              }}
+              title="View Admission Timeline & Deadlines"
+            >
+              <FaCalendarAlt size={12} color="#D97706" />
+              <span>Deadlines</span>
+            </button>
+
+            {/* Quick Action: PDF Report */}
+            <button
+              className="btn btn-sm fw-bold px-3 py-1.5 rounded-pill shadow-sm d-none d-xl-flex align-items-center gap-1.5"
+              onClick={() => setShowReportModal(true)}
+              style={{
+                background: "#FFFFFF",
+                border: "1px solid #FFFFFF",
+                fontSize: 12,
+                color: "#1A237E"
+              }}
+              title="Export personalized admission PDF report"
+            >
+              <FaFilePdf size={12} color="#DC2626" />
+              <span>Report</span>
+            </button>
+
+            {/* Student Score Capsule */}
+            <div
+              className="d-flex align-items-center gap-2 px-3 py-1 rounded-pill shadow-sm"
+              style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.25)" }}
+            >
+              <span className="badge bg-warning text-dark fw-bold" style={{ fontSize: 11 }}>
+                {profile.stream}
+              </span>
+              <span className="text-white small fw-medium d-none d-sm-inline" style={{ fontSize: 12 }}>
+                {profile.name.split(" ")[0]}
+              </span>
+              <span className="text-white-50 d-none d-sm-inline">|</span>
+              <span className="text-warning fw-bold small" style={{ fontSize: 12 }}>
                 {formatScore(profile.marks, profile.exam_type, profile.score_unit)}
               </span>
             </div>
 
-            {/* Direct Link to AI Counselor */}
+            {/* Primary CTA: Talk to AI Counselor */}
             <button
-              className="btn btn-warning fw-bold px-3 py-2 rounded-pill shadow-sm d-flex align-items-center gap-2"
+              className="btn btn-sm fw-bold px-3 py-1.5 rounded-pill shadow-sm d-flex align-items-center gap-1.5"
               onClick={() => navigate("/chat")}
-              style={{ background: "linear-gradient(135deg, #FFB300, #FF8F00)", border: "none", color: "#1A237E" }}
+              style={{
+                background: "#FFFFFF",
+                border: "1px solid #FFFFFF",
+                fontSize: 12.5,
+                color: "#1A237E"
+              }}
             >
-              <FaHeadset size={16} />
-              <span>Talk to Counselor</span>
+              <FaHeadset size={14} color="#D97706" />
+              <span className="d-none d-sm-inline">Talk to Counselor</span>
+              <span className="d-sm-none">Counselor</span>
             </button>
 
             {/* Edit Profile */}
             <button
-              className="btn btn-outline-light btn-sm fw-semibold rounded-pill px-3 py-2"
+              className="btn btn-sm rounded-pill px-2.5 py-1 fw-bold d-flex align-items-center shadow-sm"
               onClick={() => navigate("/profile")}
+              style={{
+                background: "#FFFFFF",
+                border: "1px solid #FFFFFF",
+                fontSize: 11.5,
+                color: "#1A237E"
+              }}
+              title="Edit Profile"
             >
-              <FaSyncAlt className="me-1" size={11} /> Edit Profile
+              <FaSyncAlt size={11} className="me-1" color="#4F46E5" />
+              <span className="d-none d-md-inline">Edit</span>
             </button>
 
-            {/* Logout button */}
+            {/* Logout */}
             {onLogout && (
               <button
-                className="btn btn-outline-light btn-sm fw-semibold rounded-pill px-3 py-2"
+                className="btn btn-sm rounded-pill px-2.5 py-1 fw-bold d-flex align-items-center shadow-sm"
                 onClick={onLogout}
-                title="Logout and switch student account"
+                style={{
+                  background: "#FFFFFF",
+                  border: "1px solid #FFFFFF",
+                  fontSize: 11.5,
+                  color: "#DC2626"
+                }}
+                title="Logout"
               >
-                Logout
+                <FaSignOutAlt size={11} className="me-1" color="#DC2626" />
+                <span className="d-none d-md-inline">Exit</span>
               </button>
             )}
+
           </div>
         </div>
       </nav>
 
-      {/* Hero Welcome Banner */}
-      <div
-        className="py-4 px-4 text-white"
-        style={{ background: "linear-gradient(135deg, #1A237E 0%, #283593 100%)" }}
-      >
-        <div className="container-fluid px-lg-5">
-          <div className="row align-items-center">
-            <div className="col-lg-8">
-              <span className="badge bg-warning text-dark mb-2 px-3 py-1 fw-bold">🎓 Personalized Student Dashboard</span>
-              <h2 className="fw-black mb-1" style={{ fontFamily: "'Poppins', sans-serif" }}>
+      {/* ================= MAIN CONTAINER ================= */}
+      <div className="container-xl px-3 px-md-4 py-4 flex-grow-1" style={{ maxWidth: 1360 }}>
+        
+        {/* ================= SLEEK HERO GREETING & METRIC STRIP ================= */}
+        <div className="card border-0 shadow-sm rounded-4 p-3 p-md-4 mb-4 bg-white">
+          <div className="row align-items-center g-3">
+            
+            {/* Student Welcome Summary */}
+            <div className="col-12 col-lg-5">
+              <div className="d-flex align-items-center gap-2 mb-1">
+                <span className="badge bg-primary bg-opacity-10 text-primary fw-semibold px-2.5 py-1 rounded-pill" style={{ fontSize: 11 }}>
+                  Verified Recommendations
+                </span>
+                <span className="text-muted small">• Exam: <strong>{profile.exam_type}</strong></span>
+              </div>
+              <h3 className="fw-black mb-1" style={{ color: "#1A237E", fontFamily: "'Poppins', sans-serif" }}>
+                <FaUserGraduate className="me-2 text-primary" size={24} />
                 Welcome, {profile.name}!
-              </h2>
-              <p className="text-white-50 mb-0" style={{ fontSize: 14 }}>
-                Curated college recommendations for your <strong>{formatScore(profile.marks, profile.exam_type, profile.score_unit)}</strong> score in <strong>{profile.stream}</strong> ({profile.exam_type}).
+              </h3>
+              <p className="text-secondary small mb-0">
+                Targeting <strong>{profile.stream}</strong> in <strong>{profile.preferred_state || "All India"}</strong> with your verified score of <strong className="text-primary">{formatScore(profile.marks, profile.exam_type, profile.score_unit)}</strong>.
               </p>
             </div>
-            <div className="col-lg-4 text-lg-end mt-3 mt-lg-0 d-flex gap-2 justify-content-lg-end flex-wrap">
-              <button
-                className={`btn fw-bold px-3 py-2 rounded-pill shadow-sm d-inline-flex align-items-center gap-2 ${sidebarVisible ? "btn-outline-light" : "btn-warning text-dark"}`}
-                onClick={() => setSidebarVisible(!sidebarVisible)}
-                title={sidebarVisible ? "Hide Sidebar to the left" : "Show Sidebar on the left"}
+
+            {/* Interactive Stats Filters Strip (Using React Icons) */}
+            <div className="col-12 col-lg-7">
+              <div className="d-flex flex-wrap gap-2 justify-content-lg-end">
+                
+                {/* Total Matches Pill */}
+                <button
+                  type="button"
+                  className={`btn btn-sm rounded-4 px-3 py-2 text-start border transition-all ${
+                    selectedEligibility === "All" && !filterShortlistOnly
+                      ? "btn-primary shadow-sm text-white"
+                      : "btn-light text-secondary"
+                  }`}
+                  onClick={() => {
+                    setSelectedEligibility("All");
+                    setFilterShortlistOnly(false);
+                  }}
+                  style={{ minWidth: 95 }}
+                >
+                  <div className="d-flex align-items-center gap-1 text-uppercase fw-semibold" style={{ fontSize: 10, letterSpacing: "0.5px" }}>
+                    <FaListAlt size={10} />
+                    <span>All Matches</span>
+                  </div>
+                  <div className="fw-bold fs-6">{colleges.length}</div>
+                </button>
+
+                {/* Score at or above supplied cutoff */}
+                <button
+                  type="button"
+                  className={`btn btn-sm rounded-4 px-3 py-2 text-start border transition-all ${
+                    selectedEligibility === "eligible" && !filterShortlistOnly
+                      ? "btn-success shadow-sm text-white"
+                      : "bg-success bg-opacity-10 border-success border-opacity-25 text-success"
+                  }`}
+                  onClick={() => {
+                    setSelectedEligibility(selectedEligibility === "eligible" ? "All" : "eligible");
+                    setFilterShortlistOnly(false);
+                  }}
+                  style={{ minWidth: 105 }}
+                  title="Your score meets the app's above-cutoff comparison band; this is not an admission probability"
+                >
+                  <div className="d-flex align-items-center gap-1 text-uppercase fw-semibold" style={{ fontSize: 10, letterSpacing: "0.5px" }}>
+                    <FaCheckCircle size={10} />
+                    <span>Above cutoff</span>
+                  </div>
+                  <div className="fw-bold fs-6">{eligibleCount}</div>
+                </button>
+
+                {/* Score near supplied cutoff */}
+                <button
+                  type="button"
+                  className={`btn btn-sm rounded-4 px-3 py-2 text-start border transition-all ${
+                    selectedEligibility === "borderline" && !filterShortlistOnly
+                      ? "btn-warning shadow-sm text-dark"
+                      : "bg-warning bg-opacity-10 border-warning border-opacity-25 text-dark"
+                  }`}
+                  onClick={() => {
+                    setSelectedEligibility(selectedEligibility === "borderline" ? "All" : "borderline");
+                    setFilterShortlistOnly(false);
+                  }}
+                  style={{ minWidth: 110 }}
+                  title="Colleges within the project's cutoff comparison band; this is not an admission probability"
+                >
+                  <div className="d-flex align-items-center gap-1 text-uppercase fw-semibold" style={{ fontSize: 10, letterSpacing: "0.5px" }}>
+                    <FaExclamationTriangle size={10} />
+                    <span>Near cutoff</span>
+                  </div>
+                  <div className="fw-bold fs-6">{borderlineCount}</div>
+                </button>
+
+                {/* Score below supplied cutoff */}
+                <button
+                  type="button"
+                  className={`btn btn-sm rounded-4 px-3 py-2 text-start border transition-all ${
+                    selectedEligibility === "not_eligible" && !filterShortlistOnly
+                      ? "btn-danger shadow-sm text-white"
+                      : "bg-danger bg-opacity-10 border-danger border-opacity-25 text-danger"
+                  }`}
+                  onClick={() => {
+                    setSelectedEligibility(selectedEligibility === "not_eligible" ? "All" : "not_eligible");
+                    setFilterShortlistOnly(false);
+                  }}
+                  style={{ minWidth: 100 }}
+                  title="Your score is below the app's cutoff comparison band; this is not an admission probability"
+                >
+                  <div className="d-flex align-items-center gap-1 text-uppercase fw-semibold" style={{ fontSize: 10, letterSpacing: "0.5px" }}>
+                    <FaTimesCircle size={10} />
+                    <span>Below cutoff</span>
+                  </div>
+                  <div className="fw-bold fs-6">{aspirationalCount}</div>
+                </button>
+
+                {/* Shortlisted Pill */}
+                <button
+                  type="button"
+                  className={`btn btn-sm rounded-4 px-3 py-2 text-start border transition-all ${
+                    filterShortlistOnly
+                      ? "btn-danger shadow-sm text-white"
+                      : "bg-danger bg-opacity-10 border-danger border-opacity-25 text-danger"
+                  }`}
+                  onClick={() => setFilterShortlistOnly(!filterShortlistOnly)}
+                  style={{ minWidth: 95 }}
+                >
+                  <div className="d-flex align-items-center gap-1 text-uppercase fw-semibold" style={{ fontSize: 10, letterSpacing: "0.5px" }}>
+                    <FaHeart size={10} />
+                    <span>Shortlist</span>
+                  </div>
+                  <div className="fw-bold fs-6">{shortlisted.length}</div>
+                </button>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {/* ================= THREE FEATURE QUICK-CARDS (Signature Indigo & Gold Accents) ================= */}
+        <div className="row g-3 mb-4">
+          
+          {/* Card 1: CAP Simulator */}
+          <div className="col-12 col-md-4">
+            <div
+              className="card border-0 shadow-sm rounded-4 p-3 bg-white h-100 position-relative overflow-hidden"
+              style={{
+                cursor: "pointer",
+                transition: "transform 0.2s ease, box-shadow 0.2s ease",
+                borderLeft: "4px solid #FFB300"
+              }}
+              onClick={() => navigate("/cap-simulator")}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = "translateY(-3px)";
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(255, 179, 0, 0.18)";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)";
+              }}
+            >
+              <div className="d-flex align-items-center justify-content-between mb-2">
+                <span className="badge bg-warning bg-opacity-20 text-dark fw-bold rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1" style={{ fontSize: 10.5 }}>
+                  <FaBullseye className="text-warning" size={11} /> Round 1–3 Simulation
+                </span>
+                <span className="text-primary fw-bold small d-inline-flex align-items-center gap-1">
+                  Launch <FaArrowRight size={10} />
+                </span>
+              </div>
+              <h6 className="fw-bold mb-1" style={{ color: "#1A237E", fontFamily: "'Poppins', sans-serif" }}>
+                CAP Admission Simulator
+              </h6>
+              <p className="text-muted small mb-0" style={{ fontSize: 12 }}>
+                Simulate centralized round seat allotment, test cutoff variances, and generate an optimal option filling list.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 2: Scholarship & Fee Waivers */}
+          <div className="col-12 col-md-4">
+            <div
+              className="card border-0 shadow-sm rounded-4 p-3 bg-white h-100 position-relative overflow-hidden"
+              style={{
+                cursor: "pointer",
+                transition: "transform 0.2s ease, box-shadow 0.2s ease",
+                borderLeft: "4px solid #10B981"
+              }}
+              onClick={() => {
+                navigate("/scholarships");
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = "translateY(-3px)";
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(16, 185, 129, 0.18)";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)";
+              }}
+            >
+              <div className="d-flex align-items-center justify-content-between mb-2">
+                <span className="badge bg-success bg-opacity-20 text-success fw-bold rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1" style={{ fontSize: 10.5 }}>
+                  <FaCoins size={11} /> MahaDBT & TFWS
+                </span>
+                <span className="text-success fw-bold small d-inline-flex align-items-center gap-1">
+                  Calculate <FaArrowRight size={10} />
+                </span>
+              </div>
+              <h6 className="fw-bold mb-1" style={{ color: "#1A237E", fontFamily: "'Poppins', sans-serif" }}>
+                Scholarships & Fee Concessions
+              </h6>
+              <p className="text-muted small mb-0" style={{ fontSize: 12 }}>
+                Calculate 50% to 100% tuition fee waivers for EBC, TFWS, SC/ST, and minority government schemes.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 3: Admission Deadlines & PDF Report */}
+          <div className="col-12 col-md-4">
+            <div
+              className="card border-0 shadow-sm rounded-4 p-3 bg-white h-100 position-relative overflow-hidden"
+              style={{
+                cursor: "pointer",
+                transition: "transform 0.2s ease, box-shadow 0.2s ease",
+                borderLeft: "4px solid #3949AB"
+              }}
+              onClick={() => setShowReportModal(true)}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = "translateY(-3px)";
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(57, 73, 171, 0.18)";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)";
+              }}
+            >
+              <div className="d-flex align-items-center justify-content-between mb-2">
+                <span className="badge bg-primary bg-opacity-10 text-primary fw-bold rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1" style={{ fontSize: 10.5 }}>
+                  <FaFilePdf size={11} className="text-danger" /> Verified PDF Roadmap
+                </span>
+                <span className="text-primary fw-bold small d-inline-flex align-items-center gap-1">
+                  Export PDF <FaArrowRight size={10} />
+                </span>
+              </div>
+              <h6 className="fw-bold mb-1" style={{ color: "#1A237E", fontFamily: "'Poppins', sans-serif" }}>
+                Personalized Admission Report
+              </h6>
+              <p className="text-muted small mb-0" style={{ fontSize: 12 }}>
+                Download or print your verified college roadmap with cutoffs, tuition fees, and admission milestones.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        {/* ================= UNIFIED SEARCH & FILTER TOOLBAR ================= */}
+        <div className="card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white">
+          <div className="row g-2 align-items-center">
+            
+            {/* Search Input */}
+            <div className="col-12 col-md-4">
+              <div className="input-group">
+                <span className="input-group-text bg-light border-end-0 text-muted ps-3">
+                  <FaSearch size={13} />
+                </span>
+                <input
+                  type="text"
+                  className="form-control bg-light border-start-0 py-2"
+                  placeholder="Search college, city, or branch..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{ fontSize: 13 }}
+                />
+                {searchQuery && (
+                  <button
+                    className="btn btn-light border border-start-0 text-muted"
+                    onClick={() => setSearchQuery("")}
+                    type="button"
+                  >
+                    <FaTimes size={12} />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Filter by State */}
+            <div className="col-6 col-md-2">
+              <select
+                className="form-select bg-light border-0 py-2 fw-medium"
+                value={selectedState}
+                onChange={(e) => setSelectedState(e.target.value)}
+                style={{ fontSize: 13 }}
+                title="Filter by State"
               >
-                {sidebarVisible ? <FaChevronLeft size={12} /> : <FaChevronRight size={12} />}
-                <span>{sidebarVisible ? "Hide Sidebar" : "Show Sidebar"}</span>
+                <option value="All">All States {availableStates.length > 1 ? `(${availableStates.length - 1})` : ""}</option>
+                {availableStates.filter((s) => s !== "All").map((st) => (
+                  <option key={st} value={st}>
+                    {st}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Filter by Type */}
+            <div className="col-6 col-md-2">
+              <select
+                className="form-select bg-light border-0 py-2 fw-medium"
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value)}
+                style={{ fontSize: 13 }}
+                title="Filter by College Type"
+              >
+                <option value="All">All Types</option>
+                <option value="Government">Government Only</option>
+                <option value="Private">Private Only</option>
+              </select>
+            </div>
+
+            {/* Filter by Eligibility */}
+            <div className="col-6 col-md-2">
+              <select
+                className="form-select bg-light border-0 py-2 fw-medium"
+                value={selectedEligibility}
+                onChange={(e) => {
+                  setSelectedEligibility(e.target.value);
+                  setFilterShortlistOnly(false);
+                }}
+                style={{ fontSize: 13 }}
+                title="Filter by score comparison with the supplied cutoff"
+              >
+                <option value="All">All cutoff comparisons</option>
+                <option value="eligible">Above cutoff</option>
+                <option value="borderline">Near cutoff</option>
+                <option value="not_eligible">Below cutoff</option>
+              </select>
+            </div>
+
+            {/* Sort by */}
+            <div className="col-6 col-md-2">
+              <select
+                className="form-select bg-light border-0 py-2 fw-medium"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                style={{ fontSize: 13 }}
+                title="Sort Colleges"
+              >
+                <option value="recommended">Sort: Best Match</option>
+                <option value="rating">Top Rated (NIRF/Score)</option>
+                <option value="fees">Fees: Low to High</option>
+                <option value="cutoffDesc">Cutoff: High to Low</option>
+                <option value="cutoffAsc">Cutoff: Low to High</option>
+              </select>
+            </div>
+
+          </div>
+
+          {/* Active Filter Tags & Reset */}
+          {hasActiveFilters && (
+            <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 pt-3 mt-2 border-top">
+              <div className="d-flex align-items-center gap-2 flex-wrap">
+                <span className="text-muted small fw-semibold">Active filters:</span>
+                {searchQuery && (
+                  <span className="badge bg-light text-dark border rounded-pill px-2.5 py-1 small">
+                    Query: "{searchQuery}"
+                  </span>
+                )}
+                {selectedState !== "All" && (
+                  <span className="badge bg-light text-dark border rounded-pill px-2.5 py-1 small">
+                    State: {selectedState}
+                  </span>
+                )}
+                {selectedType !== "All" && (
+                  <span className="badge bg-light text-dark border rounded-pill px-2.5 py-1 small">
+                    Type: {selectedType}
+                  </span>
+                )}
+                {selectedEligibility !== "All" && (
+                  <span className="badge bg-light text-dark border rounded-pill px-2.5 py-1 small">
+                    Cutoff comparison: {selectedEligibility}
+                  </span>
+                )}
+                {filterShortlistOnly && (
+                  <span className="badge bg-danger text-white rounded-pill px-2.5 py-1 small d-inline-flex align-items-center gap-1">
+                    <FaHeart size={10} /> Shortlisted ({shortlisted.length})
+                  </span>
+                )}
+              </div>
+              <button
+                className="btn btn-sm btn-link text-danger p-0 text-decoration-none fw-semibold d-flex align-items-center gap-1"
+                onClick={resetAllFilters}
+                style={{ fontSize: 12.5 }}
+              >
+                <FaUndo size={11} /> Reset Filters
               </button>
+            </div>
+          )}
+        </div>
+
+        {/* Shortlist Alert Banner */}
+        {filterShortlistOnly && (
+          <div className="alert alert-danger bg-danger bg-opacity-10 border-danger border-opacity-25 py-2.5 px-3 rounded-4 d-flex align-items-center justify-content-between mb-4 shadow-xs">
+            <div className="d-flex align-items-center gap-2 text-danger small">
+              <FaHeart />
+              <span>
+                Showing only your <strong>{shortlisted.length}</strong> shortlisted colleges.
+              </span>
+            </div>
+            <button
+              className="btn btn-sm btn-danger rounded-pill fw-bold py-1 px-3 shadow-sm"
+              style={{ fontSize: 12 }}
+              onClick={() => setFilterShortlistOnly(false)}
+            >
+              Show All Colleges
+            </button>
+          </div>
+        )}
+
+        {/* ================= COLLEGE RECOMMENDATION CARDS (Clean 3-column layout) ================= */}
+        
+        {/* Loading State */}
+        {loading && (
+          <div className="text-center py-5 card border-0 shadow-sm rounded-4 bg-white p-5">
+            <div className="spinner-border text-primary mb-3" style={{ width: 44, height: 44 }} />
+            <h5 className="fw-bold mb-1" style={{ color: "#1A237E", fontFamily: "'Poppins', sans-serif" }}>
+              Evaluating Best Colleges for Your Profile...
+            </h5>
+            <p className="text-secondary small mb-0">Analyzing cutoff percentiles, seat matrix trends, and fee structures</p>
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!loading && sortedColleges.length === 0 && (
+          <div className="text-center py-5 card border-0 shadow-sm rounded-4 p-5 bg-white">
+            <div
+              className="d-inline-flex align-items-center justify-content-center rounded-circle bg-light mb-3 mx-auto"
+              style={{ width: 72, height: 72 }}
+            >
+              <FaUniversity size={32} className="text-secondary opacity-50" />
+            </div>
+            <h5 className="fw-bold mb-1" style={{ color: "#1A237E", fontFamily: "'Poppins', sans-serif" }}>
+              No colleges match your current filters
+            </h5>
+            <p className="text-secondary small mb-4" style={{ maxWidth: 440, margin: "0 auto" }}>
+              Try broadening your state, college type, or cutoff comparison filters to see more options.
+            </p>
+            <div>
               <button
-                className="btn btn-outline-light fw-bold px-3 py-2 rounded-pill shadow-sm d-inline-flex align-items-center gap-2"
-                onClick={() => setShowReportModal(true)}
+                className="btn btn-primary rounded-pill px-4 py-2 fw-semibold shadow-sm"
+                onClick={resetAllFilters}
+                style={{ fontSize: 13, background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)", border: "none" }}
               >
-                <FaFilePdf size={13} className="text-warning" />
-                <span>Export Report</span>
-              </button>
-              <button
-                className="btn btn-light fw-bold px-4 py-2 shadow-sm rounded-pill text-primary d-inline-flex align-items-center gap-2"
-                onClick={() => navigate("/chat")}
-              >
-                <span>Ask AI Counselor</span>
-                <FaArrowRight size={12} />
+                Reset All Filters
               </button>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Main Layout Container: Left (Sidebar) + Right (Grid) */}
-      <div className="container-fluid px-lg-5 py-4 flex-grow-1 position-relative">
-        {/* Floating Left Tab to Unhide / Show Sidebar */}
-        {!sidebarVisible && (
-          <button
-            type="button"
-            className="btn position-fixed start-0 top-50 translate-middle-y shadow-lg d-flex align-items-center gap-2 py-2 px-3 text-white border-0"
-            style={{
-              borderTopRightRadius: 24,
-              borderBottomRightRadius: 24,
-              borderTopLeftRadius: 0,
-              borderBottomLeftRadius: 0,
-              background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)",
-              cursor: "pointer",
-              boxShadow: "0 6px 24px rgba(26,35,126,0.35)",
-              zIndex: 1040,
-              transition: "all 0.2s ease"
-            }}
-            onClick={() => setSidebarVisible(true)}
-            title="Click to slide open Left Sidebar"
-          >
-            <FaChevronRight size={13} className="text-warning" />
-            <span className="fw-bold" style={{ fontSize: 13 }}>Show Sidebar</span>
-            {shortlisted.length > 0 && (
-              <span className="badge bg-danger rounded-pill px-2 py-1" style={{ fontSize: 10 }}>
-                {shortlisted.length}
-              </span>
-            )}
-          </button>
         )}
 
-        <div className="row g-4">
-          {/* ================= LEFT SIDEBAR ================= */}
-          {sidebarVisible && (
-            <div className="col-12 col-xl-4 col-lg-4">
-              <div style={{ position: "sticky", top: 85 }}>
-                {/* 1. Sidebar Top Header Bar with Slide Up/Down & Hide Left */}
-                <div className="card border-0 shadow-sm rounded-4 p-2 px-3 mb-2 bg-white d-flex flex-row align-items-center justify-content-between">
-                  <div className="d-flex align-items-center gap-2">
-                    <span className="fw-bold text-dark small" style={{ fontFamily: "'Poppins', sans-serif" }}>
-                      📌 Counseling Tools
-                    </span>
-                    {shortlisted.length > 0 && (
-                      <span className="badge bg-danger rounded-pill" style={{ fontSize: 10 }}>
-                        {shortlisted.length} saved
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="d-flex align-items-center gap-1">
-                    {/* Slide Up Button */}
-                    <button
-                      type="button"
-                      className="btn btn-sm btn-light border p-1 rounded-circle d-flex align-items-center justify-content-center shadow-xs"
-                      style={{ width: 28, height: 28 }}
-                      onClick={() => sidebarScrollRef.current?.scrollBy({ top: -320, behavior: "smooth" })}
-                      title="Slide Up (Scroll Up)"
-                    >
-                      <FaChevronUp size={11} className="text-secondary" />
-                    </button>
-
-                    {/* Slide Down Button */}
-                    <button
-                      type="button"
-                      className="btn btn-sm btn-light border p-1 rounded-circle d-flex align-items-center justify-content-center shadow-xs"
-                      style={{ width: 28, height: 28 }}
-                      onClick={() => sidebarScrollRef.current?.scrollBy({ top: 320, behavior: "smooth" })}
-                      title="Slide Down (Scroll Down)"
-                    >
-                      <FaChevronDown size={11} className="text-secondary" />
-                    </button>
-
-                    {/* Hide Left Button */}
-                    <button
-                      type="button"
-                      className="btn btn-sm btn-outline-danger border p-1 px-2 rounded-pill d-flex align-items-center gap-1 ms-1 shadow-xs"
-                      style={{ fontSize: 11 }}
-                      onClick={() => setSidebarVisible(false)}
-                      title="Hide sidebar to the left"
-                    >
-                      <FaChevronLeft size={10} />
-                      <span className="fw-bold">Hide Left</span>
-                    </button>
-                  </div>
+        {/* Colleges Grid */}
+        {!loading && sortedColleges.length > 0 && (
+          <div className="row g-4">
+            {sortedColleges.map((college, idx) => {
+              const isShortlisted = shortlisted.some((s) => s.college_name === college.college_name);
+              const isSelectedForCompare = selectedForCompare.some((c) => c.college_name === college.college_name);
+              return (
+                <div key={idx} className="col-12 col-md-6 col-lg-4">
+                  <CollegeCard
+                    college={college}
+                    onAskAI={handleAskAI}
+                    isShortlisted={isShortlisted}
+                    onToggleShortlist={toggleShortlist}
+                    isSelectedForCompare={isSelectedForCompare}
+                    onToggleCompare={toggleCompare}
+                  />
                 </div>
+              );
+            })}
+          </div>
+        )}
 
-                {/* 2. Quick Jump Navigation Pills */}
-                <div className="d-flex gap-1 overflow-auto pb-2 mb-1" style={{ scrollbarWidth: "none" }}>
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-light border rounded-pill px-2 py-1 text-nowrap text-secondary fw-semibold"
-                    style={{ fontSize: 11 }}
-                    onClick={() => chancesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
-                  >
-                    📊 Chances
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-light border rounded-pill px-2 py-1 text-nowrap text-secondary fw-semibold"
-                    style={{ fontSize: 11 }}
-                    onClick={() => shortlistRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
-                  >
-                    ❤️ Shortlist ({shortlisted.length})
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-light border rounded-pill px-2 py-1 text-nowrap text-secondary fw-semibold"
-                    style={{ fontSize: 11 }}
-                    onClick={() => compareRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
-                  >
-                    ⚖️ Compare ({selectedForCompare.length})
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-light border rounded-pill px-2 py-1 text-nowrap text-secondary fw-semibold"
-                    style={{ fontSize: 11 }}
-                    onClick={() => deadlinesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
-                  >
-                    📅 Deadlines
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-light border rounded-pill px-2 py-1 text-nowrap text-secondary fw-semibold"
-                    style={{ fontSize: 11 }}
-                    onClick={() => reportRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
-                  >
-                    📄 PDF Report
-                  </button>
-                </div>
-
-                {/* 3. Dedicated Smooth Scroll Container (Slide up and down) */}
-                <div
-                  ref={sidebarScrollRef}
-                  className="sidebar-scroll-container d-flex flex-column gap-3"
-                  style={{
-                    maxHeight: "calc(100vh - 175px)",
-                    overflowY: "auto",
-                    overflowX: "hidden",
-                    paddingRight: 6,
-                    scrollBehavior: "smooth"
-                  }}
-                >
-                  {/* SIDEBAR WIDGET 1: 📊 Admission Chances Meter */}
-                  <div ref={chancesRef} className="card border-0 shadow-sm rounded-4 bg-white overflow-hidden">
-                <div className="p-3 text-white" style={{ background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)" }}>
-                  <div className="d-flex align-items-center justify-content-between">
-                    <h6 className="fw-bold mb-0 d-flex align-items-center gap-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
-                      <FaChartLine className="text-warning" /> Admission Chances Meter
-                    </h6>
-                    <span className="badge bg-warning text-dark small">{colleges.length} Analyzed</span>
-                  </div>
-                </div>
-
-                <div className="p-3">
-                  {/* Visual Proportion Bar */}
-                  <div className="progress mb-3" style={{ height: 10, borderRadius: 6 }}>
-                    <div className="progress-bar bg-success" style={{ width: `${safePercent}%` }} title={`Safe: ${safePercent}%`} />
-                    <div className="progress-bar bg-warning" style={{ width: `${targetPercent}%` }} title={`Target: ${targetPercent}%`} />
-                    <div className="progress-bar bg-danger" style={{ width: `${dreamPercent}%` }} title={`Dream: ${dreamPercent}%`} />
-                  </div>
-
-                  {/* 3 Clickable Tiers */}
-                  <div className="d-flex flex-column gap-2">
-                    {/* Safe Tier */}
-                    <button
-                      type="button"
-                      className={`btn btn-sm d-flex align-items-center justify-content-between p-2 rounded-3 border text-start ${selectedEligibility === "eligible" ? "border-success bg-success bg-opacity-10 fw-bold" : "bg-light"}`}
-                      onClick={() => { setSelectedEligibility(selectedEligibility === "eligible" ? "All" : "eligible"); setFilterShortlistOnly(false); }}
-                    >
-                      <div className="d-flex align-items-center gap-2">
-                        <span className="badge bg-success rounded-circle p-1"></span>
-                        <span className="small text-dark">🟢 Safe / High Chance (&gt;90%)</span>
-                      </div>
-                      <span className="badge bg-success">{eligibleCount}</span>
-                    </button>
-
-                    {/* Target Tier */}
-                    <button
-                      type="button"
-                      className={`btn btn-sm d-flex align-items-center justify-content-between p-2 rounded-3 border text-start ${selectedEligibility === "borderline" ? "border-warning bg-warning bg-opacity-10 fw-bold" : "bg-light"}`}
-                      onClick={() => { setSelectedEligibility(selectedEligibility === "borderline" ? "All" : "borderline"); setFilterShortlistOnly(false); }}
-                    >
-                      <div className="d-flex align-items-center gap-2">
-                        <span className="badge bg-warning rounded-circle p-1"></span>
-                        <span className="small text-dark">🟡 Target / Realistic (50-85%)</span>
-                      </div>
-                      <span className="badge bg-warning text-dark">{borderlineCount}</span>
-                    </button>
-
-                    {/* Dream Tier */}
-                    <button
-                      type="button"
-                      className={`btn btn-sm d-flex align-items-center justify-content-between p-2 rounded-3 border text-start ${selectedEligibility === "not_eligible" ? "border-danger bg-danger bg-opacity-10 fw-bold" : "bg-light"}`}
-                      onClick={() => { setSelectedEligibility(selectedEligibility === "not_eligible" ? "All" : "not_eligible"); setFilterShortlistOnly(false); }}
-                    >
-                      <div className="d-flex align-items-center gap-2">
-                        <span className="badge bg-danger rounded-circle p-1"></span>
-                        <span className="small text-dark">🔴 Dream / Reach (&lt;40%)</span>
-                      </div>
-                      <span className="badge bg-danger">{aspirationalCount}</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* SIDEBAR WIDGET 2: ❤️ My Shortlisted Colleges */}
-              <div ref={shortlistRef} className="card border-0 shadow-sm rounded-4 bg-white">
-                <div className="p-3 border-bottom d-flex align-items-center justify-content-between">
-                  <h6 className="fw-bold mb-0 text-dark d-flex align-items-center gap-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
-                    <FaHeart className="text-danger" /> My Shortlist
-                    <span className="badge bg-danger rounded-pill">{shortlisted.length}</span>
-                  </h6>
-                  {shortlisted.length > 0 && (
-                    <button
-                      className="btn btn-sm btn-link text-secondary p-0 text-decoration-none small"
-                      onClick={() => setFilterShortlistOnly(!filterShortlistOnly)}
-                    >
-                      {filterShortlistOnly ? "Show All" : "Filter View"}
-                    </button>
-                  )}
-                </div>
-
-                <div className="p-3">
-                  {shortlisted.length === 0 ? (
-                    <div className="text-center py-3 text-secondary small">
-                      <FaRegHeart size={24} className="text-muted mb-2 opacity-50" />
-                      <div>Click the ❤️ on any college card to save it to your personal shortlist!</div>
-                    </div>
-                  ) : (
-                    <div className="d-flex flex-column gap-2" style={{ maxHeight: 220, overflowY: "auto" }}>
-                      {shortlisted.map((c, i) => (
-                        <div key={i} className="d-flex align-items-center justify-content-between p-2 rounded-3 bg-light border small">
-                          <div className="text-truncate me-2" style={{ maxWidth: 200 }}>
-                            <div className="fw-bold text-primary text-truncate">{c.college_name}</div>
-                            <div className="text-muted" style={{ fontSize: 10 }}>{c.location} • ₹{(c.annual_fees/100000).toFixed(1)}L/yr</div>
-                          </div>
-                          <button
-                            className="btn btn-sm text-danger p-0 border-0"
-                            onClick={() => toggleShortlist(c)}
-                            title="Remove from shortlist"
-                          >
-                            <FaTrash size={12} />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* SIDEBAR WIDGET 3: ⚖️ College Side-by-Side Comparison */}
-              <div ref={compareRef} className="card border-0 shadow-sm rounded-4 bg-white">
-                <div className="p-3 border-bottom d-flex align-items-center justify-content-between">
-                  <h6 className="fw-bold mb-0 text-dark d-flex align-items-center gap-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
-                    <FaBalanceScale className="text-primary" /> Compare Colleges
-                    <span className="badge bg-primary rounded-pill">{selectedForCompare.length}/3</span>
-                  </h6>
-                  {selectedForCompare.length > 0 && (
-                    <button
-                      className="btn btn-sm btn-link text-secondary p-0 text-decoration-none small"
-                      onClick={() => setSelectedForCompare([])}
-                    >
-                      Clear
-                    </button>
-                  )}
-                </div>
-
-                <div className="p-3">
-                  {selectedForCompare.length === 0 ? (
-                    <div className="text-center py-2 text-secondary small">
-                      Select <strong>"Compare"</strong> on any 2 or 3 college cards to view side-by-side metrics.
-                    </div>
-                  ) : (
-                    <div className="d-flex flex-column gap-2 mb-3">
-                      {selectedForCompare.map((c, i) => (
-                        <div key={i} className="d-flex align-items-center justify-content-between p-2 rounded-3 bg-light border small">
-                          <span className="fw-semibold text-truncate" style={{ maxWidth: 220 }}>{c.college_name}</span>
-                          <button
-                            className="btn btn-sm text-muted p-0 border-0"
-                            onClick={() => toggleCompare(c)}
-                          >
-                            <FaTimes size={12} />
-                          </button>
-                        </div>
-                      ))}
-                      <button
-                        className="btn btn-primary btn-sm w-100 fw-bold rounded-pill shadow-sm py-2 mt-1"
-                        disabled={selectedForCompare.length < 2}
-                        onClick={() => setShowCompareModal(true)}
-                      >
-                        ⚖️ Launch Comparison ({selectedForCompare.length})
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* SIDEBAR WIDGET 4: 📅 Counseling Timeline & Deadlines */}
-              <div ref={deadlinesRef} className="card border-0 shadow-sm rounded-4 bg-white">
-                <div className="p-3 border-bottom">
-                  <h6 className="fw-bold mb-0 text-dark d-flex align-items-center gap-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
-                    <FaCalendarCheck className="text-warning" /> Admission Deadlines ({profile.stream})
-                  </h6>
-                </div>
-                <div className="p-3">
-                  <div className="d-flex flex-column gap-3">
-                    {getStreamDeadlines().map((item, idx) => (
-                      <div key={idx} className="d-flex align-items-start gap-2 small">
-                        <div className={`badge bg-${item.color} mt-1`} style={{ fontSize: 9 }}>{item.status}</div>
-                        <div>
-                          <div className="fw-bold text-dark" style={{ fontSize: 12.5 }}>{item.title}</div>
-                          <div className="text-muted" style={{ fontSize: 11 }}>📅 {item.date}</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* SIDEBAR WIDGET 5: 📄 Export Admission Summary Report */}
-              <div ref={reportRef} className="card border-0 shadow-sm rounded-4 p-3 text-center bg-white border">
-                <FaFilePdf size={28} className="text-danger mb-2 mx-auto" />
-                <h6 className="fw-bold mb-1 text-dark" style={{ fontSize: 14 }}>
-                  Personalized Admission Report
-                </h6>
-                <p className="text-muted small mb-3" style={{ fontSize: 11.5 }}>
-                  Download or print your verified college roadmap with scores & cutoffs.
-                </p>
-                <button
-                  className="btn btn-outline-danger btn-sm w-100 fw-bold rounded-pill py-2 shadow-sm d-flex align-items-center justify-content-center gap-2"
-                  onClick={() => setShowReportModal(true)}
-                >
-                  <FaPrint size={13} />
-                  <span>View / Print PDF Summary</span>
-                </button>
-              </div>
-
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* ================= RIGHT / MAIN CONTENT COLUMN ================= */}
-          <div className={sidebarVisible ? "col-12 col-xl-8 col-lg-8" : "col-12"}>
-            
-            {/* Search, Filter & Sort Toolbar */}
-            <div className="card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white">
-              <div className="row g-3 align-items-center">
-                {/* Sidebar Show/Hide Button in Toolbar */}
-                <div className="col-auto">
-                  <button
-                    type="button"
-                    className={`btn btn-sm rounded-pill fw-bold shadow-sm d-flex align-items-center gap-2 px-3 py-2 ${
-                      sidebarVisible ? "btn-light border text-secondary" : "btn-primary text-white"
-                    }`}
-                    onClick={() => setSidebarVisible(!sidebarVisible)}
-                    title={sidebarVisible ? "Hide Sidebar to the left" : "Show Sidebar on the left"}
-                  >
-                    {sidebarVisible ? (
-                      <>
-                        <FaChevronLeft size={11} />
-                        <span className="d-none d-sm-inline">Hide Left</span>
-                      </>
-                    ) : (
-                      <>
-                        <FaChevronRight size={11} className="text-warning" />
-                        <span>Show Sidebar</span>
-                        {shortlisted.length > 0 && (
-                          <span className="badge bg-danger rounded-pill px-1.5 py-0.5" style={{ fontSize: 10 }}>{shortlisted.length}</span>
-                        )}
-                      </>
-                    )}
-                  </button>
-                </div>
-
-                {/* Search Input */}
-                <div className={sidebarVisible ? "col-12 col-md-3" : "col-12 col-md-4"}>
-                  <div className="input-group">
-                    <span className="input-group-text bg-light border-end-0 text-secondary">
-                      <FaSearch />
-                    </span>
-                    <input
-                      type="text"
-                      className="form-control bg-light border-start-0"
-                      placeholder="Search college, location, branch..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      style={{ fontSize: 13.5 }}
-                    />
-                  </div>
-                </div>
-
-                {/* Filter by Type */}
-                <div className="col-6 col-md-2">
-                  <select
-                    className="form-select form-select-sm bg-light fw-semibold"
-                    value={selectedType}
-                    onChange={(e) => setSelectedType(e.target.value)}
-                  >
-                    <option value="All">All Types</option>
-                    <option value="Government">Government</option>
-                    <option value="Private">Private</option>
-                  </select>
-                </div>
-
-                {/* Filter by Eligibility */}
-                <div className="col-6 col-md-3">
-                  <select
-                    className="form-select form-select-sm bg-light fw-semibold"
-                    value={selectedEligibility}
-                    onChange={(e) => setSelectedEligibility(e.target.value)}
-                  >
-                    <option value="All">All Eligibility</option>
-                    <option value="eligible">✅ Safe (&gt;90%)</option>
-                    <option value="borderline">⚠️ Target (50-85%)</option>
-                    <option value="not_eligible">❌ Dream (&lt;40%)</option>
-                  </select>
-                </div>
-
-                {/* Sort by */}
-                <div className="col-12 col-md-3">
-                  <select
-                    className="form-select form-select-sm bg-light fw-semibold"
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                  >
-                    <option value="recommended">Sort: Best Match</option>
-                    <option value="cutoffDesc">Cutoff: High to Low</option>
-                    <option value="cutoffAsc">Cutoff: Low to High</option>
-                    <option value="rating">Top Rated (⭐)</option>
-                    <option value="fees">Fees: Low to High</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            {/* Active Shortlist Filter Alert Banner */}
-            {filterShortlistOnly && (
-              <div className="alert alert-info py-2 px-3 rounded-3 d-flex align-items-center justify-content-between mb-4 shadow-sm">
-                <div className="d-flex align-items-center gap-2 small">
-                  <FaHeart className="text-danger" />
-                  <span>Showing only your <strong>{shortlisted.length}</strong> shortlisted colleges.</span>
-                </div>
-                <button
-                  className="btn btn-sm btn-outline-info fw-bold py-0 px-2"
-                  onClick={() => setFilterShortlistOnly(false)}
-                >
-                  Show All Colleges
-                </button>
-              </div>
-            )}
-
-            {/* Loading State */}
-            {loading && (
-              <div className="text-center py-5">
-                <div className="spinner-border text-primary mb-3" style={{ width: 44, height: 44 }} />
-                <h5 className="fw-bold text-dark">
-                  <FaUserGraduate className="me-2 text-primary" /> Evaluating Top Colleges for Your Profile...
+        {/* ================= CAREER TRAJECTORIES BANNER ================= */}
+        {careers.length > 0 && (
+          <div className="card border-0 shadow-sm rounded-4 mt-5 p-4 bg-white">
+            <div className="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+              <div>
+                <h5 className="fw-bold mb-1" style={{ color: "#1A237E", fontFamily: "'Poppins', sans-serif" }}>
+                  <FaBriefcase className="me-2 text-warning" />
+                  Top Career Trajectories in {profile.stream}
                 </h5>
-                <p className="text-secondary small">Analyzing cutoff marks, merit trends, and fee structures</p>
+                <p className="text-secondary small mb-0">High-growth employment sectors for graduates in this stream</p>
               </div>
-            )}
-
-            {/* Empty State */}
-            {!loading && sortedColleges.length === 0 && (
-              <div className="text-center py-5 card border-0 shadow-sm rounded-4 p-5 bg-white">
-                <FaUniversity size={54} className="text-secondary opacity-50 mb-3" />
-                <h5 className="fw-bold text-dark">No colleges matched your filters</h5>
-                <p className="text-secondary small mb-3">Try clearing search filters or ask the AI Counselor directly in chat.</p>
-                <button
-                  className="btn btn-primary btn-sm rounded-pill px-4 mx-auto"
-                  onClick={() => { setSearchQuery(""); setSelectedType("All"); setSelectedEligibility("All"); setFilterShortlistOnly(false); }}
-                >
-                  Reset Filters
-                </button>
-              </div>
-            )}
-
-            {/* College Cards Grid (2 Columns on right side) */}
-            {!loading && sortedColleges.length > 0 && (
-              <div className="row g-4">
-                {sortedColleges.map((college, idx) => {
-                  const isShortlisted = shortlisted.some((s) => s.college_name === college.college_name);
-                  const isSelectedForCompare = selectedForCompare.some((c) => c.college_name === college.college_name);
-                  return (
-                    <div key={idx} className={sidebarVisible ? "col-12 col-md-6" : "col-12 col-md-6 col-xl-4"}>
-                      <CollegeCard
-                        college={college}
-                        onAskAI={handleAskAI}
-                        isShortlisted={isShortlisted}
-                        onToggleShortlist={toggleShortlist}
-                        isSelectedForCompare={isSelectedForCompare}
-                        onToggleCompare={toggleCompare}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {/* Career Opportunities Banner */}
-            {careers.length > 0 && (
-              <div className="card border-0 shadow-sm rounded-4 mt-5 p-4 bg-white">
-                <div className="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
-                  <div>
-                    <h5 className="fw-bold mb-1" style={{ color: "#1A237E", fontFamily: "'Poppins', sans-serif" }}>
-                      <FaBriefcase className="me-2 text-warning" />
-                      Top Career Trajectories in {profile.stream}
-                    </h5>
-                    <p className="text-secondary small mb-0">High-growth employment sectors for graduates in this stream</p>
+              <button
+                className="btn btn-primary btn-sm rounded-pill fw-semibold px-3 py-1.5 shadow-sm"
+                style={{ fontSize: 12.5 }}
+                onClick={() => navigate("/chat", { state: { initialPrompt: `What are the average salary packages and career growth for ${profile.stream} graduates in India?` } })}
+              >
+                Explore Salaries with AI →
+              </button>
+            </div>
+            <div className="row g-2">
+              {careers.map((career, i) => (
+                <div key={i} className="col-12 col-sm-6 col-lg-3">
+                  <div className="p-3 rounded-3 border bg-light d-flex align-items-center gap-2">
+                    <FaCheckCircle className="text-primary flex-shrink-0" size={13} />
+                    <span className="fw-semibold text-dark small">{career}</span>
                   </div>
-                  <button
-                    className="btn btn-outline-primary btn-sm rounded-pill fw-semibold px-3"
-                    onClick={() => navigate("/chat", { state: { initialPrompt: `What are the average salary packages and career growth for ${profile.stream} graduates in India?` } })}
-                  >
-                    Explore Salaries with AI →
-                  </button>
                 </div>
-                <div className="row g-2">
-                  {careers.map((career, i) => (
-                    <div key={i} className="col-12 col-sm-6">
-                      <div className="p-3 rounded-3 border bg-light d-flex align-items-center gap-2">
-                        <span className="text-primary fw-bold">🎯</span>
-                        <span className="fw-semibold text-dark small">{career}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+      </div>
+
+      {/* ================= FLOATING COMPARISON DOCK (Signature Indigo & Gold Accents) ================= */}
+      {selectedForCompare.length > 0 && (
+        <div
+          className="position-fixed bottom-0 start-50 translate-middle-x mb-4 shadow-lg rounded-pill p-2 px-3 d-flex align-items-center gap-3"
+          style={{
+            background: "linear-gradient(135deg, #1A237E 0%, #283593 100%)",
+            border: "1.5px solid #FFB300",
+            zIndex: 1040,
+            maxWidth: "92vw",
+            color: "#FFFFFF",
+            boxShadow: "0 12px 36px rgba(26, 35, 126, 0.4)"
+          }}
+        >
+          <div className="d-flex align-items-center gap-2">
+            <FaBalanceScale className="text-warning" size={16} />
+            <span className="fw-bold small" style={{ fontSize: 13 }}>
+              Compare ({selectedForCompare.length}/4)
+            </span>
+          </div>
+
+          <div className="vr bg-white opacity-25" style={{ height: 20 }} />
+
+          {/* Selected College Chips */}
+          <div className="d-none d-md-flex align-items-center gap-1.5 overflow-hidden" style={{ maxWidth: 420 }}>
+            {selectedForCompare.map((c, i) => (
+              <span
+                key={i}
+                className="badge bg-white bg-opacity-15 text-white fw-normal rounded-pill px-2.5 py-1 small text-truncate d-flex align-items-center gap-1"
+                style={{ maxWidth: 140, fontSize: 11 }}
+              >
+                <span className="text-truncate">{c.college_name.split(" ")[0]}</span>
+                <FaTimes
+                  size={10}
+                  className="cursor-pointer text-white-50"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => toggleCompare(c)}
+                />
+              </span>
+            ))}
+          </div>
+
+          <div className="d-flex align-items-center gap-2 ms-auto">
+            <button
+              className="btn btn-sm btn-link text-white-50 text-decoration-none p-0 fw-semibold"
+              style={{ fontSize: 12 }}
+              onClick={() => setSelectedForCompare([])}
+            >
+              Clear
+            </button>
+            <button
+              className="btn btn-sm fw-bold rounded-pill px-3 py-1.5 shadow-sm d-flex align-items-center gap-1 text-dark"
+              style={{
+                background: "linear-gradient(135deg, #FFD54F 0%, #FFB300 100%)",
+                border: "none",
+                fontSize: 12.5,
+                color: "#1A237E"
+              }}
+              disabled={selectedForCompare.length < 2}
+              onClick={() => setShowCompareModal(true)}
+            >
+              <span>Compare Side-by-Side</span>
+              <FaChevronRight size={10} />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ================= FLOATING AI COUNSELOR CHAT BUTTON ================= */}
+      <div className="position-fixed bottom-0 end-0 p-3 p-md-4" style={{ zIndex: 1030 }}>
+        <button
+          className="btn btn-lg fw-bold rounded-pill shadow-lg d-flex align-items-center gap-2 px-3.5 py-2.5 text-white"
+          style={{
+            background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)",
+            border: "2px solid #FFB300",
+            boxShadow: "0 8px 30px rgba(26,35,126,0.35)",
+            fontSize: 14
+          }}
+          onClick={() => navigate("/chat")}
+          title="Open AI Counselor Chat"
+        >
+          <FaHeadset size={18} color="#FFB300" />
+          <span className="d-none d-sm-inline">Talk to Counselor</span>
+        </button>
+      </div>
+
+      {/* ================= DEADLINES MODAL ================= */}
+      {showDeadlinesModal && (
+        <div
+          className="modal show d-block"
+          tabIndex="-1"
+          style={{ background: "rgba(0,0,0,0.6)", zIndex: 1060 }}
+          onClick={() => setShowDeadlinesModal(false)}
+        >
+          <div
+            className="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
+              <div className="modal-header text-white" style={{ background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)" }}>
+                <h5 className="modal-title fw-bold d-flex align-items-center gap-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                  <FaCalendarAlt className="text-warning" /> Admission Schedule & Deadlines ({profile.stream})
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close btn-close-white"
+                  onClick={() => setShowDeadlinesModal(false)}
+                />
+              </div>
+
+              <div className="modal-body p-4 bg-white">
+                <p className="text-muted small mb-3">
+                  Key counseling milestones for <strong>{profile.stream}</strong> admissions based on official authority schedules:
+                </p>
+                <div className="d-flex flex-column gap-3">
+                  {getStreamDeadlines().map((item, idx) => (
+                    <div key={idx} className="p-3 rounded-3 bg-light border d-flex align-items-center justify-content-between">
+                      <div>
+                        <div className="fw-bold text-dark" style={{ fontSize: 13.5 }}>{item.title}</div>
+                        <div className="text-muted small d-flex align-items-center gap-1 mt-0.5">
+                          <FaCalendarAlt size={11} className="text-primary" /> {item.date}
+                        </div>
                       </div>
+                      <span className={`badge bg-${item.color} px-2.5 py-1.5`} style={{ fontSize: 11 }}>
+                        {item.status}
+                      </span>
                     </div>
                   ))}
                 </div>
+                <div className="mt-3 p-3 rounded-3 bg-warning bg-opacity-10 border border-warning text-dark small d-flex align-items-start gap-2" style={{ fontSize: 11.5 }}>
+                  <FaLightbulb className="text-warning flex-shrink-0 mt-0.5" size={13} />
+                  <div>
+                    <strong>Important:</strong> Keep all mandatory certificates (Scorecard, Domicile, Caste/Validity/NCL, Income Certificate) ready before verification begins.
+                  </div>
+                </div>
               </div>
-            )}
-          </div>
 
+              <div className="modal-footer bg-light border-top">
+                <button
+                  type="button"
+                  className="btn btn-secondary rounded-pill px-4"
+                  onClick={() => setShowDeadlinesModal(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* ================= COMPARE MODAL ================= */}
       {showCompareModal && (
@@ -1003,7 +1267,7 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
               <div className="modal-body p-4 bg-light">
                 <div className="table-responsive bg-white rounded-3 shadow-sm border">
                   <table className="table table-bordered mb-0 align-middle text-center">
-                    <thead style={{ background: "#1A237E", color: "#fff" }}>
+                    <thead style={{ background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)", color: "#fff" }}>
                       <tr>
                         <th style={{ width: "22%", textAlign: "left" }}>Feature / Metric</th>
                         {selectedForCompare.map((c, i) => (
@@ -1047,11 +1311,11 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
                         ))}
                       </tr>
                       <tr>
-                        <td className="fw-bold text-start bg-light">Admission Chance</td>
+                        <td className="fw-bold text-start bg-light">Cutoff comparison</td>
                         {selectedForCompare.map((c, i) => (
                           <td key={i}>
                             <span className={`badge bg-${c.eligibility?.status === "eligible" ? "success" : c.eligibility?.status === "borderline" ? "warning text-dark" : "danger"}`}>
-                              {c.eligibility?.status === "eligible" ? "High (>90%)" : c.eligibility?.status === "borderline" ? "Moderate (50-80%)" : "Low / Dream (<40%)"}
+                              {c.eligibility?.status === "eligible" ? "Above cutoff" : c.eligibility?.status === "borderline" ? "Near cutoff" : "Below cutoff"}
                             </span>
                           </td>
                         ))}
@@ -1076,7 +1340,8 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
                         <td className="fw-bold text-start bg-light">Rating & NIRF</td>
                         {selectedForCompare.map((c, i) => (
                           <td key={i}>
-                            ⭐ {c.rating || 4.5} | {c.nirf_rank || "Top Tier"}
+                            <FaStar size={11} className="text-warning me-1" />
+                            {c.rating || 4.5} | {c.nirf_rank || "Top Tier"}
                           </td>
                         ))}
                       </tr>
@@ -1113,8 +1378,8 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
           >
             <div className="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
               <div className="modal-header text-white" style={{ background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)" }}>
-                <h5 className="modal-title fw-bold" style={{ fontFamily: "'Poppins', sans-serif" }}>
-                  📄 Admission Recommendation Summary Report
+                <h5 className="modal-title fw-bold d-flex align-items-center gap-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                  <FaFilePdf className="text-warning" /> Admission Recommendation Summary Report
                 </h5>
                 <button
                   type="button"
@@ -1127,7 +1392,8 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
                 {/* Header Banner */}
                 <div className="border-bottom pb-3 mb-3 d-flex justify-content-between align-items-center">
                   <div>
-                    <h4 className="fw-black text-primary mb-1" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                    <h4 className="fw-black text-primary mb-1 d-flex align-items-center gap-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                      <FaGraduationCap color="#FFB300" size={24} />
                       {APP_NAME}
                     </h4>
                     <div className="text-secondary small">Personalized Indian College Counseling Report</div>
@@ -1154,7 +1420,9 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
                 </div>
 
                 {/* Top Recommended Colleges Table */}
-                <h6 className="fw-bold text-dark mb-2">🎓 Top Recommended Matches:</h6>
+                <h6 className="fw-bold text-dark mb-2 d-flex align-items-center gap-1.5">
+                  <FaGraduationCap className="text-primary" /> Top Recommended Matches:
+                </h6>
                 <div className="table-responsive border rounded-3 mb-3">
                   <table className="table table-sm table-striped mb-0 text-center" style={{ fontSize: 12.5 }}>
                     <thead className="table-primary">
@@ -1163,7 +1431,7 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
                         <th>Location</th>
                         <th>Type</th>
                         <th>Cutoff</th>
-                        <th>Chance</th>
+                        <th>Cutoff comparison</th>
                         <th>Fees</th>
                       </tr>
                     </thead>
@@ -1176,7 +1444,7 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
                           <td>{formatScore(c.cutoff_marks, c.exam_type, c.score_unit)}</td>
                           <td>
                             <span className={`badge bg-${c.eligibility?.status === "eligible" ? "success" : c.eligibility?.status === "borderline" ? "warning text-dark" : "danger"}`}>
-                              {c.eligibility?.status === "eligible" ? "Safe" : c.eligibility?.status === "borderline" ? "Target" : "Dream"}
+                              {c.eligibility?.status === "eligible" ? "Above cutoff" : c.eligibility?.status === "borderline" ? "Near cutoff" : "Below cutoff"}
                             </span>
                           </td>
                           <td>₹{(c.annual_fees / 100000).toFixed(1)}L</td>
@@ -1186,8 +1454,11 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
                   </table>
                 </div>
 
-                <div className="p-3 rounded-3 bg-light border text-muted small" style={{ fontSize: 11 }}>
-                  💡 <em>Note: Cutoff trends are compiled from previous official counseling data. Actual CAP rounds may vary slightly based on applicant volume and seat matrix.</em>
+                <div className="p-3 rounded-3 bg-light border text-muted small d-flex align-items-start gap-2" style={{ fontSize: 11 }}>
+                  <FaLightbulb size={13} className="text-warning flex-shrink-0 mt-0.5" />
+                  <div>
+                    <em>Note: Cutoff trends are compiled from previous official counseling data. Actual CAP rounds may vary slightly based on applicant volume and seat matrix.</em>
+                  </div>
                 </div>
               </div>
 
@@ -1202,6 +1473,7 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
                 <button
                   type="button"
                   className="btn btn-primary rounded-pill px-4 fw-bold"
+                  style={{ background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)", border: "none" }}
                   onClick={() => window.print()}
                 >
                   <FaPrint className="me-1" /> Print / Save as PDF
@@ -1212,28 +1484,46 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
         </div>
       )}
 
-      {/* Floating AI Counselor Chat Button */}
-      <div className="position-fixed bottom-0 end-0 p-4" style={{ zIndex: 1050 }}>
-        <button
-          className="btn btn-lg fw-bold rounded-pill shadow-lg d-flex align-items-center gap-2 px-4 py-3"
-          style={{
-            background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)",
-            color: "#ffffff",
-            border: "2px solid #FFB300",
-            boxShadow: "0 8px 32px rgba(26,35,126,0.35)"
-          }}
-          onClick={() => navigate("/chat")}
-        >
-          <FaHeadset size={20} className="text-warning" />
-          <span>Talk to Counselor</span>
-        </button>
-      </div>
+      {/* ================= CAP ROUND SIMULATOR MODAL ================= */}
+      <CapSimulatorModal
+        isOpen={showCapSimulatorModal}
+        onClose={() => setShowCapSimulatorModal(false)}
+        studentProfile={profile}
+        shortlistedColleges={shortlisted}
+        allColleges={colleges}
+      />
 
-      {/* Footer */}
+      {/* ================= SCHOLARSHIP & FEE WAIVER CALCULATOR MODAL ================= */}
+      <ScholarshipModal
+        isOpen={showScholarshipModal}
+        onClose={() => setShowScholarshipModal(false)}
+        defaultFees={selectedCollegeForScholarship?.annual_fees || 140000}
+        collegeName={selectedCollegeForScholarship?.college_name || ""}
+        defaultState={profile.preferred_state || "Maharashtra"}
+        studentProfile={profile}
+      />
+
+      {/* ================= LIVE DOCUMENT & FC RULES VERIFICATION MODAL ================= */}
+      <DocumentVerificationModal
+        isOpen={showDocumentModal}
+        onClose={() => setShowDocumentModal(false)}
+        studentProfile={profile}
+      />
+
+      {/* ================= FOOTER ================= */}
       <footer className="text-center py-4 bg-white border-top text-secondary small mt-auto">
-        <FaGraduationCap color="#FFB300" className="me-2" />
-        {APP_NAME} — Live AI-Powered Indian College Recommendation System
+        <div className="container d-flex align-items-center justify-content-between flex-wrap gap-2">
+          <div className="d-flex align-items-center gap-2">
+            <FaGraduationCap color="#FFB300" size={18} />
+            <span className="fw-semibold text-dark">{APP_NAME}</span>
+            <span className="text-muted">• AI-Powered Admission Guidance Platform</span>
+          </div>
+          <div className="text-muted" style={{ fontSize: 11.5 }}>
+            Verified counseling data & cutoff analytics for Maharashtra & All-India admissions
+          </div>
+        </div>
       </footer>
+
     </div>
   );
 }

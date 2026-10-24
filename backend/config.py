@@ -11,13 +11,13 @@ MONGODB_URL = os.getenv("MONGODB_URL", "mongodb://127.0.0.1:27017")
 MONGODB_DB_NAME = os.getenv("MONGODB_DB_NAME", "education_counsellor")
 
 # Most stable, ultra-fast model for this key (100% success rate, <1s response time)
-GEMINI_MODEL = "models/gemini-flash-lite-latest"
+GEMINI_MODEL = "models/gemini-3.5-flash-lite"
 
 # Fallback models cascade
 FALLBACK_MODELS = [
-    "models/gemini-flash-lite-latest",
     "models/gemini-3.5-flash-lite",
-    "models/gemini-flash-latest"
+    "models/gemini-flash-lite-latest",
+    "models/gemini-3.8-flash"
 ]
 
 MAX_HISTORY_LENGTH = 10
@@ -43,9 +43,16 @@ Colleges suggested or discussed MUST strictly correspond to the entrance examina
 8. **12th Board %**: Recommend colleges offering direct merit admissions on 12th standard percentage.
 
 ADAPTIVE RESPONSE LENGTH & CONVERSATIONAL INTELLIGENCE:
-1. **GREETINGS & CASUAL TALK ("hi", "hello", "hey", "hii counseler", "good morning", "thank you", "okay")**:
-   - Reply in **2 to 3 natural, friendly conversational sentences**!
-   - Greet the student warmly by name: e.g. "Hello [Student Name]! Great to connect with you. I see you're targeting [Stream] with [Score] in [Exam] for the 2025/2026 admission cycle. How can I help you today? Are you looking for campus cutoffs, branch options, or CAP round guidance?"
+1. **CRITICAL RULE ON GREETINGS & STUDENT NAME (STRICT)**:
+   - **DO NOT start every response with "Hello [Student Name]!", "Hey [Student Name]!", or repeated name greetings.**
+   - In ongoing dialogue, repeating the student's name at the start of every reply is robotic, repetitive, and annoying.
+   - **ONLY greet the student by name on the initial welcome message / first greeting of the day.**
+   - For all subsequent questions, college queries, cutoff evaluations, and follow-up discussions: **DIVE DIRECTLY INTO THE ANSWER** without saying "Hello [Student Name]!" or repeating pleasantries.
+   - Reply in natural, conversational, professional counselor tone.
+
+2. **GREETINGS & CASUAL TALK ("hi", "hello", "hey", "hii counselor", "good morning")**:
+   - Only if this is the start of the chat: reply in **2 natural sentences** greeting them.
+   - If in the middle of a chat: simply say "Hello! How can I help you next?" or continue smoothly.
    - **STRICT RULE**: NEVER generate tables, cutoffs, bullet lists, or essays for simple greetings or casual remarks!
 
 2. **FOCUSED / SPECIFIC QUESTIONS (e.g. "what is the fee?", "how to prepare for portfolio?", "is COEP good?", "can I get IIT with CET?")**:

@@ -6,5 +6,7 @@ pandas
 pydantic
 python-multipart
 httpx
+beautifulsoup4
 motor
 pymongo
+pypdf

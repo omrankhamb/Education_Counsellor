@@ -3,9 +3,47 @@ import { useState, useEffect } from "react";
 const API_BASE = "/api";
 
 export function useChat(studentProfile) {
+  // Safe resolver for student profile to guarantee non-null payload
+  const getEffectiveProfile = () => {
+    if (studentProfile && typeof studentProfile === "object" && studentProfile.name) {
+      return studentProfile;
+    }
+    try {
+      const stored = localStorage.getItem("edu_student_profile");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed && typeof parsed === "object") return parsed;
+      }
+    } catch {}
+    try {
+      const userStored = localStorage.getItem("edu_user");
+      if (userStored) {
+        const u = JSON.parse(userStored);
+        if (u && typeof u === "object") {
+          return {
+            name: u.name || "Student",
+            stream: "Science / Engineering",
+            marks: 85,
+            exam_type: "MHT-CET",
+            preferred_state: "Any"
+          };
+        }
+      }
+    } catch {}
+    return {
+      name: "Student",
+      stream: "Science / Engineering",
+      marks: 85,
+      exam_type: "MHT-CET",
+      preferred_state: "Any"
+    };
+  };
+
+  const initialProfile = getEffectiveProfile();
+
   const defaultGreeting = {
     role: "model",
-    content: `🎓 **Hello ${studentProfile?.name || "Student"}!** I'm your AI Education Counselor.\n\nI can help you with:\n• **College recommendations** based on your marks (${studentProfile?.marks || "--"} in ${studentProfile?.stream || "your stream"})\n• **Cutoff marks & merit lists** for Indian institutes\n• **Branch comparison & placements** (CSE, AI/ML, ECE, MBBS, Design, etc.)\n• **Entrance exams & scholarships**\n\nWhat would you like to know today?`,
+    content: `🎓 **Hello ${initialProfile?.name || "Student"}!** I'm your AI Education Counselor.\n\nI can help you with:\n• **College recommendations** based on your marks (${initialProfile?.marks || "--"} in ${initialProfile?.stream || "your stream"})\n• **Cutoff marks & merit lists** for Indian institutes\n• **Branch comparison & placements** (CSE, AI/ML, ECE, MBBS, Design, etc.)\n• **Entrance exams & scholarships**\n\nWhat would you like to know today?`,
   };
 
   const [messages, setMessages] = useState([defaultGreeting]);
@@ -18,7 +56,8 @@ export function useChat(studentProfile) {
 
   // Read logged in user if available
   const getUserId = () => {
-    if (studentProfile?.user_id) return studentProfile.user_id;
+    const prof = getEffectiveProfile();
+    if (prof?.user_id) return prof.user_id;
     try {
       const u = localStorage.getItem("edu_user");
       return u ? JSON.parse(u)?.id : null;
@@ -51,6 +90,7 @@ export function useChat(studentProfile) {
     if (!userMessage.trim() || loading) return;
 
     const userId = getUserId();
+    const effectiveProfile = getEffectiveProfile();
     const newMessages = [...messages, { role: "user", content: userMessage }];
     setMessages(newMessages);
     setLoading(true);
@@ -64,7 +104,7 @@ export function useChat(studentProfile) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: userMessage,
-          student_profile: studentProfile,
+          student_profile: effectiveProfile,
           history: newMessages.slice(0, -1),
           user_id: userId,
         }),
@@ -82,7 +122,7 @@ export function useChat(studentProfile) {
       if (data.success && data.response) {
         setMessages((prev) => [
           ...prev,
-          { role: "model", content: data.response },
+          { role: "model", content: data.response, sources: data.sources || [] },
         ]);
         if (data.follow_up_questions?.length > 0) {
           setFollowUps(data.follow_up_questions);
@@ -105,7 +145,74 @@ export function useChat(studentProfile) {
           role: "model",
           content: isTimeout
             ? "⏱️ The AI request took too long. Please try asking again!"
-            : "❌ Could not connect to the backend server. Please verify the backend is running at http://localhost:8000.",
+            : "❌ Could not retrieve answer from counselor. Please ask again in a moment.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const regenerateMessage = async (modelIndex) => {
+    if (loading) return;
+    let userIdx = modelIndex - 1;
+    while (userIdx >= 0 && messages[userIdx].role !== "user") {
+      userIdx--;
+    }
+    if (userIdx < 0) return;
+
+    const userMessage = messages[userIdx].content;
+    const historyBefore = messages.slice(0, userIdx);
+    const newMessages = [...historyBefore, { role: "user", content: userMessage }];
+    setMessages(newMessages);
+    setLoading(true);
+
+    const userId = getUserId();
+    const effectiveProfile = getEffectiveProfile();
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 20000);
+
+    try {
+      const response = await fetch(`${API_BASE}/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: userMessage,
+          student_profile: effectiveProfile,
+          history: historyBefore,
+          user_id: userId,
+        }),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+      if (!response.ok) throw new Error(`Server returned ${response.status}`);
+      const data = await response.json();
+
+      if (data.success && data.response) {
+        setMessages((prev) => [
+          ...prev,
+          { role: "model", content: data.response, sources: data.sources || [] },
+        ]);
+        if (data.follow_up_questions?.length > 0) {
+          setFollowUps(data.follow_up_questions);
+        }
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "model",
+            content: data.response || "I could not find information on that topic right now.",
+          },
+        ]);
+      }
+    } catch (err) {
+      clearTimeout(timeoutId);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "model",
+          content: "⏱️ Could not regenerate response. Please try again!",
         },
       ]);
     } finally {
@@ -130,5 +237,5 @@ export function useChat(studentProfile) {
     ]);
   };
 
-  return { messages, loading, followUps, sendMessage, clearChat };
+  return { messages, loading, followUps, sendMessage, regenerateMessage, clearChat };
 }

@@ -1,0 +1,6857 @@
+<USER_REQUEST>
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1002 - Government College of Engineering, Amravati
+100219110 - Civil Engineering
+Status: Government Autonomous
+State Level
+GOPENS GNT1S GOBCS LOPENS PWDOPENS DEFOPENS TFWS ORPHAN EWS
+ I 37795
+(79.4751328)
+54700
+(69.0394836)
+39532
+(78.3496848)
+45622
+(74.5211181)
+36791
+(79.8656107)
+56495
+(67.4824177)
+ I-Non
+Defence
+51661
+(70.9370842)
+ I-Non
+PWD
+52238
+(70.7220669)
+ VII 53089
+(69.7082914)
+Stage
+100224210 - Computer Science and Engineering
+Status: Government Autonomous
+State Level
+GOPENS GNT3S TFWS EWS
+ I 5429
+(96.9378449)
+11944
+(93.5601746)
+5770
+(96.7777145)
+10441
+(94.3125425)
+Stage
+100224610 - Information Technology
+Status: Government Autonomous
+State Level
+EWS
+ I 11889
+(93.5655058)
+Stage
+100229310 - Electrical Engineering
+Status: Government Autonomous
+State Level
+GOPENS GSCS GNT1S PWDOPENS TFWS EWS
+ I 27030
+(85.5965895)
+31365
+(83.1461738)
+38342
+(79.1079584)
+26357
+(85.7967175)
+47231
+(73.5739966)
+ I-Non
+PWD
+25250
+(86.3666603)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1002 - Government College of Engineering, Amravati
+100237210 - Electronics and Telecommunication Engg
+Status: Government Autonomous
+State Level
+GOPENS GOBCS LOPENS LOBCS TFWS ORPHAN EWS
+ I 14276
+(92.2870170)
+15853
+(91.4874509)
+13059
+(92.9348086)
+13966
+(92.4845102)
+17058
+(90.8078665)
+19218
+(89.6297360)
+ VII 14828
+(91.9734660)
+Stage
+100246610 - Instrumentation Engineering
+Status: Government Autonomous
+State Level
+GOPENS GSCS GVJS GOBCS PWDOPENS TFWS EWS
+ I 26952
+(85.5965895)
+61321
+(64.0609282)
+49540
+(72.4718017)
+46318
+(74.2260244)
+74298
+(54.1780657)
+ I-Non
+PWD
+43447
+(75.7886771)
+ VII 44005
+(75.6049358)
+Stage
+100261210 - Mechanical Engineering
+Status: Government Autonomous
+State Level
+GOPENS GSCS GNT1S GNT2S GNT3S LOPENS LSCS LSTS PWDOPENS DEFOPENS TFWS EWS
+ I 42993
+(76.4889836)
+49782
+(71.9798416)
+62818
+(63.5478045)
+69619
+(57.9292585)
+72385
+(56.3628587)
+31523
+(82.9381616)
+63573
+(63.0502380)
+45705
+(74.5106403)
+69613
+(57.9292585)
+ II 89182
+(42.0206383)
+ I-Non
+Defence
+46764
+(74.1161376)
+ I-Non
+PWD
+41270
+(77.1347248)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1005 - Sant Gadge Baba Amravati University,Amravati
+100550310 - Food Technology
+Status: University Department
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH
+ I 96679
+(34.6668564)
+ VII 108421
+(21.2317049)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GSCH GVJH
+ I 57940
+(66.5894149)
+66723
+(60.6284658)
+Stage
+State Level
+EWS
+ I 89005
+(42.0206383)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1005 - Sant Gadge Baba Amravati University,Amravati
+100551710 - Oil and Paints Technology
+Status: University Department
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 102372
+(28.4665226)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GOPENH LOPENH
+ I 96984
+(34.1210946)
+ II 108178
+(21.5067519)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 53427
+(69.6045087)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1005 - Sant Gadge Baba Amravati University,Amravati
+100552710 - Petro Chemical Engineering
+Status: University Department
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 116376
+(10.4981278)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GSCH PWDOPENH
+ I 76951
+(52.4476185)
+ I-Non
+PWD
+81588
+(48.7700838)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 22362
+(87.9850640)
+Stage
+State Level
+EWS
+ I 98733
+(32.2621925)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1012 - Government College of Engineering,Yavatmal
+101219110 - Civil Engineering
+Status: Government Home University : Sant Gadge Baba Amravati University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH GNT1H GNT2H GNT3H GOBCH LOPENH
+ I 89524
+(41.9139826)
+90335
+(39.8713522)
+95749
+(35.6598862)
+59024
+(66.0248119)
+ VII 95271
+(35.6983743)
+90882
+(39.6081812)
+94624
+(36.1480075)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GNT2O GOBCO LOPENO LOBCO
+ I 84920
+(45.6704109)
+117644
+(8.6023034)
+91426
+(39.4227966)
+69306
+(58.8006082)
+87613
+(43.0138429)
+ VII 91943
+(39.3128682)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GNT1O
+ I 82232
+(48.2193247)
+Stage
+State Level
+DEFOPENS TFWS EWS
+ I 69127
+(58.8113371)
+78139
+(51.2600953)
+ I-Non
+Defence
+89678
+(41.4815869)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1012 - Government College of Engineering,Yavatmal
+101224510 - Computer Engineering
+Status: Government Home University : Sant Gadge Baba Amravati University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GNT1H GNT3H LSCH
+ I 25290
+(86.3666603)
+44134
+(75.6049358)
+50993
+(71.1976870)
+44726
+(75.3508645)
+43484
+(75.7886771)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GSTO GOBCO
+ I 13883
+(92.5464629)
+30348
+(83.4797216)
+67150
+(60.0860804)
+18498
+(90.0081429)
+Stage
+State Level
+EWS
+ I 22538
+(87.8986332)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1012 - Government College of Engineering,Yavatmal
+101229310 - Electrical Engineering
+Status: Government Home University : Sant Gadge Baba Amravati University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GVJH GNT3H LSCH PWDOPENH
+ I 64775
+(61.9054461)
+65905
+(61.2621174)
+85843
+(44.9304271)
+95748
+(35.6598862)
+97174
+(33.5099087)
+78506
+(51.2359011)
+ I-Non
+PWD
+58597
+(66.2395008)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GOBCO LOPENO LOBCO
+ I 48757
+(72.7702415)
+67189
+(60.0860804)
+60474
+(64.8863260)
+64306
+(62.0823842)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GVJO GNT2O
+ I 98309
+(32.3435843)
+93458
+(38.1738800)
+Stage
+State Level
+DEFOPENS TFWS ORPHAN EWS
+ I 66213
+(60.7344231)
+76817
+(52.4476185)
+ I-Non
+Defence
+63273
+(63.0882980)
+ VII 66989
+(60.5043241)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1012 - Government College of Engineering,Yavatmal
+101237210 - Electronics and Telecommunication Engg
+Status: Government Home University : Sant Gadge Baba Amravati University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GOBCH LSCH LSTH PWDOPENH
+ I 46604
+(74.1753429)
+64283
+(62.0823842)
+54743
+(69.0394836)
+54428
+(69.1685966)
+ I-Non
+PWD
+50944
+(71.2367422)
+ VII 55049
+(68.7024004)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GSTH
+ I 110493
+(18.3757840)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO LOPENO LOBCO
+ I 39550
+(78.3496848)
+46085
+(74.3640850)
+35955
+(80.4540499)
+46131
+(74.3640850)
+Stage
+State Level
+ORPHAN EWS
+ I 48968
+(72.7060426)
+ VII 42295
+(76.6964455)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1012 - Government College of Engineering,Yavatmal
+101261210 - Mechanical Engineering
+Status: Government Home University : Sant Gadge Baba Amravati University
+Home University Seats Allotted to Home University Candidates
+GOPENH GOBCH LOPENH LSTH PWDOPENH
+ I 75971
+(53.8866742)
+95571
+(35.6983743)
+83458
+(46.9414830)
+ I-Non
+PWD
+77127
+(52.2301039)
+ VII 82927
+(47.7695520)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GSTO GNT1O GOBCO LOPENO
+ I 69404
+(58.8006082)
+80470
+(49.4442605)
+101287
+(29.3331437)
+72380
+(56.3628587)
+91978
+(39.3128682)
+ VII 84292
+(45.9884082)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+LSCO LOBCO
+ I 95322
+(35.6983743)
+91643
+(39.4196471)
+Stage
+State Level
+DEFOPENS TFWS ORPHAN EWS
+ I 56642
+(67.4824177)
+93610
+(37.5478565)
+ I-Non
+Defence
+72007
+(56.7650587)
+ VII 86023
+(44.7418375)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1101 - Shri Sant Gajanan Maharaj College of Engineering,Shegaon
+110124210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 14210
+(92.3335702)
+13910
+(92.5464629)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOBCO LOBCO
+ I 14385
+(92.2346476)
+12597
+(93.1750461)
+Stage
+110124610 - Information Technology
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH LSTH
+ I 18443
+(90.0256605)
+113867
+(14.2210761)
+ VII 16268
+(91.2295664)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GSTO LOBCO
+ I 86718
+(43.3167495)
+24469
+(86.8703589)
+Stage
+State Level
+DEFOPENS EWS
+ I 39397
+(78.3496848)
+21214
+(88.5953918)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1101 - Shri Sant Gajanan Maharaj College of Engineering,Shegaon
+110135610 - Electrical Engg[Electronics and Power]
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GVJH
+ I 36263
+(80.3744535)
+84639
+(45.9187639)
+Stage
+110137210 - Electronics and Telecommunication Engg
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GVJH LSCH
+ I 19610
+(89.4077610)
+84474
+(45.9884082)
+54175
+(69.3404295)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOBCO LOPENO LOBCO
+ I 25284
+(86.3666603)
+25115
+(86.5103056)
+30752
+(83.3155184)
+Stage
+State Level
+EWS
+ I 40876
+(77.6308856)
+Stage
+110161210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH PWDOPENH
+ I 51556
+(70.9370842)
+ I-Non
+PWD
+52451
+(70.7220669)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1105 - Prof. Ram Meghe Institute of Technology & Research, Amravati
+110519110 - Civil Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GNT2H GOBCH
+ I 74894
+(54.1664697)
+80381
+(49.4442605)
+76222
+(53.7302794)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO LOPENO
+ I 118297
+(7.4616793)
+114347
+(13.5287968)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GNT1O
+ I 85173
+(45.2718114)
+Stage
+State Level
+DEFOPENS ORPHAN EWS
+ I 106234
+(23.4829494)
+ I-Non
+Defence
+74028
+(54.5241174)
+ VII 76339
+(52.8246408)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1105 - Prof. Ram Meghe Institute of Technology & Research, Amravati
+110524210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH GOBCH LOPENH
+ I 20710
+(88.8543387)
+78164
+(51.2600953)
+21971
+(88.1677532)
+16989
+(90.8511759)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 22121
+(88.0916175)
+Stage
+State Level
+TFWS EWS
+ I 13646
+(92.6252847)
+33849
+(81.6296507)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1105 - Prof. Ram Meghe Institute of Technology & Research, Amravati
+110524610 - Information Technology
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 13638
+(92.6252847)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GSCO
+ I 44801
+(75.1821980)
+Stage
+State Level
+EWS
+ I 37685
+(79.4751328)
+Stage
+110526310 - Artificial Intelligence (AI) and Data Science
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH
+ I 25012
+(86.5233044)
+39919
+(78.1473584)
+Stage
+110526510 - Industrial IoT
+Status: Un-Aided
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO
+ I 22225
+(88.0563059)
+ VII 26274
+(85.8374792)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1105 - Prof. Ram Meghe Institute of Technology & Research, Amravati
+110537210 - Electronics and Telecommunication Engg
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GOBCH LSTH PWDOPENH
+ I 39047
+(78.4825990)
+40005
+(78.1062290)
+ I-Non
+PWD
+39649
+(78.2814198)
+ VII 38146
+(79.2815054)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO GNT3O GOBCO LOPENO LOBCO
+ I 48752
+(72.7702415)
+106537
+(23.2238494)
+59397
+(65.7244332)
+63110
+(63.0882980)
+63592
+(63.0502380)
+ VII 52345
+(70.7220669)
+Stage
+State Level
+ORPHAN EWS
+ I 59059
+(66.0248119)
+ VII 34664
+(81.3782643)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1105 - Prof. Ram Meghe Institute of Technology & Research, Amravati
+110561210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GVJH GNT1H LVJH LNT1H LNT2H
+ I 63747
+(62.3954246)
+75437
+(53.9262430)
+84717
+(45.9187639)
+97802
+(32.5908894)
+115828
+(11.2993545)
+101985
+(28.6995083)
+ II 91327
+(39.4227966)
+ VII 64260
+(62.0823842)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO LOPENO
+ I 94225
+(36.1623265)
+100123
+(30.5619889)
+ VII 103999
+(26.2202423)
+Stage
+State Level
+EWS
+ I 94120
+(36.1623265)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1107 - P. R. Pote (Patil) Education & Welfare Trust's Group of Institution(Integrated Campus), Amravati
+110719110 - Civil Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GVJH LOPENH PWDOPENH
+ I 64941
+(61.8814494)
+65822
+(61.2621174)
+ I-Non
+PWD
+66312
+(60.7344231)
+ VII 66507
+(60.6284658)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GVJO
+ I 93497
+(37.5478565)
+Stage
+State Level
+EWS
+ I 117112
+(9.2499758)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1107 - P. R. Pote (Patil) Education & Welfare Trust's Group of Institution(Integrated Campus), Amravati
+110724210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH LOBCH PWDOPENH
+ I 19635
+(89.4077610)
+24377
+(86.9162467)
+26545
+(85.6913808)
+ I-Non
+PWD
+23892
+(87.0828062)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO LOBCO
+ I 44670
+(75.3508645)
+43331
+(75.8471965)
+Stage
+State Level
+EWS
+ I 47861
+(73.2440997)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1107 - P. R. Pote (Patil) Education & Welfare Trust's Group of Institution(Integrated Campus), Amravati
+110729310 - Electrical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH
+ I 52428
+(70.7220669)
+62660
+(63.7147595)
+ VII 56783
+(67.4472840)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO GOBCO
+ I 57573
+(66.8137813)
+86539
+(44.6471616)
+ VII 71631
+(56.8099848)
+Stage
+State Level
+EWS
+ I 84767
+(45.9187639)
+Stage
+110737210 - Electronics and Telecommunication Engg
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GNT3H
+ I 8603
+(95.2996920)
+73102
+(55.2570590)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GOBCO LOBCO
+ I 63640
+(62.3954246)
+67525
+(59.7201871)
+63315
+(63.0502380)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1107 - P. R. Pote (Patil) Education & Welfare Trust's Group of Institution(Integrated Campus), Amravati
+110761210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GSCH LOPENH LSTH LOBCH
+ I 67012
+(60.5043241)
+65244
+(61.6697194)
+69802
+(57.9292585)
+ VII 67254
+(60.0860804)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 94023
+(36.7166438)
+Stage
+State Level
+ORPHAN
+ VII 67494
+(59.7201871)
+Stage
+110799510 - Artificial Intelligence and Data Science
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GSCH LOPENH LOBCH
+ I 45189
+(74.9700023)
+40342
+(78.0555027)
+43408
+(75.8471965)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOBCO LOBCO
+ I 47299
+(73.5739966)
+62972
+(63.4724857)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1114 - Sipna Shikshan Prasarak Mandal College of Engineering & Technology, Amravati
+111419110 - Civil Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GOBCH LSTH PWDOPENH
+ I 68390
+(59.4192464)
+71382
+(57.0638559)
+ I-Non
+PWD
+61711
+(64.0172786)
+ VII 73449
+(55.2181517)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 108617
+(20.8205322)
+Stage
+State Level
+DEFOPENS ORPHAN
+ I-Non
+Defence
+66982
+(60.5043241)
+ VII 72221
+(56.5826603)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1114 - Sipna Shikshan Prasarak Mandal College of Engineering & Technology, Amravati
+111424210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GNT2H GOBCH LOPENH LOBCH PWDOPENH
+ I 29875
+(83.8902317)
+35288
+(80.8718313)
+31861
+(82.6809987)
+27143
+(85.4043578)
+29627
+(84.0809188)
+ I-Non
+PWD
+29597
+(84.0809188)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GSCO GSTO LOPENO
+ I 44844
+(75.1821980)
+60969
+(64.4979119)
+30800
+(83.3155184)
+Stage
+State Level
+EWS
+ I 36334
+(80.2788844)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1114 - Sipna Shikshan Prasarak Mandal College of Engineering & Technology, Amravati
+111424610 - Information Technology
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GOBCH
+ I 34147
+(81.4293860)
+39415
+(78.3496848)
+35130
+(80.8718313)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GSTH
+ I 64362
+(62.0823842)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GNT2O
+ I 55068
+(68.7024004)
+Stage
+State Level
+DEFROBCS
+ I 94502
+(36.1594098)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1114 - Sipna Shikshan Prasarak Mandal College of Engineering & Technology, Amravati
+111437210 - Electronics and Telecommunication Engg
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GSCH GSTH GOBCH
+ I 49447
+(72.5765063)
+42662
+(76.5571858)
+ VII 42932
+(76.4889836)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GVJO LOPENO LSCO
+ I 61029
+(64.4979119)
+82868
+(47.8470482)
+110724
+(18.3037194)
+62005
+(64.0075195)
+73991
+(54.5241174)
+Stage
+State Level
+TFWS EWS
+ I 41654
+(77.0666918)
+63974
+(62.3799839)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1114 - Sipna Shikshan Prasarak Mandal College of Engineering & Technology, Amravati
+111461210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 62373
+(63.7147595)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 108346
+(21.2317049)
+Stage
+State Level
+EWS
+ I 94625
+(36.1480075)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1116 - Shri Shivaji Education Society's College of Engineering and Technology, Akola
+111619110 - Civil Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GOBCH LSCH LSTH LOBCH PWDOPENH
+ I 115913
+(11.2993545)
+117555
+(8.6023034)
+121051
+(3.1915928)
+108593
+(20.8205322)
+91573
+(39.4196471)
+ I-Non
+PWD
+110361
+(18.8401670)
+ VII 122042
+(1.2002313)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOPENO
+ I 84959
+(45.6704109)
+Stage
+State Level
+TFWS EWS
+ I 73148
+(55.2570590)
+121167
+(2.7571580)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1116 - Shri Shivaji Education Society's College of Engineering and Technology, Akola
+111624210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH GNT1H GOBCH LOPENH LSTH LVJH LOBCH PWDOPENH
+ I 59327
+(65.7244332)
+78711
+(51.1072039)
+60148
+(65.2400587)
+50679
+(71.4470469)
+111034
+(17.5316365)
+60058
+(65.2657662)
+ I-Non
+PWD
+47678
+(73.2440997)
+ VII 60940
+(64.4979119)
+55849
+(68.2985361)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GOBCO LOPENO LSCO LSTO LOBCO
+ I 72291
+(56.5826603)
+74982
+(54.1246150)
+89387
+(41.9139826)
+85688
+(44.9868010)
+100039
+(30.5619889)
+88169
+(42.7946749)
+ VII 67403
+(59.7201871)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GNT3O
+ I 88970
+(42.3018437)
+Stage
+State Level
+DEFOPENS ORPHAN EWS
+ I 76064
+(53.7302794)
+ I-Non
+Defence
+52691
+(70.2135829)
+ VII 62011
+(64.0075195)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1116 - Shri Shivaji Education Society's College of Engineering and Technology, Akola
+111650710 - Chemical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GOBCH LSCH LOBCH PWDOPENH
+ I 120609
+(3.6006941)
+122060
+(1.1966135)
+117836
+(8.3872203)
+99485
+(31.7734581)
+ I-Non
+PWD
+119860
+(5.2450064)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 105443
+(25.0367211)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOPENO LOPENO LOBCO
+ I 119298
+(5.9035687)
+70048
+(57.7165019)
+101116
+(29.3331437)
+Stage
+State Level
+EWS
+ I 118602
+(7.0709457)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1116 - Shri Shivaji Education Society's College of Engineering and Technology, Akola
+111661210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GNT1H GNT3H GOBCH LOPENH LOBCH PWDOPENH
+ I 86275
+(44.7418375)
+95464
+(35.6983743)
+103782
+(26.3140433)
+102824
+(28.1605922)
+ II 105031
+(25.3179745)
+ I-Non
+PWD
+98836
+(32.2621925)
+ VII 115973
+(11.2993545)
+108604
+(20.8205322)
+108698
+(20.8205322)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOPENO GOBCO LOPENO
+ I 82543
+(48.1419882)
+92358
+(39.1582539)
+116586
+(10.4564832)
+Stage
+State Level
+DEFOPENS EWS
+ I 121958
+(1.4547046)
+ I-Non
+Defence
+103422
+(26.9007793)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1117 - Janata Shikshan Prasarak Mandal’s Babasaheb Naik College Of Engineering, Pusad
+111719110 - Civil Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GOBCH LOPENH LSCH LSTH
+ I 92900
+(38.5667023)
+122370
+(0.5860944)
+111446
+(17.4354552)
+75383
+(53.9262430)
+ VII 119187
+(6.3771146)
+119505
+(5.5595051)
+103022
+(27.3337429)
+105561
+(24.8766135)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 92516
+(39.1582539)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GSCO GNT2O GOBCO LOBCO
+ I 87253
+(43.3051128)
+119856
+(5.2450064)
+108437
+(21.2317049)
+ VII 122552
+(0.1660971)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1117 - Janata Shikshan Prasarak Mandal’s Babasaheb Naik College Of Engineering, Pusad
+111724210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH LOPENH LOBCH PWDOPENH
+ I 59578
+(65.5958943)
+59647
+(65.5958943)
+30337
+(83.4797216)
+74895
+(54.1664697)
+ I-Non
+PWD
+48035
+(72.9031949)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO LSTO LOBCO
+ I 72082
+(56.5826603)
+87580
+(43.0138429)
+ VII 68351
+(59.4192464)
+Stage
+State Level
+DEFOPENS EWS
+ I 39228
+(78.3504176)
+ I-Non
+Defence
+55216
+(68.5714285)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1117 - Janata Shikshan Prasarak Mandal’s Babasaheb Naik College Of Engineering, Pusad
+111735610 - Electrical Engg[Electronics and Power]
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH LOPENH
+ I 77358
+(51.9313711)
+94919
+(35.9780390)
+ VII 80549
+(49.4442605)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 84459
+(45.9884082)
+Stage
+State Level
+EWS
+ I 93084
+(38.5667023)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1117 - Janata Shikshan Prasarak Mandal’s Babasaheb Naik College Of Engineering, Pusad
+111761210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GNT2H GOBCH LOPENH
+ I 110050
+(19.1072714)
+118913
+(6.7586339)
+112796
+(15.5460791)
+ VII 120259
+(4.3556566)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GSCO
+ I 106256
+(23.4829494)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOBCO
+ I 117605
+(8.6023034)
+Stage
+State Level
+DEFOPENS EWS
+ I 93417
+(38.1738800)
+ I-Non
+Defence
+111640
+(17.0051501)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1117 - Janata Shikshan Prasarak Mandal’s Babasaheb Naik College Of Engineering, Pusad
+111799510 - Artificial Intelligence and Data Science
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GSCH PWDOPENH
+ I 63420
+(63.0502380)
+ I-Non
+PWD
+59093
+(66.0248119)
+Stage
+State Level
+EWS
+ I 76882
+(52.4476185)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1119 - Paramhansa Ramkrishna Maunibaba Shikshan Santha's , Anuradha Engineering College, Chikhali
+111924210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH LSCH LOBCH
+ I 43823
+(75.6487214)
+83774
+(46.4456321)
+35847
+(80.5336015)
+ VII 55463
+(68.3772406)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GOBCO LOPENO
+ I 71186
+(57.0638559)
+86518
+(44.6471616)
+76052
+(53.7302794)
+78871
+(51.1072039)
+Stage
+State Level
+EWS
+ I 65316
+(61.6697194)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1119 - Paramhansa Ramkrishna Maunibaba Shikshan Santha's , Anuradha Engineering College, Chikhali
+111924610 - Information Technology
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GVJH LOPENH
+ I 56037
+(67.9791157)
+87154
+(43.3051128)
+65350
+(61.6697194)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 48400
+(72.8897104)
+Stage
+State Level
+DEFOPENS TFWS EWS
+ I 32385
+(82.4244430)
+60697
+(64.7353734)
+ I-Non
+Defence
+49694
+(72.4718017)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1119 - Paramhansa Ramkrishna Maunibaba Shikshan Santha's , Anuradha Engineering College, Chikhali
+111937210 - Electronics and Telecommunication Engg
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH LSTH
+ I 73073
+(55.2570590)
+ VII 78619
+(51.2359011)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GNT1O
+ I 109037
+(20.2327920)
+Stage
+State Level
+EWS
+ I 86301
+(44.7418375)
+Stage
+111950710 - Chemical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+LOPENH
+ I 96515
+(34.6668564)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1119 - Paramhansa Ramkrishna Maunibaba Shikshan Santha's , Anuradha Engineering College, Chikhali
+111961210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GNT1H GNT2H GNT3H GOBCH LOPENH LSCH LSTH LOBCH
+ I 88724
+(42.3018437)
+113015
+(14.9912318)
+100457
+(30.0146620)
+93995
+(36.7166438)
+109383
+(19.8474395)
+113272
+(14.7866072)
+ VII 94947
+(35.8351101)
+112737
+(15.5460791)
+105837
+(23.9925869)
+112480
+(15.6956852)
+107017
+(22.9132251)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 118397
+(7.4458997)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOBCO LOPENO LSCO
+ I 102166
+(28.4814025)
+106677
+(23.1211380)
+120685
+(3.5639711)
+Stage
+State Level
+EWS
+ I 104083
+(26.2202423)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1120 - Jawaharlal Darda Institute of Engineering and Technology, Yavatmal
+112019110 - Civil Engineering
+Status: Un-Aided Linguistic Minority - Hindi
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 114224
+(13.5440394)
+98871
+(32.2127079)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOPENO
+ I 115128
+(12.2194150)
+Stage
+ Minority Seats Allotted to Maharashtra State Candidature Candidates
+MI
+MH 122566
+(0.1311825)
+Stage
+112024210 - Computer Science and Engineering
+Status: Un-Aided Linguistic Minority - Hindi
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO LOPENO
+ I 51060
+(71.1976870)
+68014
+(59.5292331)
+Stage
+ Minority Seats Allotted to Maharashtra State Candidature Candidates
+MI
+MH 51430
+(71.1253958)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1120 - Jawaharlal Darda Institute of Engineering and Technology, Yavatmal
+112029310 - Electrical Engineering
+Status: Un-Aided Linguistic Minority - Hindi
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 83317
+(46.9414830)
+81125
+(48.9390238)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 105474
+(24.8766135)
+Stage
+ Minority Seats Allotted to Maharashtra State Candidature Candidates
+MI
+MH 92675
+(38.6417086)
+Stage
+112037210 - Electronics and Telecommunication Engg
+Status: Un-Aided Linguistic Minority - Hindi
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 76106
+(53.7302794)
+Stage
+ Minority Seats Allotted to Maharashtra State Candidature Candidates
+MI
+MH 66940
+(60.5043241)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1120 - Jawaharlal Darda Institute of Engineering and Technology, Yavatmal
+112050710 - Chemical Engineering
+Status: Un-Aided Linguistic Minority - Hindi
+Home University Seats Allotted to Home University Candidates
+LOPENH
+ I 56448
+(67.7143135)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 110945
+(17.8380677)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOPENO LOPENO
+ I 111382
+(17.4354552)
+98758
+(32.2621925)
+Stage
+ Minority Seats Allotted to Maharashtra State Candidature Candidates
+MI
+MH 117686
+(8.5951196)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1120 - Jawaharlal Darda Institute of Engineering and Technology, Yavatmal
+112061210 - Mechanical Engineering
+Status: Un-Aided Linguistic Minority - Hindi
+Home University Seats Allotted to Home University Candidates
+LOPENH
+ I 103169
+(27.3337429)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOPENO
+ I 67712
+(59.6829046)
+Stage
+ Minority Seats Allotted to Maharashtra State Candidature Candidates
+MI
+MH 120617
+(3.6006941)
+Stage
+112089310 - Textile Engineering / Technology
+Status: Un-Aided Linguistic Minority - Hindi
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 96819
+(34.1210946)
+114205
+(13.5440394)
+Stage
+ Minority Seats Allotted to Maharashtra State Candidature Candidates
+MI
+MH 119882
+(5.2450064)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1121 - Shri Hanuman Vyayam Prasarak Mandals College of Engineering & Technology, Amravati
+112124210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GNT1H GOBCH LOPENH LSCH
+ I 42914
+(76.4889836)
+55147
+(68.5714285)
+45525
+(74.5211181)
+34365
+(81.4109415)
+52573
+(70.2135829)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GNT1O GOBCO
+ I 60513
+(64.8863260)
+55112
+(68.7024004)
+Stage
+112124610 - Information Technology
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH LOBCH
+ I 29941
+(83.8902317)
+53176
+(69.7082914)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GSTH
+ I 72833
+(55.8902921)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO LOPENO LSCO
+ I 63560
+(63.0502380)
+79171
+(50.9996691)
+55504
+(68.3772406)
+68752
+(59.0639291)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1121 - Shri Hanuman Vyayam Prasarak Mandals College of Engineering & Technology, Amravati
+112137210 - Electronics and Telecommunication Engg
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GVJH PWDOPENH
+ I 50837
+(71.2367422)
+90682
+(39.6081812)
+ I-Non
+PWD
+53733
+(69.5290454)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 76211
+(53.7302794)
+Stage
+112161210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 65522
+(61.4673542)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1123 - Dr.Rajendra Gode Institute of Technology & Research, Amravati
+112319110 - Civil Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GNT1H GNT3H GOBCH LOPENH LOBCH PWDOPENH
+ I 92484
+(39.1582539)
+104452
+(25.7906003)
+100041
+(30.5619889)
+76414
+(52.8246408)
+93805
+(36.7166438)
+ I-Non
+PWD
+97797
+(32.5908894)
+ VII 105386
+(25.0367211)
+106690
+(23.1211380)
+105612
+(24.8766135)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GSCO GSTO GNT2O LOBCO
+ I 99516
+(31.7734581)
+102760
+(28.1605922)
+98433
+(32.3435843)
+ VII 105841
+(23.9925869)
+Stage
+State Level
+DEFOPENS ORPHAN
+ I-Non
+Defence
+99212
+(32.1061359)
+ VII 105920
+(23.9542468)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1123 - Dr.Rajendra Gode Institute of Technology & Research, Amravati
+112324210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GVJH GNT3H LOPENH PWDOPENH
+ I 59887
+(65.2657662)
+83499
+(46.9414830)
+79232
+(50.9996691)
+51333
+(71.1253958)
+ I-Non
+PWD
+53922
+(69.3871747)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOBCO LOPENO LSCO
+ I 58382
+(66.4465439)
+57146
+(67.2875491)
+103036
+(27.3337429)
+Stage
+State Level
+TFWS ORPHAN EWS
+ I 55674
+(68.2985361)
+79744
+(50.5614783)
+ VII 56779
+(67.4472840)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1123 - Dr.Rajendra Gode Institute of Technology & Research, Amravati
+112337210 - Electronics and Telecommunication Engg
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH LOBCH
+ I 63696
+(62.3954246)
+62806
+(63.5478045)
+65820
+(61.2621174)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GSTO GOBCO
+ I 81629
+(48.2601391)
+ VII 86668
+(44.6471616)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GNT3O
+ I 100738
+(29.9372742)
+Stage
+State Level
+DEFOPENS EWS
+ I 107968
+(21.8821184)
+ I-Non
+Defence
+65738
+(61.4673542)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1123 - Dr.Rajendra Gode Institute of Technology & Research, Amravati
+112361210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GSCH GNT1H GNT2H GOBCH LOPENH LSCH LSTH LOBCH PWDOPENH
+ I 103665
+(26.7890081)
+110984
+(17.7419354)
+116381
+(10.4981278)
+93549
+(37.5478565)
+86111
+(44.7418375)
+109864
+(19.2567241)
+104388
+(25.8381109)
+ I-Non
+PWD
+78467
+(51.2359011)
+ VII 97796
+(32.5908894)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO
+ I 112088
+(16.5815096)
+ VII 121141
+(2.7571580)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GNT1O GNT2O LSCO
+ I 119771
+(5.2699106)
+109625
+(19.4998540)
+111761
+(16.7412669)
+Stage
+State Level
+DEFOPENS TFWS ORPHAN
+ I 87648
+(43.0138429)
+ I-Non
+Defence
+94704
+(35.9780390)
+ VII 97879
+(32.5908894)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1125 - Dwarka Bahu Uddeshiya Gramin Vikas Foundation, Rajarshri Shahu College of Engineering, Buldhana
+112519110 - Civil Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 117038
+(9.5134004)
+115862
+(11.2993545)
+Stage
+112524210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GVJH GNT1H GNT2H LOPENH PWDOPENH
+ I 75045
+(54.1246150)
+77427
+(51.9313711)
+91824
+(39.4196471)
+100125
+(30.5619889)
+97333
+(33.5099087)
+84558
+(45.9187639)
+ I-Non
+PWD
+72810
+(55.8902921)
+ VII 79980
+(50.5614783)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 64917
+(61.8814494)
+Stage
+State Level
+EWS
+ I 94282
+(36.1623265)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1125 - Dwarka Bahu Uddeshiya Gramin Vikas Foundation, Rajarshri Shahu College of Engineering, Buldhana
+112529310 - Electrical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOBCH LOPENH PWDOPENH
+ I 114987
+(12.4299468)
+119547
+(5.5595051)
+ I-Non
+PWD
+121579
+(2.0785876)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 111071
+(17.5316365)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+LOPENO
+ II 99787
+(31.5015186)
+Stage
+112561210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 121410
+(2.4401800)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1126 - Shri. Dadasaheb Gawai Charitable Trust's Dr. Smt. Kamaltai Gawai Institute of Engineering & Technology, Darapur, Amravati
+112619110 - Civil Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GNT2H GOBCH LOPENH PWDOPENH
+ I 79700
+(50.5614783)
+119687
+(5.3930618)
+118073
+(8.0762868)
+121593
+(2.0785876)
+120946
+(3.2892818)
+ I-Non
+PWD
+120654
+(3.5945703)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOPENO GSCO LOPENO
+ I 119280
+(5.9035687)
+121782
+(1.8249748)
+117315
+(9.2444950)
+Stage
+112624210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GVJH GNT2H LSCH
+ I 66514
+(60.6284658)
+94154
+(36.1623265)
+91413
+(39.4227966)
+62024
+(64.0075195)
+Stage
+State Level
+TFWS EWS
+ I 71206
+(57.0638559)
+110305
+(18.8401670)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1126 - Shri. Dadasaheb Gawai Charitable Trust's Dr. Smt. Kamaltai Gawai Institute of Engineering & Technology, Darapur, Amravati
+112629310 - Electrical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GSTH GVJH GNT1H GOBCH LOBCH
+ I 110325
+(18.8401670)
+99740
+(31.5015186)
+ VII 112658
+(15.5460791)
+114384
+(12.9353233)
+92377
+(39.1582539)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GSCO
+ I 90566
+(39.8713522)
+Stage
+112637210 - Electronics and Telecommunication Engg
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GNT1H GNT2H
+ I 79648
+(50.5614783)
+119215
+(5.9143931)
+93904
+(36.7166438)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+LOPENO
+ I 99591
+(31.7734581)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GSCO
+ I 75128
+(54.1246150)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1126 - Shri. Dadasaheb Gawai Charitable Trust's Dr. Smt. Kamaltai Gawai Institute of Engineering & Technology, Darapur, Amravati
+112661210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GSTH GVJH GNT3H GOBCH LOPENH LOBCH
+ I 112469
+(15.6956852)
+ II 113470
+(14.6195704)
+ VII 117037
+(9.5134004)
+117589
+(8.6023034)
+116464
+(10.4981278)
+122477
+(0.3448771)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GSTO GOBCO
+ I 110042
+(19.1072714)
+ VII 117930
+(8.3849292)
+Stage
+State Level
+DEFOPENS
+ I-Non
+Defence
+113848
+(14.2210761)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1127 - Jagadambha Bahuuddeshiya Gramin Vikas Sanstha's Jagdambha College of Engineering and Technology, Yavatmal
+112719110 - Civil Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GNT3H PWDOPENH
+ I-Non
+PWD
+110733
+(18.3037194)
+ VII 101658
+(28.9481366)
+Stage
+112724510 - Computer Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GOBCH LOPENH
+ I 67822
+(59.6829046)
+79335
+(50.8162490)
+71626
+(56.8099848)
+45273
+(74.7453210)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GNT3O GOBCO LOPENO LOBCO
+ I 71357
+(57.0638559)
+84367
+(45.9884082)
+79496
+(50.8162490)
+38383
+(79.1079584)
+49466
+(72.5765063)
+Stage
+State Level
+DEFOPENS EWS
+ I 94948
+(35.8351101)
+ I-Non
+Defence
+57475
+(67.1125395)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1127 - Jagadambha Bahuuddeshiya Gramin Vikas Sanstha's Jagdambha College of Engineering and Technology, Yavatmal
+112729310 - Electrical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GVJH GNT2H
+ I 75824
+(53.8866742)
+99515
+(31.7734581)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+LOPENO
+ I 80829
+(49.0525702)
+Stage
+State Level
+TFWS
+ I 97352
+(33.5099087)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1127 - Jagadambha Bahuuddeshiya Gramin Vikas Sanstha's Jagdambha College of Engineering and Technology, Yavatmal
+112737210 - Electronics and Telecommunication Engg
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH PWDOPENH
+ I 68326
+(59.4192464)
+ I-Non
+PWD
+68316
+(59.5292331)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 93027
+(38.5667023)
+Stage
+State Level
+TFWS EWS
+ I 70578
+(57.4413646)
+97558
+(33.0830640)
+Stage
+112761210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GOBCH
+ I 95287
+(35.6983743)
+105770
+(23.9925869)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOPENO
+ I 90919
+(39.6081812)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1128 - Prof Ram Meghe College of Engineering and Management, Badnera
+112819110 - Civil Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GNT1H LOPENH LSTH
+ I 121858
+(1.5443831)
+69793
+(57.9292585)
+ VII 75379
+(53.9262430)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GNT2O
+ I 89074
+(42.0206383)
+Stage
+State Level
+EWS
+ I 109575
+(19.4998540)
+Stage
+112824210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH GNT1H LOPENH LOBCH PWDOPENH
+ I 36287
+(80.2788844)
+48526
+(72.8897104)
+34704
+(81.0304563)
+35716
+(80.5501725)
+ I-Non
+PWD
+34865
+(80.9298585)
+ VII 37845
+(79.4729608)
+Stage
+State Level
+EWS
+ I 48860
+(72.7060426)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1128 - Prof Ram Meghe College of Engineering and Management, Badnera
+112824610 - Information Technology
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GNT3H GOBCH LOPENH LSTH PWDOPENH
+ I 44263
+(75.5619344)
+77245
+(52.2301039)
+44265
+(75.5619344)
+32273
+(82.4407997)
+ I-Non
+PWD
+41348
+(77.0895594)
+ VII 43782
+(75.6738800)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GNT1O LOPENO LSTO
+ I 48432
+(72.8897104)
+67604
+(59.7201871)
+69641
+(57.9292585)
+47308
+(73.5739966)
+ VII 51177
+(71.1976870)
+Stage
+State Level
+DEFOPENS EWS
+ I 58279
+(66.4465439)
+ I-Non
+Defence
+42210
+(76.7344555)
+Stage
+112829310 - Electrical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GOBCH
+ I 55658
+(68.3772406)
+66425
+(60.6284658)
+58576
+(66.2395008)
+Stage
+State Level
+DEFOPENS EWS
+ I 94777
+(35.9780390)
+ I-Non
+Defence
+56501
+(67.4824177)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1128 - Prof Ram Meghe College of Engineering and Management, Badnera
+112837210 - Electronics and Telecommunication Engg
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GNT3H LSTH PWDOPENH
+ I 50278
+(71.6451268)
+95619
+(35.6598862)
+ I-Non
+PWD
+48351
+(72.8897104)
+ VII 51078
+(71.1976870)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 71149
+(57.0638559)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GVJO
+ I 72130
+(56.5826603)
+Stage
+State Level
+EWS
+ I 61968
+(64.0075195)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1128 - Prof Ram Meghe College of Engineering and Management, Badnera
+112891210 - Computer Science and Engineering(Data Science)
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 29245
+(84.1506751)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GOBCO
+ I 53340
+(69.6045087)
+59486
+(65.7244332)
+70455
+(57.6946774)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1130 - Vision Buldhana Educational & Welfare Society's Pankaj Laddhad Institute of Technology & Management Studies, Yelgaon
+113019110 - Civil Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 115127
+(12.2194150)
+Stage
+113024210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GOBCH PWDOPENH
+ I 78002
+(51.2600953)
+92362
+(39.1582539)
+86857
+(43.3167495)
+ I-Non
+PWD
+69484
+(58.8006082)
+ VII 85236
+(45.2718114)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GSCO
+ I 99790
+(31.5015186)
+Stage
+113035610 - Electrical Engg[Electronics and Power]
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+LOPENH
+ I 105329
+(25.0367211)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1130 - Vision Buldhana Educational & Welfare Society's Pankaj Laddhad Institute of Technology & Management Studies, Yelgaon
+113037210 - Electronics and Telecommunication Engg
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GNT1H GNT2H GOBCH LOPENH LOBCH PWDOPENH
+ I 95843
+(35.6598862)
+109653
+(19.4998540)
+113164
+(14.9316558)
+118766
+(6.9529361)
+ I-Non
+PWD
+102409
+(28.4665226)
+ VII 116899
+(9.9445363)
+117206
+(9.2499758)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOBCO
+ I 96964
+(34.1210946)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1180 - Sanmati Engineering College, Sawargaon Barde, Washim
+118024210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH GOBCH LSTH
+ I 75682
+(53.8866742)
+87209
+(43.3051128)
+ VII 87663
+(43.0138429)
+87355
+(43.3051128)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GOBCO
+ I 83190
+(47.7695520)
+97407
+(33.0830640)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GNT2O LOBCO
+ I 112019
+(16.5815096)
+78217
+(51.2600953)
+Stage
+State Level
+DEFOPENS TFWS ORPHAN EWS
+ I 79463
+(50.8162490)
+103618
+(26.7890081)
+ I-Non
+Defence
+74886
+(54.1664697)
+ VII 88100
+(42.7946749)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1180 - Sanmati Engineering College, Sawargaon Barde, Washim
+118026310 - Artificial Intelligence (AI) and Data Science
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GOBCH LOPENH LSTH LOBCH PWDOPENH
+ I 103996
+(26.2202423)
+120501
+(4.0235666)
+114898
+(12.6735864)
+102080
+(28.6995083)
+113124
+(14.9912318)
+ I-Non
+PWD
+104355
+(25.8381109)
+ VII 122325
+(0.6432388)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO LSCO LOBCO
+ I 63891
+(62.3954246)
+108064
+(21.5067519)
+ VII 101162
+(29.3331437)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOBCO
+ I 103912
+(26.3140433)
+Stage
+State Level
+DEFOPENS TFWS EWS
+ I 111643
+(17.0051501)
+103794
+(26.3140433)
+ I-Non
+Defence
+83008
+(47.7695520)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1180 - Sanmati Engineering College, Sawargaon Barde, Washim
+118029310 - Electrical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 93675
+(37.5478565)
+116497
+(10.4564832)
+Stage
+State Level
+EWS
+ I 92023
+(39.3128682)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1182 - Padmashri Dr. V.B. Kolte College of Engineering, Malkapur, Buldhana
+118219110 - Civil Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 118781
+(6.9529361)
+Stage
+118224210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GVJH GOBCH LOPENH
+ I 57723
+(66.8137813)
+88444
+(42.5186027)
+108407
+(21.2317049)
+65355
+(61.6697194)
+80760
+(49.0525702)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GNT3O
+ I 100206
+(30.5619889)
+Stage
+State Level
+DEFOPENS ORPHAN
+ I-Non
+Defence
+50553
+(71.4470469)
+ VII 76876
+(52.4476185)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1182 - Padmashri Dr. V.B. Kolte College of Engineering, Malkapur, Buldhana
+118229310 - Electrical Engineering
+Status: Un-Aided
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GNT2O
+ VII 119085
+(6.4853556)
+Stage
+State Level
+DEFOPENS EWS
+ I 114655
+(12.7995462)
+ I-Non
+Defence
+62655
+(63.7147595)
+Stage
+118261210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GOBCH
+ I 120408
+(4.2124186)
+120772
+(3.5025356)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GOBCH PWDOPENH
+ I 119549
+(5.5595051)
+ I-Non
+PWD
+115378
+(12.0998320)
+Stage
+State Level
+TFWS
+ I 92022
+(39.3128682)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1265 - Mauli Group of Institutions, College of Engineering and Technology, Shegaon.
+126519110 - Civil Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GSCH GSTH GVJH GNT1H GNT2H GNT3H GOBCH LOPENH LSCH PWDOPENH
+ I 115746
+(11.3082039)
+89603
+(41.9139826)
+97165
+(33.5099087)
+ II 121436
+(2.4401800)
+ I-Non
+PWD
+85038
+(45.6704109)
+ VII 98510
+(32.3435843)
+103408
+(26.9007793)
+113117
+(14.9912318)
+96368
+(35.1475881)
+115028
+(12.4299468)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 110794
+(17.8380677)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOPENO GSCO GSTO GNT2O
+ I 75719
+(53.8866742)
+118166
+(7.7836913)
+ VII 115901
+(11.2993545)
+103766
+(26.3140433)
+Stage
+State Level
+DEFOPENS ORPHAN
+ I-Non
+Defence
+87107
+(43.3051128)
+ VII 109059
+(20.2327920)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1265 - Mauli Group of Institutions, College of Engineering and Technology, Shegaon.
+126524210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GOBCH LOPENH LSTH
+ I 36541
+(80.1068911)
+63234
+(63.0882980)
+44985
+(75.1821980)
+40698
+(77.8495773)
+ VII 46849
+(74.1161376)
+Stage
+State Level
+DEFOPENS
+ I-Non
+Defence
+35003
+(80.9167266)
+Stage
+126524610 - Information Technology
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GVJH LOPENH PWDOPENH
+ I 39033
+(78.4825990)
+64114
+(62.3799839)
+48226
+(72.8974176)
+ I-Non
+PWD
+47153
+(74.0962113)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 68702
+(59.0639291)
+Stage
+126535610 - Electrical Engg[Electronics and Power]
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH
+ I 68859
+(59.0639291)
+105350
+(25.0367211)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1265 - Mauli Group of Institutions, College of Engineering and Technology, Shegaon.
+126537210 - Electronics and Telecommunication Engg
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GNT3H GOBCH LOPENH
+ I 60493
+(64.8863260)
+64228
+(62.0823842)
+116111
+(10.6465496)
+63810
+(62.3954246)
+54901
+(68.7024004)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO GOBCO
+ I 86089
+(44.7418375)
+94486
+(36.1594098)
+ VII 88043
+(42.7946749)
+Stage
+State Level
+DEFOPENS
+ I-Non
+Defence
+57937
+(66.5894149)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1265 - Mauli Group of Institutions, College of Engineering and Technology, Shegaon.
+126561210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GNT1H GOBCH PWDOPENH
+ I 83150
+(47.7695520)
+ I-Non
+PWD
+74372
+(54.1780657)
+ VII 84178
+(46.1727561)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 106839
+(23.1211380)
+Stage
+State Level
+DEFOPENS EWS
+ I 112886
+(15.1013848)
+ I-Non
+Defence
+78300
+(51.2359011)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1268 - Siddhivinayak Technical Campus, School of Engineering & Research Technology, Shirasgon, Nile
+126824210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GNT1H GNT3H GOBCH LSCH PWDOPENH
+ I 111831
+(16.7412669)
+61003
+(64.4979119)
+26479
+(85.7225489)
+91516
+(39.4227966)
+ I-Non
+PWD
+64608
+(61.9054461)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 83759
+(46.4456321)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GSCO
+ I 100004
+(30.5619889)
+Stage
+126835610 - Electrical Engg[Electronics and Power]
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 117103
+(9.2499758)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1268 - Siddhivinayak Technical Campus, School of Engineering & Research Technology, Shirasgon, Nile
+126837210 - Electronics and Telecommunication Engg
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GSCH GNT1H GOBCH LOPENH PWDOPENH
+ I 103055
+(27.3337429)
+94211
+(36.1623265)
+ I-Non
+PWD
+99849
+(31.5015186)
+ VII 106216
+(23.4829494)
+108627
+(20.8205322)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GSCO GOBCO
+ I 75533
+(53.9262430)
+ VII 108163
+(21.5067519)
+Stage
+State Level
+DEFOPENS EWS
+ I 102464
+(28.4665226)
+ I-Non
+Defence
+101175
+(29.3331437)
+Stage
+126861210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+LOPENH
+ I 96276
+(35.1475881)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1276 - Manav School of Engineering & Technology, Gut No. 1035 Nagpur Surat Highway, NH No. 6 Tal.Vyala, Balapur, Akola, 444302
+127624510 - Computer Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GOBCH LOPENH PWDOPENH
+ I 80474
+(49.4442605)
+101275
+(29.3331437)
+48136
+(72.8974176)
+ I-Non
+PWD
+68900
+(59.0639291)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GSTH
+ I 115786
+(11.3082039)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOBCO
+ I 90913
+(39.6081812)
+Stage
+State Level
+DEFOPENS EWS
+ I 95080
+(35.8351101)
+ I-Non
+Defence
+62143
+(63.7783399)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+1276 - Manav School of Engineering & Technology, Gut No. 1035 Nagpur Surat Highway, NH No. 6 Tal.Vyala, Balapur, Akola, 444302
+127629310 - Electrical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 117120
+(9.2499758)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+LOPENO
+ I 112544
+(15.6956852)
+Stage
+127661210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 121873
+(1.5182329)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2008 - Government College of Engineering, Aurangabad
+200819110 - Civil Engineering
+Status: Government Autonomous
+State Level
+GOPENS GSCS GSTS GNT2S GNT3S GOBCS LOPENS LOBCS PWDOPENS TFWS EWS
+ I 39092
+(78.4825990)
+49561
+(72.4718017)
+87755
+(42.8034319)
+72038
+(56.7650587)
+56750
+(67.4472840)
+41389
+(77.0895594)
+76763
+(52.4476185)
+30381
+(83.4474115)
+37213
+(79.5912465)
+ I-Non
+PWD
+40910
+(77.6049916)
+ VII 45112
+(74.9700023)
+Stage
+200824210 - Computer Science and Engineering
+Status: Government Autonomous
+State Level
+GOPENS GSTS GOBCS LOBCS ORPHAN EWS
+ I 5819
+(96.7743504)
+54321
+(69.1685966)
+7079
+(96.0985326)
+10500
+(94.2809760)
+6320
+(96.4929764)
+ VII 5874
+(96.7544456)
+Stage
+200824610 - Information Technology
+Status: Government Autonomous
+State Level
+GOPENS GOBCS LOBCS PWDOPENS TFWS ORPHAN EWS
+ I 9092
+(95.0512832)
+9633
+(94.7170538)
+12419
+(93.3030001)
+5523
+(96.9198881)
+8450
+(95.3393686)
+ I-Non
+PWD
+8780
+(95.2051835)
+ VII 9600
+(94.7358445)
+Stage
+200829310 - Electrical Engineering
+Status: Government Autonomous
+State Level
+GOPENS GSCS GOBCS LOPENS LSCS LNT2S LOBCS
+ I 22455
+(87.9005604)
+27657
+(85.0225065)
+29144
+(84.1949276)
+20654
+(88.9568225)
+33514
+(81.7575556)
+53113
+(69.7082914)
+18876
+(89.8892235)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2008 - Government College of Engineering, Aurangabad
+200837210 - Electronics and Telecommunication Engg
+Status: Government Autonomous
+State Level
+GOPENS GSCS GOBCS LOPENS TFWS EWS
+ I 16390
+(91.1518646)
+20166
+(89.0980466)
+17142
+(90.7746979)
+14780
+(92.0273348)
+11488
+(93.7701957)
+14762
+(92.0273348)
+Stage
+200861210 - Mechanical Engineering
+Status: Government Autonomous
+State Level
+GOPENS GSCS GNT2S GOBCS LOPENS LSCS LSTS LOBCS PWDOPENS DEFOPENS ORPHAN
+ I 35659
+(80.5501725)
+39840
+(78.1473584)
+43267
+(75.8471965)
+40310
+(78.0555027)
+36834
+(79.8656107)
+60629
+(64.8863260)
+56122
+(67.9791157)
+51908
+(70.9263207)
+ I-Non
+PWD
+31682
+(82.8743796)
+ VII 35629
+(80.6275908)
+42365
+(76.6964455)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2020 - Shri Guru Gobind Singhji Institute of Engineering and Technology, Nanded
+202019110 - Civil Engineering
+Status: Government-Aided Autonomous
+State Level
+GOPENS GSCS GSTS GOBCS LOPENS LOBCS EWS
+ I 55947
+(67.9791157)
+75997
+(53.7302794)
+66249
+(60.7344231)
+51212
+(71.1253958)
+75550
+(53.9262430)
+52330
+(70.7220669)
+ VII 57250
+(67.2875491)
+Stage
+202024210 - Computer Science and Engineering
+Status: Government-Aided Autonomous
+State Level
+GOPENS GSTS GOBCS LOPENS LOBCS
+ I 6447
+(96.4386357)
+64471
+(62.0823842)
+9810
+(94.6532277)
+10126
+(94.4989339)
+11275
+(93.8419335)
+Stage
+202024610 - Information Technology
+Status: Government-Aided Autonomous
+State Level
+GOPENS GSCS GOBCS LOPENS LOBCS ORPHAN
+ I 8417
+(95.3875689)
+15707
+(91.5409302)
+10991
+(94.0440653)
+11581
+(93.7421047)
+11883
+(93.5685145)
+ VII 10614
+(94.2233079)
+Stage
+202029310 - Electrical Engineering
+Status: Government-Aided Autonomous
+State Level
+GOBCS LOPENS TFWS EWS
+ I 31280
+(83.1650789)
+26584
+(85.6913808)
+32787
+(82.3797757)
+30579
+(83.4045178)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2020 - Shri Guru Gobind Singhji Institute of Engineering and Technology, Nanded
+202037210 - Electronics and Telecommunication Engg
+Status: Government-Aided Autonomous
+State Level
+GOPENS GSCS LOPENS TFWS
+ I 16958
+(90.8966299)
+21628
+(88.3304859)
+14509
+(92.2149174)
+16375
+(91.1518646)
+Stage
+202046610 - Instrumentation Engineering
+Status: Government-Aided Autonomous
+State Level
+GOBCS LVJS
+ I 24941
+(86.5233044)
+ II 111651
+(17.0051501)
+Stage
+202050710 - Chemical Engineering
+Status: Government-Aided Autonomous
+State Level
+GOPENS LSTS PWDOPENS TFWS
+ I 10712
+(94.2082563)
+48408
+(72.8897104)
+ II 64600
+(61.9054461)
+ I-Non
+PWD
+40464
+(77.9458986)
+Stage
+202060610 - Production Engineering
+Status: Government-Aided Autonomous
+State Level
+GOPENS GSTS GNT2S GOBCS LOPENS LSTS LNT2S DEFOPENS TFWS ORPHAN EWS
+ I 78941
+(51.1072039)
+107193
+(22.4871071)
+78566
+(51.2359011)
+63968
+(62.3799839)
+61011
+(64.4979119)
+ I-Non
+Defence
+80522
+(49.4442605)
+ VII 96053
+(35.3945703)
+103676
+(26.7890081)
+83147
+(47.7695520)
+66330
+(60.7344231)
+80338
+(49.5565410)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2020 - Shri Guru Gobind Singhji Institute of Engineering and Technology, Nanded
+202061210 - Mechanical Engineering
+Status: Government-Aided Autonomous
+State Level
+GOPENS GSTS GNT3S LSCS DEFOPENS TFWS ORPHAN EWS
+ I 44569
+(75.4846987)
+103432
+(26.7890081)
+86027
+(44.7418375)
+76256
+(53.7001897)
+35268
+(80.8718313)
+47375
+(73.5739966)
+ I-Non
+Defence
+46996
+(74.0962113)
+ VII 49325
+(72.5765063)
+Stage
+202089610 - Textile Technology
+Status: Government-Aided Autonomous
+State Level
+GOPENS GNT2S LOPENS TFWS EWS
+ I 88222
+(42.7946749)
+115666
+(11.3082039)
+75607
+(53.9262430)
+49023
+(72.6414198)
+74629
+(54.1664697)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2021 - University Department of Chemical Technology, Aurangabad
+202150310 - Food Technology
+Status: University Department
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH GOBCH PWDOPENH
+ I 84738
+(45.9187639)
+119302
+(5.9035687)
+ I-Non
+PWD
+91189
+(39.5925136)
+ VII 104633
+(25.7906003)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOBCO
+ I 84437
+(45.9884082)
+Stage
+State Level
+DEFOPENS TFWS
+ I 35549
+(80.6275908)
+ I-Non
+Defence
+89787
+(41.4815869)
+Stage
+202181610 - Pharmaceutical and Fine Chemical Technology
+Status: University Department
+Home University Seats Allotted to Other Than Home University Candidates
+GOPENH GOBCH LOBCH PWDOPENH
+ I 110103
+(19.1072714)
+113079
+(14.9912318)
+ I-Non
+PWD
+97611
+(33.0830640)
+ VII 114771
+(12.7559948)
+Stage
+State Level
+EWS
+ I 102354
+(28.4814025)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2032 - Institute of Chemical Technology, Mumbai Marathwada off campus, Jalna
+203290410 - Chemical Engineering
+Status: University Managed Autonomous
+State Level
+GOPENS GSCS GSTS GVJS GOBCS LOPENS LSCS LSTS LVJS LNT2S LOBCS PWDOPENS TFWS EWS
+ I 39569
+(78.3496848)
+86617
+(44.6471616)
+87259
+(43.3051128)
+41368
+(77.0895594)
+44326
+(75.5619344)
+59813
+(65.2657662)
+30762
+(83.3155184)
+5881
+(96.7270799)
+ II 92654
+(38.6417086)
+ I-Non
+PWD
+36539
+(80.1068911)
+ VII 42232
+(76.7344555)
+46274
+(74.2260244)
+45152
+(74.9700023)
+46049
+(74.3640850)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2111 - Everest Education Society, Group of Institutions (Integrated Campus), Ohar
+211119110 - Civil Engineering
+Status: Un-Aided Religious Minority - Muslim
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 122594
+(0.0708985)
+Stage
+211124210 - Computer Science and Engineering
+Status: Un-Aided Religious Minority - Muslim
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 71020
+(57.2112851)
+75215
+(54.1246150)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+LOPENO
+ I 79440
+(50.8162490)
+Stage
+State Level
+MI TFWS
+ I 101325
+(29.2342823)
+65511
+(61.4673542)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2111 - Everest Education Society, Group of Institutions (Integrated Campus), Ohar
+211129310 - Electrical Engineering
+Status: Un-Aided Religious Minority - Muslim
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 117926
+(8.3849292)
+ II 118931
+(6.7586339)
+Stage
+State Level
+MI
+ I 115525
+(12.0998320)
+Stage
+211161210 - Mechanical Engineering
+Status: Un-Aided Religious Minority - Muslim
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 75990
+(53.7302794)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2112 - Shree Yash Pratishthan, Shreeyash College of Engineering and Technology, Aurangabad
+211219110 - Civil Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 89598
+(41.9139826)
+110680
+(18.3037194)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 94226
+(36.1623265)
+Stage
+State Level
+EWS
+ I 98935
+(32.2127079)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2112 - Shree Yash Pratishthan, Shreeyash College of Engineering and Technology, Aurangabad
+211224210 - Computer Science and Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH LOPENH PWDOPENH
+ I 58285
+(66.4465439)
+61807
+(64.0075195)
+57863
+(66.8137813)
+ I-Non
+PWD
+56277
+(67.7143135)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GSTH
+ I 59196
+(66.0248119)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GNT1O GNT2O GOBCO LOPENO
+ I 49678
+(72.4718017)
+69817
+(57.9292585)
+75627
+(53.9262430)
+64659
+(61.9054461)
+47038
+(74.0962113)
+Stage
+State Level
+DEFOPENS TFWS ORPHAN EWS
+ I 44487
+(75.4846987)
+52810
+(70.0988506)
+ I-Non
+Defence
+51037
+(71.1976870)
+ VII 53150
+(69.7082914)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2112 - Shree Yash Pratishthan, Shreeyash College of Engineering and Technology, Aurangabad
+211229310 - Electrical Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GNT2H GOBCH LOPENH PWDOPENH
+ I 93031
+(38.5667023)
+102630
+(28.1605922)
+121791
+(1.7815683)
+111842
+(16.7412669)
+ I-Non
+PWD
+91599
+(39.4196471)
+ VII 111840
+(16.7412669)
+98615
+(32.2621925)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GSCH LSCH LOBCH
+ I 117050
+(9.5134004)
+104460
+(25.7906003)
+ II 116752
+(10.0599952)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 96522
+(34.6668564)
+Stage
+State Level
+DEFOPENS TFWS EWS
+ I 93545
+(37.5478565)
+83597
+(46.4456321)
+ I-Non
+Defence
+108250
+(21.5067519)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2112 - Shree Yash Pratishthan, Shreeyash College of Engineering and Technology, Aurangabad
+211261210 - Mechanical Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GVJH GNT1H GOBCH LOPENH PWDOPENH
+ I 96633
+(34.6668564)
+119627
+(5.5537174)
+102514
+(28.4665226)
+105062
+(25.3179745)
+116143
+(10.6465496)
+ II 100009
+(30.5619889)
+ I-Non
+PWD
+117988
+(8.2596443)
+ VII 122069
+(1.1966135)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 85097
+(45.6704109)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GSCO GNT1O LOPENO
+ I 122280
+(0.7798837)
+115643
+(11.4426915)
+ II 114342
+(13.5287968)
+Stage
+State Level
+DEFOPENS EWS
+ I 113580
+(14.6195704)
+ I-Non
+Defence
+121922
+(1.4996203)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2112 - Shree Yash Pratishthan, Shreeyash College of Engineering and Technology, Aurangabad
+211284410 - Electronics and Computer Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GSTH GNT1H GOBCH
+ I 114242
+(13.5287968)
+81973
+(48.2193247)
+ VII 65747
+(61.2621174)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GNT2O
+ I 101437
+(29.2342823)
+Stage
+State Level
+ORPHAN
+ VII 67186
+(60.0860804)
+Stage
+211291210 - Computer Science and Engineering(Data Science)
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+LOPENH LOBCH
+ I 60150
+(65.2400587)
+112236
+(16.5730741)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2113 - G. S. Mandal's Maharashtra Institute of Technology, Aurangabad
+211301110 - Agricultural Engineering
+Status: Un-Aided Autonomous
+State Level
+GOPENS GOBCS LOPENS PWDOPENS DEFOPENS
+ I 119393
+(5.8080688)
+120662
+(3.5945703)
+90548
+(39.8713522)
+38554
+(79.0746326)
+ I-Non
+PWD
+121258
+(2.6528094)
+Stage
+211319110 - Civil Engineering
+Status: Un-Aided Autonomous
+State Level
+GOPENS LOPENS LVJS LOBCS PWDOPENS DEFOPENS EWS
+ I 121516
+(2.1470211)
+121497
+(2.3327106)
+119380
+(5.8080688)
+103187
+(26.9007793)
+ I-Non
+Defence
+117854
+(8.3872203)
+ I-Non
+PWD
+115429
+(12.0998320)
+ VII 121848
+(1.5954882)
+Stage
+211324210 - Computer Science and Engineering
+Status: Un-Aided Autonomous
+State Level
+GOPENS GSTS LOPENS LSCS LOBCS PWDOPENS TFWS EWS
+ I 28743
+(84.2697705)
+38224
+(79.1656813)
+45814
+(74.5106403)
+38576
+(79.0746326)
+16067
+(91.3297266)
+28860
+(84.2332613)
+ I-Non
+PWD
+28775
+(84.2697705)
+ VII 31726
+(82.7324478)
+Stage
+211325710 - Computer Science and Design
+Status: Un-Aided Autonomous
+State Level
+GOPENS LOPENS LSCS LSTS
+ I 47247
+(73.5739966)
+47395
+(73.5739966)
+56338
+(67.7143135)
+ VII 45316
+(74.7453210)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2113 - G. S. Mandal's Maharashtra Institute of Technology, Aurangabad
+211326310 - Artificial Intelligence (AI) and Data Science
+Status: Un-Aided Autonomous
+State Level
+GOPENS LOPENS EWS
+ I 40404
+(77.9458986)
+41776
+(77.0311313)
+41521
+(77.0666918)
+Stage
+211329310 - Electrical Engineering
+Status: Un-Aided Autonomous
+State Level
+GOPENS GSTS GOBCS LOPENS LSTS LOBCS PWDOPENS DEFOPENS
+ I 75178
+(54.1246150)
+84638
+(45.9187639)
+70447
+(57.6946774)
+63280
+(63.0882980)
+ I-Non
+Defence
+68079
+(59.5292331)
+ I-Non
+PWD
+65516
+(61.4673542)
+ VII 81040
+(48.9390238)
+75640
+(53.8866742)
+Stage
+211350110 - Plastic and Polymer Engineering
+Status: Un-Aided Autonomous
+State Level
+GOPENS EWS
+ I 118662
+(6.9738420)
+121531
+(2.1470211)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2113 - G. S. Mandal's Maharashtra Institute of Technology, Aurangabad
+211361210 - Mechanical Engineering
+Status: Un-Aided Autonomous
+State Level
+GOPENS GSCS GNT1S GNT3S GOBCS LOPENS LSCS LSTS LNT3S LOBCS PWDOPENS DEFOPENS ORPHAN EWS
+ I 83307
+(46.9414830)
+118613
+(7.0709457)
+100157
+(30.5619889)
+121312
+(2.5896414)
+113910
+(14.2210761)
+95457
+(35.6983743)
+113810
+(14.2210761)
+72765
+(55.8902921)
+ II 119146
+(6.3771146)
+ I-Non
+Defence
+81855
+(48.2601391)
+ I-Non
+PWD
+85205
+(45.2718114)
+ VII 89238
+(42.0206383)
+85745
+(44.9304271)
+91183
+(39.5925136)
+88903
+(42.3018437)
+Stage
+211384410 - Electronics and Computer Engineering
+Status: Un-Aided Autonomous
+State Level
+GOPENS PWDOPENS DEFOPENS
+ I 39239
+(78.3504176)
+93680
+(37.5478565)
+ I-Non
+PWD
+40493
+(77.9458986)
+Stage
+211399510 - Artificial Intelligence and Data Science
+Status: Un-Aided Autonomous
+State Level
+GOPENS LOPENS LSTS PWDOPENS EWS
+ I 43788
+(75.6738800)
+43584
+(75.7886771)
+25668
+(86.2044419)
+ I-Non
+PWD
+34487
+(81.4005843)
+ VII 43650
+(75.6738800)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2114 - Deogiri Institute of Engineering and Management Studies, Aurangabad
+211419110 - Civil Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GNT1H GNT2H GNT3H GOBCH LOPENH LOBCH PWDOPENH
+ I 95285
+(35.6983743)
+97887
+(32.5908894)
+107772
+(22.1694264)
+115122
+(12.2194150)
+87783
+(42.8034319)
+93790
+(36.7166438)
+ I-Non
+PWD
+87346
+(43.3051128)
+ VII 96734
+(34.6668564)
+101382
+(29.2342823)
+96917
+(34.1210946)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GSTO LOPENO
+ I 93538
+(37.5478565)
+111401
+(17.4354552)
+92889
+(38.5667023)
+ VII 109168
+(20.1763116)
+Stage
+State Level
+TFWS ORPHAN EWS
+ I 55276
+(68.5714285)
+86663
+(44.6471616)
+ VII 103246
+(26.9007793)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2114 - Deogiri Institute of Engineering and Management Studies, Aurangabad
+211424210 - Computer Science and Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GOBCH PWDOPENH
+ I 23093
+(87.5783283)
+31640
+(82.8743796)
+30814
+(83.3155184)
+ I-Non
+PWD
+25558
+(86.2682985)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GSTH
+ I 115587
+(11.4426915)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GOBCO
+ I 29694
+(84.0382056)
+32838
+(82.3797757)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2114 - Deogiri Institute of Engineering and Management Studies, Aurangabad
+211437210 - Electronics and Telecommunication Engg
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GOBCH LOPENH LOBCH
+ I 50939
+(71.2367422)
+56740
+(67.4472840)
+66948
+(60.5043241)
+44197
+(75.6049358)
+65632
+(61.4673542)
+ VII 51054
+(71.1976870)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO GVJO
+ I 50427
+(71.6451268)
+92012
+(39.3128682)
+ VII 50592
+(71.4470469)
+Stage
+State Level
+DEFOPENS TFWS EWS
+ I 79692
+(50.5614783)
+42636
+(76.5571858)
+48238
+(72.8974176)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2114 - Deogiri Institute of Engineering and Management Studies, Aurangabad
+211461210 - Mechanical Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GOBCH LOPENH PWDOPENH
+ I 80826
+(49.0525702)
+89808
+(41.4815869)
+97230
+(33.5099087)
+86811
+(43.3167495)
+ I-Non
+PWD
+82261
+(48.2193247)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO LOPENO
+ I 87768
+(42.8034319)
+121750
+(1.8390580)
+Stage
+State Level
+TFWS ORPHAN EWS
+ I 71213
+(57.0638559)
+84764
+(45.9187639)
+ VII 87655
+(43.0138429)
+Stage
+211491110 - Computer Science and Engineering(Artificial Intelligence and Machine Learning)
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GOBCH LOBCH
+ I 23094
+(87.5783283)
+48690
+(72.7702415)
+45816
+(74.5106403)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GSTO
+ I 43649
+(75.6738800)
+49882
+(71.9798416)
+ VII 43658
+(75.6738800)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2116 - Matoshri Pratishan's Group of Institutions (Integrated Campus), Kupsarwadi , Nanded
+211624210 - Computer Science and Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GVJH GNT3H GOBCH LOPENH LSTH
+ I 71758
+(56.7650587)
+91974
+(39.3128682)
+75065
+(54.1246150)
+97468
+(33.0830640)
+75872
+(53.8866742)
+59685
+(65.5958943)
+ VII 74452
+(54.1780657)
+67692
+(59.7201871)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GOBCO LOPENO LOBCO
+ I 77807
+(51.6740911)
+90387
+(39.8713522)
+60547
+(64.8863260)
+80349
+(49.4442605)
+Stage
+State Level
+TFWS EWS
+ I 65901
+(61.2621174)
+63724
+(62.3954246)
+Stage
+211629710 - Electrical and Electronics Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 88244
+(42.7946749)
+Stage
+State Level
+EWS
+ I 97441
+(33.0830640)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2116 - Matoshri Pratishan's Group of Institutions (Integrated Campus), Kupsarwadi , Nanded
+211661210 - Mechanical Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 93085
+(38.5667023)
+Stage
+211691110 - Computer Science and Engineering(Artificial Intelligence and Machine Learning)
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH GVJH GNT2H GOBCH LSCH PWDOPENH
+ I 80225
+(49.5565410)
+85298
+(45.2718114)
+122118
+(1.0918372)
+100105
+(30.5619889)
+106035
+(23.9542468)
+ I-Non
+PWD
+92434
+(39.1582539)
+ VII 94463
+(36.1594098)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GSCO GOBCO
+ I 81722
+(48.2601391)
+96916
+(34.1210946)
+Stage
+State Level
+DEFOPENS TFWS EWS
+ I 76353
+(52.8246408)
+75401
+(53.9262430)
+ I-Non
+Defence
+88293
+(42.7946749)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2127 - Mahatma Gandhi Missions College of Engineering, Hingoli Rd, Nanded.
+212719110 - Civil Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH PWDOPENH
+ I 102475
+(28.4665226)
+74807
+(54.1664697)
+ I-Non
+PWD
+108668
+(20.8205322)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 116935
+(9.9445363)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOPENO LOPENO
+ I 118915
+(6.7586339)
+104545
+(25.7906003)
+Stage
+State Level
+DEFOPENS EWS
+ I 106981
+(22.9132251)
+ I-Non
+Defence
+114074
+(13.7713294)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2127 - Mahatma Gandhi Missions College of Engineering, Hingoli Rd, Nanded.
+212724210 - Computer Science and Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH GOBCH LOPENH
+ I 34314
+(81.4109415)
+40774
+(77.6308856)
+22453
+(87.9005604)
+ VII 34903
+(80.9298585)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GNT3O LOPENO
+ I 49741
+(71.9798416)
+69063
+(58.8113371)
+39446
+(78.3496848)
+Stage
+212724610 - Information Technology
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH LOPENH
+ I 45700
+(74.5106403)
+59676
+(65.5958943)
+33051
+(81.9995261)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 50378
+(71.6451268)
+Stage
+State Level
+EWS
+ I 43810
+(75.6487214)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2127 - Mahatma Gandhi Missions College of Engineering, Hingoli Rd, Nanded.
+212737210 - Electronics and Telecommunication Engg
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH PWDOPENH
+ I 56978
+(67.4472840)
+ I-Non
+PWD
+54416
+(69.1685966)
+ VII 58578
+(66.2395008)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO GOBCO
+ I 63039
+(63.0882980)
+68358
+(59.4192464)
+ VII 73104
+(55.2570590)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2127 - Mahatma Gandhi Missions College of Engineering, Hingoli Rd, Nanded.
+212761210 - Mechanical Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GNT3H GOBCH LOPENH LOBCH
+ I 90735
+(39.6081812)
+118027
+(8.2596443)
+121275
+(2.6528094)
+122034
+(1.2180672)
+102666
+(28.1605922)
+108207
+(21.5067519)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO LOPENO
+ I 91265
+(39.4227966)
+89294
+(42.0206383)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOPENO
+ I 105511
+(24.8766135)
+Stage
+State Level
+EWS
+ I 91340
+(39.4227966)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2129 - M.S. Bidve Engineering College, Latur
+212919110 - Civil Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 101224
+(29.3331437)
+67388
+(60.0860804)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 117457
+(8.7583305)
+Stage
+State Level
+EWS
+ I 91913
+(39.3128682)
+Stage
+212924210 - Computer Science and Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH PWDOPENH
+ I 26176
+(85.8374792)
+ I-Non
+PWD
+29723
+(84.0382056)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO LOBCO
+ I 45347
+(74.7453210)
+78955
+(51.0436432)
+ VII 46001
+(74.3640850)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2129 - M.S. Bidve Engineering College, Latur
+212924610 - Information Technology
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GSCH GOBCH
+ I 75473
+(53.9262430)
+53189
+(69.7082914)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GOBCO
+ I 54212
+(69.3404295)
+62756
+(63.5478045)
+Stage
+State Level
+EWS
+ I 25185
+(86.4021980)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2129 - M.S. Bidve Engineering College, Latur
+212929810 - Electrical Engg [Electrical and Power]
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+LOPENH
+ I 80901
+(49.0525702)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 114252
+(13.5287968)
+Stage
+State Level
+EWS
+ I 112041
+(16.5815096)
+Stage
+212937610 - Electronics Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GSCH GNT1H GNT3H GOBCH
+ I 106538
+(23.2238494)
+84712
+(45.9187639)
+ VII 54598
+(69.0394836)
+50118
+(71.7637042)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO
+ I 85653
+(44.9868010)
+109651
+(19.4998540)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2129 - M.S. Bidve Engineering College, Latur
+212961210 - Mechanical Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 108756
+(20.7779886)
+Stage
+State Level
+EWS
+ I 113126
+(14.9912318)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2130 - Terna Public Charitable Trust's College of Engineering, Osmanabad
+213019110 - Civil Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 122135
+(1.0849469)
+Stage
+213024210 - Computer Science and Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GNT2H
+ I 39217
+(78.3504176)
+61628
+(64.0172786)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GOBCO
+ I 51866
+(70.9263207)
+93459
+(38.1738800)
+104212
+(25.8381109)
+Stage
+State Level
+DEFOPENS
+ I-Non
+Defence
+45627
+(74.5211181)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2130 - Terna Public Charitable Trust's College of Engineering, Osmanabad
+213037210 - Electronics and Telecommunication Engg
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GNT1H GNT2H GOBCH LOPENH
+ I 87356
+(43.3051128)
+113040
+(14.9912318)
+120168
+(4.3768020)
+118990
+(6.6563016)
+ VII 116253
+(10.5662165)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GSTO GOBCO LOPENO
+ I 100107
+(30.5619889)
+113184
+(14.9316558)
+ VII 118460
+(7.1040060)
+121705
+(1.9342452)
+112959
+(15.1013848)
+Stage
+State Level
+DEFOPENS EWS
+ I 76063
+(53.7302794)
+ I-Non
+Defence
+90310
+(41.1873138)
+Stage
+213061210 - Mechanical Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 118401
+(7.4458997)
+94101
+(36.1623265)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2130 - Terna Public Charitable Trust's College of Engineering, Osmanabad
+213099510 - Artificial Intelligence and Data Science
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH
+ I 48678
+(72.7702415)
+ VII 67757
+(59.6829046)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GOBCH
+ I 93501
+(37.5478565)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GOBCO LOPENO
+ I 76272
+(53.7001897)
+94945
+(35.8351101)
+121399
+(2.5616698)
+79746
+(50.5614783)
+ VII 89169
+(42.0206383)
+Stage
+State Level
+ORPHAN
+ VII 69805
+(57.9292585)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2131 - Shree Tuljabhavani College of Engineering, Tuljapur
+213119110 - Civil Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+State Level
+EWS
+ I 119889
+(5.2450064)
+Stage
+213124210 - Computer Science and Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GSCH GNT3H LOPENH LSTH
+ I 112665
+(15.5460791)
+109477
+(19.8474395)
+97040
+(34.1210946)
+ VII 81096
+(48.9390238)
+Stage
+State Level
+DEFOPENS EWS
+ I 47967
+(72.9031949)
+ I-Non
+Defence
+49580
+(72.4718017)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2131 - Shree Tuljabhavani College of Engineering, Tuljapur
+213137210 - Electronics and Telecommunication Engg
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GNT1H PWDOPENH
+ I-Non
+PWD
+104055
+(26.2202423)
+ VII 111373
+(17.4354552)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GSCH GNT3H GOBCH LSCH
+ I 115420
+(12.0998320)
+ VII 119953
+(5.1279556)
+101982
+(28.6995083)
+97902
+(32.5908894)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO GOBCO
+ I 55209
+(68.5714285)
+110257
+(18.8401670)
+ VII 93947
+(36.7166438)
+Stage
+State Level
+DEFOPENS EWS
+ I 57861
+(66.8137813)
+ I-Non
+Defence
+79801
+(50.5614783)
+Stage
+213161210 - Mechanical Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+State Level
+EWS
+ I 113338
+(14.7866072)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2133 - Mahatma Basaweshwar Education Society's College of Engineering, Ambejogai
+213324210 - Computer Science and Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GSTH PWDOPENH
+ I-Non
+PWD
+60129
+(65.2400587)
+ VII 65904
+(61.2621174)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 55889
+(68.2985361)
+Stage
+213329310 - Electrical Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 98996
+(32.2127079)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2133 - Mahatma Basaweshwar Education Society's College of Engineering, Ambejogai
+213384410 - Electronics and Computer Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GNT1H GNT3H GOBCH LSCH
+ I 72550
+(56.3628587)
+118597
+(7.0709457)
+ VII 86504
+(44.6471616)
+96223
+(35.1475881)
+116744
+(10.0599952)
+118133
+(8.0762868)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GOBCH
+ I 115696
+(11.3082039)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GOBCO
+ I 79260
+(50.9996691)
+100722
+(29.9372742)
+ VII 118163
+(7.7836913)
+Stage
+State Level
+DEFOPENS
+ I-Non
+Defence
+81767
+(48.2601391)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2134 - Peoples Education Society's College of Engineering, Aurangabad
+213419110 - Civil Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 113659
+(14.2356611)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 110351
+(18.8401670)
+Stage
+State Level
+EWS
+ I 118884
+(6.7586339)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2134 - Peoples Education Society's College of Engineering, Aurangabad
+213424210 - Computer Science and Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH LSTH
+ I 44419
+(75.5619344)
+ VII 48313
+(72.8974176)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GOBCO LOPENO
+ I 50396
+(71.6451268)
+52407
+(70.7220669)
+55641
+(68.3772406)
+Stage
+State Level
+EWS
+ I 48977
+(72.6414198)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2134 - Peoples Education Society's College of Engineering, Aurangabad
+213429310 - Electrical Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GVJH GNT1H GNT2H GNT3H GOBCH LOPENH LSTH LOBCH PWDOPENH
+ I 80735
+(49.0525702)
+98391
+(32.3435843)
+112378
+(16.0971905)
+101465
+(29.2342823)
+116877
+(9.9445363)
+115715
+(11.3082039)
+ I-Non
+PWD
+104082
+(26.2202423)
+ VII 118096
+(8.0762868)
+122199
+(0.9429045)
+111896
+(16.7412669)
+112026
+(16.5815096)
+122524
+(0.2490779)
+120837
+(3.3501235)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GSCH LSCH
+ I 96376
+(35.1475881)
+109344
+(20.1763116)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GOBCO
+ I 86265
+(44.7418375)
+92416
+(39.1582539)
+106993
+(22.9132251)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GVJO
+ I 121556
+(2.1378233)
+Stage
+State Level
+DEFOPENS
+ I-Non
+Defence
+98324
+(32.3435843)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2134 - Peoples Education Society's College of Engineering, Aurangabad
+213461510 - Mechanical & Automation Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 91741
+(39.4196471)
+105663
+(24.8766135)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 114471
+(12.9353233)
+Stage
+State Level
+EWS
+ I 114772
+(12.7559948)
+Stage
+213484410 - Electronics and Computer Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GSTH PWDOPENH
+ I-Non
+PWD
+68835
+(59.0639291)
+ VII 67283
+(60.0860804)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOBCO
+ I 85104
+(45.2718114)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2134 - Peoples Education Society's College of Engineering, Aurangabad
+213491210 - Computer Science and Engineering(Data Science)
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH LOBCH
+ I 62826
+(63.5478045)
+64944
+(61.8814494)
+66265
+(60.7344231)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GOBCO
+ I 66600
+(60.6284658)
+74054
+(54.5241174)
+Stage
+State Level
+TFWS EWS
+ I 67128
+(60.0860804)
+67498
+(59.7201871)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2135 - Hi-Tech Institute of Technology, Aurangabad
+213519110 - Civil Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 118155
+(7.7836913)
+Stage
+State Level
+TFWS EWS
+ I 63010
+(63.0882980)
+115507
+(12.0998320)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2135 - Hi-Tech Institute of Technology, Aurangabad
+213524210 - Computer Science and Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH GNT2H GOBCH LOPENH LSCH LVJH LOBCH PWDOPENH
+ I 65283
+(61.6697194)
+96074
+(35.3945703)
+96283
+(35.1475881)
+78162
+(51.2600953)
+94047
+(36.1623265)
+91314
+(39.4227966)
+88265
+(42.7946749)
+ I-Non
+PWD
+62490
+(63.7147595)
+ VII 66881
+(60.5043241)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+LSCH
+ I 96524
+(34.6668564)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GSTO GOBCO LOPENO LOBCO
+ I 56604
+(67.4824177)
+76863
+(52.4476185)
+65743
+(61.2621174)
+40439
+(77.9458986)
+71239
+(57.0638559)
+ VII 64296
+(62.0823842)
+Stage
+State Level
+TFWS ORPHAN EWS
+ I 50691
+(71.4470469)
+71085
+(57.2112851)
+ VII 66327
+(60.7344231)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2135 - Hi-Tech Institute of Technology, Aurangabad
+213561210 - Mechanical Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GOBCH LOPENH LOBCH PWDOPENH
+ I 108771
+(20.3613489)
+121227
+(2.7133624)
+115305
+(12.2020044)
+107491
+(22.2500723)
+ I-Non
+PWD
+112766
+(15.5460791)
+ VII 120592
+(3.6006941)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GOBCO LOPENO
+ I 113869
+(14.2210761)
+119106
+(6.4853556)
+103115
+(27.3337429)
+Stage
+State Level
+DEFOPENS TFWS EWS
+ I 105517
+(24.8766135)
+103740
+(26.3140433)
+ I-Non
+Defence
+118994
+(6.6563016)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2135 - Hi-Tech Institute of Technology, Aurangabad
+213591110 - Computer Science and Engineering(Artificial Intelligence and Machine Learning)
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GNT3H GOBCH LOPENH PWDOPENH
+ I 87906
+(42.8034319)
+92575
+(38.6417086)
+108528
+(20.8205322)
+80226
+(49.5565410)
+ I-Non
+PWD
+84022
+(46.1727561)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GOBCO
+ I 72576
+(56.3628587)
+90771
+(39.6081812)
+Stage
+State Level
+TFWS EWS
+ I 57411
+(67.1125395)
+68447
+(59.4192464)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2136 - Aditya Engineering College , Beed
+213624210 - Computer Science and Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GNT3H LOPENH LSTH
+ I 103089
+(27.3337429)
+109496
+(19.8474395)
+115794
+(11.3082039)
+113654
+(14.2356611)
+ VII 109679
+(19.4998540)
+104333
+(25.8381109)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GOBCH LOBCH
+ I 113069
+(14.9912318)
+ II 116151
+(10.6465496)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO GNT2O LSCO LOBCO
+ I 78653
+(51.1072039)
+119374
+(5.8080688)
+ II 102601
+(28.4665226)
+115041
+(12.4299468)
+ VII 100055
+(30.5619889)
+Stage
+State Level
+DEFOPENS ORPHAN EWS
+ I 98277
+(32.3435843)
+ I-Non
+Defence
+98479
+(32.3435843)
+ VII 94306
+(36.1594098)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2136 - Aditya Engineering College , Beed
+213624610 - Information Technology
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GNT2H GOBCH LOPENH
+ I 105682
+(23.9925869)
+113078
+(14.9912318)
+113673
+(14.2356611)
+119041
+(6.6563016)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GSCH GOBCH LOBCH
+ I 111205
+(17.5093411)
+104856
+(25.4603297)
+ II 112640
+(15.5460791)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO GOBCO LSCO
+ I 74832
+(54.1664697)
+86438
+(44.6471616)
+ VII 97671
+(33.0830640)
+112323
+(16.0971905)
+Stage
+State Level
+DEFOPENS EWS
+ I 73697
+(54.9125550)
+ I-Non
+Defence
+96020
+(35.3945703)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2136 - Aditya Engineering College , Beed
+213637210 - Electronics and Telecommunication Engg
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 116086
+(10.7718485)
+Stage
+State Level
+EWS
+ I 89040
+(42.0206383)
+Stage
+213661210 - Mechanical Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+State Level
+EWS
+ I 55140
+(68.5714285)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2136 - Aditya Engineering College , Beed
+213691210 - Computer Science and Engineering(Data Science)
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 99861
+(31.5015186)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GOPENH LOPENH
+ I 121984
+(1.3842985)
+101178
+(29.3331437)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO LOPENO
+ I 91113
+(39.5925136)
+99273
+(32.1061359)
+Stage
+State Level
+EWS
+ I 107494
+(22.2500723)
+Stage
+213692110 - Artificial Intelligence and Machine Learning
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+State Level
+TFWS
+ I 117962
+(8.2596443)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2137 - Nagnathappa Halge Engineering College, Parli, Beed
+213724210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GSTH GNT2H LOPENH LOBCH
+ I 98754
+(32.2621925)
+106807
+(23.1211380)
+ VII 113735
+(14.2356611)
+64297
+(62.0823842)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GSCH LSCH
+ I 118484
+(7.1040060)
+ II 121442
+(2.3888294)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GSTO GOBCO
+ I 97901
+(32.5908894)
+ VII 93869
+(36.7166438)
+Stage
+State Level
+EWS
+ I 105501
+(24.8766135)
+Stage
+213729710 - Electrical and Electronics Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 120149
+(4.5783474)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2138 - Matsyodari Shikshan Sansatha's College of Engineering and Technology, Jalna
+213819110 - Civil Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH
+ I 120459
+(4.1980573)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+LOPENO
+ I 97273
+(33.5099087)
+Stage
+State Level
+EWS
+ I 91134
+(39.5925136)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2138 - Matsyodari Shikshan Sansatha's College of Engineering and Technology, Jalna
+213824210 - Computer Science and Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH LOPENH
+ I 65001
+(61.8814494)
+61090
+(64.4979119)
+ VII 72702
+(55.8902921)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 56566
+(67.4824177)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+LSCO
+ I 71872
+(56.7650587)
+Stage
+State Level
+DEFOPENS TFWS
+ I 44480
+(75.4846987)
+ I-Non
+Defence
+72490
+(56.3628587)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2138 - Matsyodari Shikshan Sansatha's College of Engineering and Technology, Jalna
+213829310 - Electrical Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH GNT3H LOPENH
+ I 100470
+(30.0146620)
+107936
+(21.8821184)
+92813
+(38.6417086)
+ VII 104270
+(25.8381109)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+LOPENO
+ I 104100
+(26.2202423)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GOPENO GSCO
+ I 99823
+(31.5015186)
+ VII 109187
+(20.1763116)
+Stage
+State Level
+DEFOPENS EWS
+ I 88542
+(42.5186027)
+ I-Non
+Defence
+99929
+(31.5015186)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2138 - Matsyodari Shikshan Sansatha's College of Engineering and Technology, Jalna
+213861210 - Mechanical Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 121434
+(2.4401800)
+116831
+(10.0599952)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 106250
+(23.4829494)
+Stage
+State Level
+EWS
+ I 97979
+(32.5908894)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2146 - Adarsh Shikshan Prasarak Mandal's K. T. Patil College of Engineering and Technology, Osmanabad
+214629710 - Electrical and Electronics Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+LOPENH
+ I 99219
+(32.1061359)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2250 - Aurangabad College of Engineering, Naygaon Savangi, Aurangabad
+225024210 - Computer Science and Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GSTH GOBCH LOPENH LOBCH PWDOPENH
+ I 77035
+(52.2301039)
+82007
+(48.2193247)
+92122
+(39.3128682)
+75240
+(54.1246150)
+102886
+(28.1605922)
+ I-Non
+PWD
+77831
+(51.6740911)
+ VII 77802
+(51.6740911)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 52126
+(70.8665527)
+Stage
+State Level
+EWS
+ I 59853
+(65.2657662)
+Stage
+225029310 - Electrical Engineering
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 110954
+(17.8380677)
+Stage
+State Level
+EWS
+ I 98257
+(32.4992712)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2250 - Aurangabad College of Engineering, Naygaon Savangi, Aurangabad
+225037210 - Electronics and Telecommunication Engg
+Status: Un-Aided Home University : Dr. Babasaheb Ambedkar Marathwada University
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH LOPENH PWDOPENH
+ I 79815
+(50.5614783)
+109280
+(20.1763116)
+ I-Non
+PWD
+77237
+(52.2301039)
+ VII 85257
+(45.2718114)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GNT2H LOBCH
+ I 105742
+(23.9925869)
+96821
+(34.1210946)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO
+ I 69839
+(57.9292585)
+97537
+(33.0830640)
+Stage
+State Level
+EWS
+ I 79736
+(50.5614783)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2252 - Marathwada Shikshan Prasarak Mandal's Shri Shivaji Institute of Engineering and Management Studies, Parbhani
+225219110 - Civil Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 101227
+(29.3331437)
+84614
+(45.9187639)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 101283
+(29.3331437)
+Stage
+225224210 - Computer Science and Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH PWDOPENH
+ I 49918
+(71.9798416)
+62453
+(63.7147595)
+ I-Non
+PWD
+60115
+(65.2400587)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO GOBCO
+ I 87531
+(43.0138429)
+91795
+(39.4196471)
+ VII 89057
+(42.0206383)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2252 - Marathwada Shikshan Prasarak Mandal's Shri Shivaji Institute of Engineering and Management Studies, Parbhani
+225229710 - Electrical and Electronics Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GSCH GOBCH LSCH LOBCH
+ I 72194
+(56.5826603)
+121091
+(3.1230540)
+ VII 114181
+(13.5440394)
+99775
+(31.5015186)
+94879
+(35.9780390)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOBCO
+ VII 106940
+(22.9132251)
+Stage
+Other Than Home University Seats Allotted to Home University Candidates
+GSCO
+ VII 117092
+(9.5134004)
+Stage
+State Level
+DEFOPENS
+ I-Non
+Defence
+111085
+(17.5316365)
+Stage
+225261210 - Mechanical Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+State Level
+EWS
+ I 74433
+(54.1780657)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2254 - Vilasrao Deshmukh Foundation Group of Institutions, Latur
+225424510 - Computer Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GOBCH LOPENH LSTH
+ I 62996
+(63.0882980)
+86171
+(44.7418375)
+86830
+(43.3167495)
+50280
+(71.6451268)
+ VII 69915
+(57.7165019)
+Stage
+State Level
+EWS
+ I 71439
+(56.8099848)
+Stage
+225429310 - Electrical Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+LOPENH
+ I 91409
+(39.4227966)
+Stage
+State Level
+EWS
+ I 111969
+(16.5815096)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2254 - Vilasrao Deshmukh Foundation Group of Institutions, Latur
+225437210 - Electronics and Telecommunication Engg
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GNT2H LOBCH PWDOPENH
+ I 101695
+(28.9481366)
+94228
+(36.1623265)
+ I-Non
+PWD
+97629
+(33.0830640)
+ VII 121762
+(1.8249748)
+111738
+(16.7412669)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 119233
+(5.9143931)
+Stage
+State Level
+DEFOPENS EWS
+ I 73316
+(55.2181517)
+ I-Non
+Defence
+108401
+(21.2317049)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2508 - GRAMIN TECHNICAL AND MANAGEMENT CAMPUS NANDED.
+250819110 - Civil Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 117723
+(8.5951196)
+113062
+(14.9912318)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO
+ I 115676
+(11.3082039)
+Stage
+250824510 - Computer Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GOBCH LOPENH
+ I 50772
+(71.2367422)
+74349
+(54.1780657)
+79027
+(50.9996691)
+54711
+(69.0394836)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO LOPENO
+ I 78267
+(51.2600953)
+52742
+(70.2135829)
+ VII 83152
+(47.7695520)
+Stage
+State Level
+TFWS
+ I 53488
+(69.6045087)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2508 - GRAMIN TECHNICAL AND MANAGEMENT CAMPUS NANDED.
+250829310 - Electrical Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 118191
+(7.7836913)
+101834
+(28.6995083)
+Stage
+250850310 - Food Technology
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+LOPENO
+ I 92883
+(38.5667023)
+Stage
+250861210 - Mechanical Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+State Level
+EWS
+ I 120307
+(4.3340532)
+Stage
+250891410 - Safety and Fire Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+LOPENO
+ I 50184
+(71.7637042)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2516 - International Centre Of Excellence In Engineering and Management (ICEEM)
+251619110 - Civil Engineering
+Status: Un-Aided
+Home University Seats Allotted to Other Than Home University Candidates
+GOPENH
+ I 117580
+(8.6023034)
+Stage
+251624210 - Computer Science and Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH GVJH GOBCH PWDOPENH
+ I 75198
+(54.1246150)
+99362
+(32.1061359)
+75218
+(54.1246150)
+77198
+(52.2301039)
+ I-Non
+PWD
+73245
+(55.2570590)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSCO GOBCO LOBCO
+ I 69950
+(57.7165019)
+86535
+(44.6471616)
+73347
+(55.2181517)
+67660
+(59.7201871)
+Stage
+State Level
+DEFOPENS EWS
+ I 73778
+(54.9125550)
+ I-Non
+Defence
+69223
+(58.8113371)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2516 - International Centre Of Excellence In Engineering and Management (ICEEM)
+251629710 - Electrical and Electronics Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH LOPENH
+ I 119095
+(6.4853556)
+109439
+(19.8474395)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GOPENH PWDOPENH
+ I 106920
+(22.9132251)
+ I-Non
+PWD
+115809
+(11.3082039)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+LOPENO
+ I 117450
+(8.7583305)
+Stage
+251661210 - Mechanical Engineering
+Status: Un-Aided
+Home University Seats Allotted to Home University Candidates
+GOPENH GSCH
+ I 106428
+(23.2238494)
+112375
+(16.0971905)
+Stage
+1
+Legends:Start Character G-General, L-Ladies, End Character H-Home University, O-Other than Home University, S-State Level
+* Maharashtra State Seats - Cut Off Indicates State General Merit No. ; Figures in bracket Indicates MHT-CET PCM Percentile
+D
+i
+r
+State Common Entrance Test Cell
+Cut Off List for Maharashtra & Minority Seats of CAP Round - III for the Admission to the First Year Under Graduate Technical Courses in Engineering and Technology (4 Years) &
+Master of Engineering and Technology (Integrated 5 Years) Admissions A.Y. 2022-23
+Government of Maharashtra
+2522 - STMEI's Sandipani Technical Campus-Faculty of Engineering, Latur.
+252224510 - Computer Engineering
+Status: Un-Aided Home University : Swami Ramanand Teerth Marathwada University, Nanded
+Home University Seats Allotted to Home University Candidates
+GOPENH GSTH GOBCH LSTH PWDOPENH
+ I 80425
+(49.4442605)
+106736
+(23.1211380)
+ I-Non
+PWD
+80460
+(49.4442605)
+ VII 84937
+(45.6704109)
+85184
+(45.2718114)
+Stage
+Home University Seats Allotted to Other Than Home University Candidates
+GNT1H GOBCH LOBCH
+ I 101507
+(29.2342823)
+105649
+(24.8766135)
+108096
+(21.5067519)
+Stage
+Other Than Home University Seats Allotted to Other Than Home University Candidates
+GOPENO GSTO GVJO GNT2O GOBCO LOPENO
+ I 85727
+(44.9304271)
+105334
+(25.0367211)
+101813
+(28.9481366)
+102506
+(28.4665226)
+87266
+(43.3051128)
+ VII 87228
+(43.3051128)
+Stage
+State Level
+EWS
+ I 7304
+<truncated 1225373 bytes>
+
+NOTE: The output was truncated because it was too long. Use a more targeted query or a smaller range to get the information you need.

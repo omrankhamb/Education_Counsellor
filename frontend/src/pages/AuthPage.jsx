@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import {
   FaGraduationCap, FaEnvelope, FaLock, FaUser, FaEye, FaEyeSlash,
-  FaArrowLeft, FaCheckCircle, FaExclamationCircle, FaShieldAlt
+  FaArrowLeft, FaCheckCircle, FaExclamationCircle
 } from "react-icons/fa";
 import { APP_NAME } from "./LandingPage";
 
@@ -132,28 +132,37 @@ export default function AuthPage({ onAuthSuccess }) {
 
   return (
     <div
-      className="min-vh-100 d-flex flex-column"
+      className="min-vh-100 d-flex flex-column position-relative"
       style={{
-        background: "#F4F6F9",
+        background: "#F5F7FA",
         fontFamily: "'Inter', sans-serif",
       }}
     >
-      {/* Top Navbar */}
+      {/* Top Navbar Matching Dashboard */}
       <nav
-        className="navbar px-4 px-md-5 py-3 shadow-sm"
-        style={{ background: "linear-gradient(135deg, #1A237E, #3949AB)" }}
+        className="navbar navbar-expand-lg px-3 px-md-4 py-2 sticky-top shadow-sm"
+        style={{
+          background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)",
+          zIndex: 1030
+        }}
       >
-        <div className="container-fluid p-0 d-flex justify-content-between align-items-center">
-          <Link to="/" className="navbar-brand d-flex align-items-center gap-2 text-white fw-bold fs-5 m-0 text-decoration-none">
+        <div className="container-fluid px-0 d-flex align-items-center justify-content-between">
+          <Link
+            to="/"
+            className="navbar-brand d-flex align-items-center gap-2 text-white fw-bold mb-0 text-decoration-none"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
+          >
             <FaGraduationCap size={28} color="#FFB300" />
-            <span style={{ fontFamily: "'Poppins', sans-serif" }}>{APP_NAME}</span>
+            <span className="fs-5 text-white">{APP_NAME}</span>
           </Link>
 
           <button
-            className="btn btn-outline-light btn-sm rounded-pill px-3 py-1 d-flex align-items-center gap-1"
+            className="btn btn-sm fw-semibold px-3 py-1.5 rounded-pill shadow-sm d-flex align-items-center gap-1.5"
+            style={{ background: "#FFFFFF", color: "#1A237E", border: "1px solid #FFFFFF", fontSize: 12.5 }}
             onClick={() => navigate("/")}
           >
-            <FaArrowLeft size={11} /> Back to Home
+            <FaArrowLeft size={11} />
+            <span>Back to Home</span>
           </button>
         </div>
       </nav>
@@ -161,11 +170,13 @@ export default function AuthPage({ onAuthSuccess }) {
       {/* Main Container */}
       <div className="flex-grow-1 d-flex align-items-center justify-content-center p-3 p-md-5">
         <div
-          className="card border-0 shadow-lg w-100 overflow-hidden"
+          className="card border-0 w-100 overflow-hidden"
           style={{
             maxWidth: 960,
             borderRadius: 24,
             background: "#ffffff",
+            border: "1px solid #E2E8F0",
+            boxShadow: "0 20px 45px -12px rgba(26, 35, 126, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04)",
           }}
         >
           <div className="row g-0">
@@ -262,9 +273,9 @@ export default function AuthPage({ onAuthSuccess }) {
                 <p className="text-secondary small mb-3">
                   Log in to securely track your admission feasibility, live cutoff trends, and personalized counselor guidance.
                 </p>
-                <div className="d-flex align-items-center justify-content-center gap-2 text-muted small">
-                  <FaShieldAlt className="text-success" />
-                  <span>MongoDB Persistent Cloud Storage</span>
+                <div className="d-flex align-items-center justify-content-center gap-2 text-primary small fw-semibold">
+                  <FaGraduationCap size={15} color="#FFB300" />
+                  <span>Verified 2025–2026 Academic Guidance Portal</span>
                 </div>
               </div>
             </div>
@@ -276,11 +287,12 @@ export default function AuthPage({ onAuthSuccess }) {
                 <div className="d-flex gap-3">
                   <button
                     type="button"
-                    className={`btn p-0 fw-bold border-0 ${isLogin ? "text-primary" : "text-muted"}`}
+                    className="btn p-0 fw-bold border-0"
                     style={{
                       fontSize: 18,
                       fontFamily: "'Poppins', sans-serif",
-                      borderBottom: isLogin ? "3px solid #3B82F6" : "3px solid transparent",
+                      borderBottom: isLogin ? "3px solid #1A237E" : "3px solid transparent",
+                      color: isLogin ? "#1A237E" : "#94A3B8",
                       borderRadius: 0,
                       paddingBottom: "6px"
                     }}
@@ -291,11 +303,12 @@ export default function AuthPage({ onAuthSuccess }) {
 
                   <button
                     type="button"
-                    className={`btn p-0 fw-bold border-0 ${!isLogin ? "text-primary" : "text-muted"}`}
+                    className="btn p-0 fw-bold border-0"
                     style={{
                       fontSize: 18,
                       fontFamily: "'Poppins', sans-serif",
-                      borderBottom: !isLogin ? "3px solid #3B82F6" : "3px solid transparent",
+                      borderBottom: !isLogin ? "3px solid #1A237E" : "3px solid transparent",
+                      color: !isLogin ? "#1A237E" : "#94A3B8",
                       borderRadius: 0,
                       paddingBottom: "6px"
                     }}
@@ -305,7 +318,7 @@ export default function AuthPage({ onAuthSuccess }) {
                   </button>
                 </div>
 
-                <span className="badge bg-light text-secondary border small">
+                <span className="badge rounded-pill px-3 py-1.5 fw-semibold" style={{ background: "#EEF2F6", color: "#1A237E", border: "1px solid #E2E8F0" }}>
                   {isLogin ? "Returning Student" : "New Registration"}
                 </span>
               </div>
@@ -380,8 +393,8 @@ export default function AuthPage({ onAuthSuccess }) {
                     </label>
                     {isLogin && (
                       <span
-                        className="text-primary small"
-                        style={{ cursor: "pointer", fontSize: 12 }}
+                        className="small fw-semibold"
+                        style={{ cursor: "pointer", fontSize: 12, color: "#1A237E" }}
                         onClick={() => alert("To reset password in local mode, contact system administrator or re-register with a new email.")}
                       >
                         Forgot password?
@@ -449,22 +462,22 @@ export default function AuthPage({ onAuthSuccess }) {
                     />
                     <label className="form-check-label small text-secondary" htmlFor="rememberCheck" style={{ fontSize: 13 }}>
                       {isLogin ? (
-                        <>Remember me <span className="text-primary text-decoration-underline ms-2" style={{ cursor: "pointer" }}>Terms and conditions</span></>
+                        <>Remember me <span className="text-decoration-underline ms-2 fw-semibold" style={{ cursor: "pointer", color: "#1A237E" }}>Terms and conditions</span></>
                       ) : (
-                        <>I agree to the <span className="text-primary text-decoration-underline" style={{ cursor: "pointer" }}>Terms and conditions</span></>
+                        <>I agree to the <span className="text-decoration-underline fw-semibold" style={{ cursor: "pointer", color: "#1A237E" }}>Terms and conditions</span></>
                       )}
                     </label>
                   </div>
                 </div>
 
-                {/* Primary Action Button Matching Screenshot */}
+                {/* Primary Action Button Matching Dashboard Theme */}
                 <button
                   type="submit"
                   disabled={loading}
-                  className="btn w-100 fw-bold py-2 shadow-sm mb-3 text-uppercase"
+                  className="btn w-100 fw-bold py-2 shadow-sm mb-3 text-uppercase text-white"
                   style={{
-                    background: "#3B82F6",
-                    color: "#ffffff",
+                    background: "linear-gradient(135deg, #1A237E 0%, #3949AB 100%)",
+                    border: "none",
                     borderRadius: 8,
                     letterSpacing: "0.5px",
                     fontSize: 14,
@@ -494,9 +507,14 @@ export default function AuthPage({ onAuthSuccess }) {
                 {/* Quick Auto-Fill Demo Button for Fast Testing */}
                 <button
                   type="button"
-                  className="btn btn-outline-secondary w-100 py-2 small fw-semibold mb-3 rounded-2 d-flex align-items-center justify-content-center gap-2"
+                  className="btn w-100 py-2 small fw-semibold mb-3 rounded-2 d-flex align-items-center justify-content-center gap-2"
                   onClick={() => handleQuickDemo("demo_student")}
-                  style={{ fontSize: 13 }}
+                  style={{
+                    fontSize: 13,
+                    background: "#F8FAFC",
+                    border: "1px solid #C7D2FE",
+                    color: "#1A237E"
+                  }}
                 >
                   ⚡ Auto-Fill Demo Student Credentials
                 </button>
@@ -507,8 +525,8 @@ export default function AuthPage({ onAuthSuccess }) {
                     <>
                       Don't have an account?{" "}
                       <span
-                        className="text-primary fw-bold"
-                        style={{ cursor: "pointer", textDecoration: "underline" }}
+                        className="fw-bold text-decoration-underline"
+                        style={{ cursor: "pointer", color: "#1A237E" }}
                         onClick={() => { setIsLogin(false); setErrorMsg(""); setSuccessMsg(""); }}
                       >
                         Sign Up now
@@ -518,8 +536,8 @@ export default function AuthPage({ onAuthSuccess }) {
                     <>
                       Already have an account?{" "}
                       <span
-                        className="text-primary fw-bold"
-                        style={{ cursor: "pointer", textDecoration: "underline" }}
+                        className="fw-bold text-decoration-underline"
+                        style={{ cursor: "pointer", color: "#1A237E" }}
                         onClick={() => { setIsLogin(true); setErrorMsg(""); setSuccessMsg(""); }}
                       >
                         Sign In

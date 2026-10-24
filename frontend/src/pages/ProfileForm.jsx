@@ -138,7 +138,8 @@ export default function ProfileForm({ onSubmit, existingProfile }) {
           </span>
 
           <button
-            className="btn btn-outline-light btn-sm rounded-pill px-3 py-1 d-flex align-items-center gap-1"
+            className="btn btn-sm rounded-pill px-3 py-1 d-flex align-items-center gap-1 fw-semibold shadow-sm"
+            style={{ background: "#FFFFFF", color: "#1A237E", border: "1px solid #FFFFFF" }}
             onClick={() => navigate("/")}
           >
             <FaArrowLeft size={11} /> Back to Home
@@ -160,12 +161,12 @@ export default function ProfileForm({ onSubmit, existingProfile }) {
             </p>
             {currentUser ? (
               <div className="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill small bg-white bg-opacity-10 border border-white border-opacity-25 text-white">
-                <span className="badge bg-success" style={{ fontSize: 10 }}>MongoDB Active</span>
+                <span className="badge bg-success" style={{ fontSize: 10 }}>Account Active</span>
                 <span>Logged in: <strong>{currentUser.name}</strong> ({currentUser.email})</span>
               </div>
             ) : (
               <div className="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill small bg-white bg-opacity-10 border border-white border-opacity-25 text-white">
-                <span>Want your profile and chats saved in MongoDB?</span>
+                <span>Want to save your profile & counseling history?</span>
                 <span
                   className="badge bg-warning text-dark"
                   style={{ cursor: "pointer" }}
@@ -219,8 +220,14 @@ export default function ProfileForm({ onSubmit, existingProfile }) {
                   <button
                     type="button"
                     key={st}
-                    className={`btn btn-sm fw-semibold ${form.stream === st ? "btn-primary shadow-sm" : "btn-outline-primary bg-light"}`}
-                    style={{ borderRadius: 9999, padding: "6px 16px" }}
+                    className="btn btn-sm fw-semibold shadow-sm"
+                    style={{
+                      borderRadius: 9999,
+                      padding: "6px 16px",
+                      background: form.stream === st ? "linear-gradient(135deg, #1A237E, #3949AB)" : "#EFF6FF",
+                      color: form.stream === st ? "#FFFFFF" : "#1D4ED8",
+                      border: form.stream === st ? "none" : "1px solid #BFDBFE"
+                    }}
                     onClick={() => setForm({ ...form, stream: st, exam_type: EXAM_TYPES[st]?.[0] || "12th %" })}
                   >
                     {st}
@@ -324,8 +331,14 @@ export default function ProfileForm({ onSubmit, existingProfile }) {
                   <button
                     type="button"
                     key={b}
-                    className={`btn btn-sm fw-semibold ${form.budget === b ? "btn-warning shadow-sm" : "btn-outline-warning text-dark bg-light"}`}
-                    style={{ borderRadius: 10, padding: "6px 14px" }}
+                    className="btn btn-sm fw-semibold shadow-sm"
+                    style={{
+                      borderRadius: 10,
+                      padding: "6px 14px",
+                      background: form.budget === b ? "linear-gradient(135deg, #FFD54F, #FFB300)" : "#FEF3C7",
+                      color: form.budget === b ? "#1A237E" : "#92400E",
+                      border: form.budget === b ? "none" : "1px solid #FDE68A"
+                    }}
                     onClick={() => setForm({ ...form, budget: b })}
                   >
                     {b === "Any" ? "Any Budget" : b + "/yr"}

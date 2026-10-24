@@ -6,6 +6,8 @@ import ProfileForm from "./pages/ProfileForm";
 import Dashboard from "./pages/Dashboard";
 import ChatPage from "./pages/ChatPage";
 import CollegeDetailsPage from "./pages/CollegeDetailsPage";
+import ScholarshipsPage from "./pages/ScholarshipsPage";
+import CapSimulatorPage from "./pages/CapSimulatorPage";
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(() => {
@@ -111,15 +113,35 @@ export default function App() {
         <Route
           path="/chat"
           element={
-            studentProfile ? (
-              <ChatPage
-                studentProfile={studentProfile}
-                currentUser={currentUser}
-                onLogout={handleLogout}
-              />
-            ) : (
-              <Navigate to="/login" replace />
-            )
+            <ChatPage
+              studentProfile={studentProfile}
+              currentUser={currentUser}
+              onLogout={handleLogout}
+            />
+          }
+        />
+
+        {/* 7. Dedicated National & Private Scholarships Directory */}
+        <Route
+          path="/scholarships"
+          element={
+            <ScholarshipsPage
+              studentProfile={studentProfile}
+              currentUser={currentUser}
+              onLogout={handleLogout}
+            />
+          }
+        />
+
+        {/* 8. Maharashtra CAP Round Option Form & Cutoff Simulator */}
+        <Route
+          path="/cap-simulator"
+          element={
+            <CapSimulatorPage
+              studentProfile={studentProfile}
+              currentUser={currentUser}
+              onLogout={handleLogout}
+            />
           }
         />
 
