@@ -740,8 +740,16 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
               }}
             >
               <div className="d-flex align-items-center justify-content-between mb-2">
-                <span className="badge bg-warning bg-opacity-20 text-dark fw-bold rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1" style={{ fontSize: 10.5 }}>
-                  <FaBullseye className="text-warning" size={11} /> Round 1–3 Simulation
+                <span
+                  className="rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1.5 fw-bold"
+                  style={{
+                    background: "#FEF3C7",
+                    color: "#92400E",
+                    border: "1px solid #FCD34D",
+                    fontSize: 11
+                  }}
+                >
+                  <FaBullseye size={12} color="#D97706" /> Round 1–3 Simulation
                 </span>
                 <span className="text-primary fw-bold small d-inline-flex align-items-center gap-1">
                   Launch <FaArrowRight size={10} />
@@ -778,8 +786,16 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
               }}
             >
               <div className="d-flex align-items-center justify-content-between mb-2">
-                <span className="badge bg-success bg-opacity-20 text-success fw-bold rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1" style={{ fontSize: 10.5 }}>
-                  <FaCoins size={11} /> MahaDBT & TFWS
+                <span
+                  className="rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1.5 fw-bold"
+                  style={{
+                    background: "#D1FAE5",
+                    color: "#065F46",
+                    border: "1px solid #6EE7B7",
+                    fontSize: 11
+                  }}
+                >
+                  <FaCoins size={12} color="#059669" /> MahaDBT & TFWS
                 </span>
                 <span className="text-success fw-bold small d-inline-flex align-items-center gap-1">
                   Calculate <FaArrowRight size={10} />
@@ -814,8 +830,16 @@ export default function Dashboard({ studentProfile, onSelectCollegeForChat, curr
               }}
             >
               <div className="d-flex align-items-center justify-content-between mb-2">
-                <span className="badge bg-primary bg-opacity-10 text-primary fw-bold rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1" style={{ fontSize: 10.5 }}>
-                  <FaFilePdf size={11} className="text-danger" /> Verified PDF Roadmap
+                <span
+                  className="rounded-pill px-2.5 py-1 d-inline-flex align-items-center gap-1.5 fw-bold"
+                  style={{
+                    background: "#EEF2FF",
+                    color: "#3730A3",
+                    border: "1px solid #C7D2FE",
+                    fontSize: 11
+                  }}
+                >
+                  <FaFilePdf size={12} color="#DC2626" /> Verified PDF Roadmap
                 </span>
                 <span className="text-primary fw-bold small d-inline-flex align-items-center gap-1">
                   Export PDF <FaArrowRight size={10} />

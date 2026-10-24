@@ -1403,7 +1403,7 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
   }, [activeSimulatedData]);
 
   // Execute AI Rebalancing Request with strict branch locking
-  const handleRunRebalance = async (strategyType = "golden_ratio", customPrompt = "", autoApply = false, overrideBranch = null) => {
+  const handleRunRebalance = async (strategyType = "golden_ratio", customPrompt = "", autoApply = true, overrideBranch = null) => {
     setActiveStrategyPreset(strategyType);
     setAiRebalanceLoading(true);
     setAppliedAlert(null);
@@ -1452,7 +1452,13 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
             custom_chat: "AI Counselor Recommendation"
           };
           const label = strategyLabels[strategyType] || "AI Strategy";
-          setAppliedAlert(`🎉 Automatically applied ${label}! Live table updated with ${newChoices.length} choices strictly in your selected branch (${targetBranch}).`);
+          setAppliedAlert(`🎉 Applied ${label}! Live table below updated with ${newChoices.length} choices strictly in your selected branch (${targetBranch}).`);
+          setTimeout(() => {
+            const tableEl = document.getElementById("cap-simulation-table");
+            if (tableEl) {
+              tableEl.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 150);
         }
       }
     } catch (err) {
@@ -2080,19 +2086,19 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
               <span className="fw-bold small text-secondary text-uppercase" style={{ letterSpacing: "0.5px", fontSize: 11 }}>
                 Counseling Process ({isMedicalProfile && !showAllExams ? "Medical" : !showAllExams ? "Engineering" : "All Streams"}):
               </span>
-              <div className="btn-group p-1 bg-light rounded-pill border flex-wrap">
+              <div className="d-flex align-items-center gap-2 flex-wrap">
                 {counselingOptions.map(ex => {
                   const isSelected = selectedExam === ex.id;
                   return (
                     <button
                       key={ex.id}
                       onClick={() => handleExamSwitch(ex.id)}
-                      className={`btn btn-sm rounded-pill px-3 py-1 fw-semibold transition-all ${
+                      className={`btn btn-sm rounded-pill px-3 py-1.5 fw-semibold transition-all shadow-sm ${
                         isSelected
-                          ? "btn-primary text-white shadow-sm"
-                          : "btn-light text-dark border-0"
+                          ? "btn-primary text-white border-primary"
+                          : "bg-white text-secondary border border-secondary-subtle"
                       }`}
-                      style={{ fontSize: 12.5 }}
+                      style={{ fontSize: 12 }}
                     >
                       <span className="me-1.5">{ex.icon}</span>
                       <span>{ex.label}</span>
@@ -2105,8 +2111,8 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
                         className="badge ms-1.5"
                         style={{
                           fontSize: 9.5,
-                          background: isSelected ? "rgba(255,255,255,0.25)" : "#E2E8F0",
-                          color: isSelected ? "#FFFFFF" : "#475569"
+                          background: isSelected ? "rgba(255,255,255,0.25)" : "#F1F5F9",
+                          color: isSelected ? "#FFFFFF" : "#64748B"
                         }}
                       >
                         {ex.tag}
@@ -2417,9 +2423,6 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
                 <span className="badge px-3 py-1 rounded-pill fw-bold text-uppercase d-flex align-items-center gap-1.5 shadow-sm" style={{ background: "linear-gradient(135deg, #4F46E5, #7C3AED)", color: "#FFFFFF", fontSize: 10, letterSpacing: "0.5px" }}>
                   <FaMagic size={10} /> AI Autonomous Rebalancer
                 </span>
-                <span className="badge bg-light text-secondary border" style={{ fontSize: 10 }}>
-                  <MdAutoAwesome className="text-warning me-1" /> Gemini Multi-Model Intelligence
-                </span>
               </div>
               <h5 className="fw-bold mb-0 text-dark d-flex align-items-center gap-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
                 <span>AI Option Form "Auto-Rebalancer" & Risk Matrix</span>
@@ -2699,23 +2702,22 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
               </div>
 
               {/* Quick Prompts Chips */}
-              <div className="d-flex align-items-center gap-1.5 flex-wrap mb-2.5">
-                <span className="text-muted small fw-semibold" style={{ fontSize: 10.5 }}>Quick Prompts:</span>
+              <div className="d-flex align-items-center gap-2 flex-wrap mb-3">
+                <span className="text-secondary small fw-bold" style={{ fontSize: 11 }}>Quick Prompts:</span>
                 {[
                   { label: "Mumbai IT Colleges Only", prompt: "Add only colleges near Mumbai for Information Technology" },
                   { label: "Safe Pune CS Backups", prompt: "Fix my zero allotment risk with safe Pune CS backups" },
                   { label: "Autonomous Colleges Only", prompt: "Only autonomous colleges in Pune and Mumbai" },
-                  { label: "High Probability (>85%)", prompt: "Add colleges where my admission chance is >85%" },
-                  { label: "Round 2 Float Betterment", prompt: "Optimize my list for Round 2 Betterment (Float)" }
+                  { label: "High Probability (>85%)", prompt: "Add colleges where my admission chance is >85%" }
                 ].map((item, idx) => (
                   <button
                     key={idx}
                     type="button"
-                    className="btn btn-xs rounded-pill py-1 px-2.5 bg-white border border-primary-subtle text-primary fw-medium shadow-sm d-flex align-items-center gap-1"
-                    style={{ fontSize: 11, transition: "all 0.15s ease" }}
+                    className="btn btn-sm rounded-pill py-1 px-3 bg-white border border-primary-subtle text-primary fw-medium shadow-sm d-flex align-items-center gap-1.5"
+                    style={{ fontSize: 11.5 }}
                     onClick={() => {
                       setAiPromptInput(item.prompt);
-                      handleRunRebalance("custom_chat", item.prompt, false);
+                      handleRunRebalance("custom_chat", item.prompt, true);
                     }}
                     disabled={aiRebalanceLoading}
                   >
@@ -2725,52 +2727,54 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
                 ))}
               </div>
 
-              {/* Chat Input Row */}
+              {/* Chat Input Row (Clearly Separated Input & Button) */}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
                   if (aiPromptInput.trim()) {
-                    handleRunRebalance("custom_chat", aiPromptInput.trim(), false);
+                    handleRunRebalance("custom_chat", aiPromptInput.trim(), true);
                   }
                 }}
               >
-                <div className="input-group shadow-sm rounded-3 overflow-hidden border">
-                  <span className="input-group-text bg-white border-0 text-primary ps-3">
-                    <FaRobot size={15} />
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control border-0 shadow-none py-2"
-                    placeholder={`e.g. "Add only colleges near Mumbai for Information Technology" or "Give me safe Pune colleges for ${studentScore.toFixed(1)} percentile"...`}
-                    style={{ fontSize: 13 }}
-                    value={aiPromptInput}
-                    onChange={(e) => setAiPromptInput(e.target.value)}
-                    disabled={aiRebalanceLoading}
-                  />
-                  {aiPromptInput && (
-                    <button
-                      type="button"
-                      className="btn bg-white border-0 text-muted px-2"
-                      onClick={() => setAiPromptInput("")}
-                      title="Clear prompt"
-                    >
-                      <FaTimes size={12} />
-                    </button>
-                  )}
+                <div className="d-flex align-items-center gap-2.5 flex-wrap flex-md-nowrap">
+                  <div className="position-relative flex-grow-1">
+                    <span className="position-absolute top-50 start-0 translate-middle-y ps-3 text-primary">
+                      <FaRobot size={15} />
+                    </span>
+                    <input
+                      type="text"
+                      className="form-control rounded-pill border py-2 ps-5 pe-5 shadow-sm"
+                      placeholder={`e.g. "Add only colleges near Mumbai for Information Technology" or "Give me safe Pune colleges for ${studentScore.toFixed(1)} percentile"...`}
+                      style={{ fontSize: 13 }}
+                      value={aiPromptInput}
+                      onChange={(e) => setAiPromptInput(e.target.value)}
+                      disabled={aiRebalanceLoading}
+                    />
+                    {aiPromptInput && (
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-link position-absolute top-50 end-0 translate-middle-y pe-3 text-muted border-0 shadow-none"
+                        onClick={() => setAiPromptInput("")}
+                        title="Clear prompt"
+                      >
+                        <FaTimes size={12} />
+                      </button>
+                    )}
+                  </div>
                   <button
-                    className="btn btn-primary px-4 fw-bold d-flex align-items-center gap-1.5"
+                    className="btn btn-primary rounded-pill px-4 py-2 fw-bold d-flex align-items-center gap-2 shadow-sm flex-shrink-0"
                     type="submit"
                     disabled={aiRebalanceLoading || !aiPromptInput.trim()}
-                    style={{ background: "linear-gradient(135deg, #4F46E5, #6366F1)", border: "none", fontSize: 13 }}
+                    style={{ background: "linear-gradient(135deg, #4F46E5, #6366F1)", border: "none", fontSize: 13, height: 42 }}
                   >
                     {aiRebalanceLoading ? (
                       <>
                         <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
-                        <span>Analyzing Cutoffs...</span>
+                        <span>Rebalancing...</span>
                       </>
                     ) : (
                       <>
-                        <FaPaperPlane size={11} />
+                        <FaPaperPlane size={12} />
                         <span>Rebalance with AI</span>
                       </>
                     )}
@@ -2780,7 +2784,7 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
             </div>
 
             {/* 4. 1-Click Proven Strategy Presets */}
-            <div className="mb-4">
+            <div className="mb-3">
               <div className="d-flex align-items-center justify-content-between mb-2">
                 <span className="small fw-bold text-dark d-flex align-items-center gap-1.5" style={{ fontSize: 12 }}>
                   <FaBolt color="#F59E0B" /> Or Select a 1-Click Proven Strategy Preset:
@@ -2811,9 +2815,9 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
                     </div>
                     <button
                       type="button"
-                      className="btn btn-primary btn-sm rounded-pill w-100 fw-bold d-flex align-items-center justify-content-center gap-1.5 shadow-sm"
+                      className="btn btn-primary btn-sm rounded-pill w-100 fw-bold d-flex align-items-center justify-content-center gap-1.5 shadow-sm mt-3"
                       disabled={aiRebalanceLoading}
-                      onClick={() => handleRunRebalance("golden_ratio")}
+                      onClick={() => handleRunRebalance("golden_ratio", "", true)}
                     >
                       <FaBolt size={11} /> Apply Golden Ratio
                     </button>
@@ -2840,9 +2844,9 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
                     </div>
                     <button
                       type="button"
-                      className="btn btn-outline-primary btn-sm rounded-pill w-100 fw-bold d-flex align-items-center justify-content-center gap-1.5 shadow-sm"
+                      className="btn btn-primary btn-sm rounded-pill w-100 fw-bold d-flex align-items-center justify-content-center gap-1.5 shadow-sm mt-3"
                       disabled={aiRebalanceLoading}
-                      onClick={() => handleRunRebalance("tech_cs_only")}
+                      onClick={() => handleRunRebalance("tech_cs_only", "", true)}
                     >
                       <FaBolt size={11} /> Apply Tech Only
                     </button>
@@ -2869,9 +2873,9 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
                     </div>
                     <button
                       type="button"
-                      className="btn btn-outline-primary btn-sm rounded-pill w-100 fw-bold d-flex align-items-center justify-content-center gap-1.5 shadow-sm"
+                      className="btn btn-primary btn-sm rounded-pill w-100 fw-bold d-flex align-items-center justify-content-center gap-1.5 shadow-sm mt-3"
                       disabled={aiRebalanceLoading}
-                      onClick={() => handleRunRebalance("pune_mumbai_hub")}
+                      onClick={() => handleRunRebalance("pune_mumbai_hub", "", true)}
                     >
                       <FaBolt size={11} /> Apply Metro Hubs
                     </button>
@@ -2898,9 +2902,9 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
                     </div>
                     <button
                       type="button"
-                      className="btn btn-outline-success btn-sm rounded-pill w-100 fw-bold d-flex align-items-center justify-content-center gap-1.5 shadow-sm"
+                      className="btn btn-success btn-sm rounded-pill w-100 fw-bold d-flex align-items-center justify-content-center gap-1.5 shadow-sm mt-3"
                       disabled={aiRebalanceLoading}
-                      onClick={() => handleRunRebalance("guaranteed_lock")}
+                      onClick={() => handleRunRebalance("guaranteed_lock", "", true)}
                     >
                       <FaShieldAlt size={11} /> Apply Seat Lock
                     </button>
@@ -2909,165 +2913,63 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
               </div>
             </div>
 
-            {/* 3. Rebalance Proposal Card (Clean Structured View) */}
+            {/* 5. Rebalance Confirmation & Strategic Advice Banner (Applied Directly to Table Below) */}
             {aiRebalanceResult && (
-              <div className="card border-primary-subtle shadow-sm rounded-4 overflow-hidden mb-2 animate__animated animate__fadeIn">
-                {/* Proposal Header */}
-                <div className="p-3 px-4 bg-primary-subtle border-bottom d-flex align-items-center justify-content-between flex-wrap gap-2">
+              <div className="card border-success-subtle shadow-sm rounded-4 overflow-hidden mb-3 animate__animated animate__fadeIn" style={{ background: "#F0FDF4" }}>
+                {/* Header with status & action buttons */}
+                <div className="p-3 px-4 d-flex align-items-center justify-content-between flex-wrap gap-2 border-bottom border-success-subtle">
+                  <div className="d-flex align-items-center gap-2 flex-wrap">
+                    <span className="badge bg-success text-white rounded-pill px-3 py-1.5 fw-bold d-flex align-items-center gap-1.5" style={{ fontSize: 12 }}>
+                      <FaCheckCircle size={13} /> {aiRebalanceResult.headline}
+                    </span>
+                    <span className="badge bg-white text-dark border px-2.5 py-1 rounded-pill" style={{ fontSize: 11 }}>
+                      Portfolio: {aiRebalanceResult.after_portfolio?.dream || 0} Dream • {aiRebalanceResult.after_portfolio?.target || 0} Target • {aiRebalanceResult.after_portfolio?.safe || 0} Safe
+                    </span>
+                    <span className="text-success fw-semibold small d-none d-md-inline" style={{ fontSize: 11.5 }}>
+                      ✓ Updated in official simulation table below ({aiRebalanceResult.recommended_choices?.length || 0} choices)
+                    </span>
+                  </div>
+
                   <div className="d-flex align-items-center gap-2">
-                    <span className="badge bg-primary text-white rounded-pill px-3 py-1.5 fw-bold d-flex align-items-center gap-1.5" style={{ fontSize: 12 }}>
-                      <MdAutoAwesome size={13} /> {aiRebalanceResult.headline}
-                    </span>
-                    {aiRebalanceResult.gemini_powered && (
-                      <span className="badge bg-white text-success border border-success-subtle rounded-pill px-2.5 py-1" style={{ fontSize: 10.5 }}>
-                        ✓ Grounded in Official DTE Cutoffs
-                      </span>
+                    {previousChoicesBackup && (
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1.5 fw-semibold d-flex align-items-center gap-1.5 bg-white shadow-sm"
+                        style={{ fontSize: 11.5 }}
+                        onClick={handleUndoRebalance}
+                        title="Restore previous preference list"
+                      >
+                        <FaUndo size={11} /> Undo Changes
+                      </button>
                     )}
-                  </div>
-
-                  {/* Before vs After Metric Pill */}
-                  <div className="d-flex align-items-center gap-2 bg-white px-3 py-1 rounded-pill border shadow-sm">
-                    <span className="text-muted small" style={{ fontSize: 11 }}>Portfolio Shift:</span>
-                    <span className="badge bg-light text-secondary border px-2 py-0.5" style={{ fontSize: 10.5 }}>
-                      Before: {aiRebalanceResult.before_portfolio.dream}D • {aiRebalanceResult.before_portfolio.target}T • {aiRebalanceResult.before_portfolio.safe}S
-                    </span>
-                    <FaExchangeAlt size={10} className="text-muted" />
-                    <span className="badge bg-success text-white px-2 py-0.5 shadow-none" style={{ fontSize: 10.5 }}>
-                      Rebalanced: {aiRebalanceResult.after_portfolio.dream}D • {aiRebalanceResult.after_portfolio.target}T • {aiRebalanceResult.after_portfolio.safe}S
-                    </span>
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-success rounded-pill px-3.5 py-1.5 fw-bold d-flex align-items-center gap-1.5 shadow-sm"
+                      style={{ fontSize: 11.5, background: "linear-gradient(135deg, #10B981, #059669)", border: "none" }}
+                      onClick={() => {
+                        const el = document.getElementById("cap-simulation-table");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }}
+                    >
+                      <FaArrowDown size={11} /> View in Table Below
+                    </button>
                   </div>
                 </div>
 
-                <div className="p-4 bg-white">
-                  {/* Strategic Counseling Insights */}
-                  <div className="p-3 bg-light rounded-3 border mb-3">
-                    <div className="small fw-bold text-dark text-uppercase mb-2 d-flex align-items-center gap-1.5" style={{ fontSize: 11, letterSpacing: "0.5px" }}>
-                      <FaInfoCircle color="#4F46E5" /> AI Admission Officer Strategic Assessment:
-                    </div>
-                    <div className="text-dark small" style={{ fontSize: 13, lineHeight: 1.65 }}>
-                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                        {aiRebalanceResult.counselor_advice}
-                      </ReactMarkdown>
-                    </div>
-                  </div>
-
-                  {/* Proposed Preference Order (Clean Structured Preview Table) */}
-                  <div className="mb-3">
-                    <div className="d-flex align-items-center justify-content-between mb-2">
-                      <span className="small text-dark fw-bold d-flex align-items-center gap-1.5" style={{ fontSize: 12.5 }}>
-                        📋 Proposed Preference Sequence ({aiRebalanceResult.recommended_choices?.length || 0} Institutions):
-                      </span>
-                      <span className="text-muted small" style={{ fontSize: 11 }}>
-                        Strictly arranged descending from Dream Reaches down to Confirmed Safety Backups
-                      </span>
-                    </div>
-
-                    <div className="table-responsive rounded-3 border overflow-hidden shadow-sm">
-                      <table className="table table-sm table-hover align-middle mb-0">
-                        <thead className="table-light text-secondary" style={{ fontSize: 11 }}>
-                          <tr>
-                            <th style={{ width: 60 }} className="text-center py-2">Pref #</th>
-                            <th className="py-2">Institute Name & City</th>
-                            <th className="py-2">Selected Program / Branch</th>
-                            <th className="text-center py-2" style={{ width: 110 }}>Cutoff Score</th>
-                            <th className="text-center py-2" style={{ width: 140 }}>Allotment Probability</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {aiRebalanceResult.recommended_choices?.map((item, idx) => {
-                            const isDream = item.tier === "Dream";
-                            const isTarget = item.tier === "Target";
-                            const tierBadgeClass = isDream
-                              ? "bg-warning-subtle text-dark border border-warning"
-                              : isTarget
-                              ? "bg-primary-subtle text-primary border border-primary-subtle"
-                              : "bg-success-subtle text-success border border-success-subtle";
-
-                            return (
-                              <tr key={idx} style={{ fontSize: 12 }}>
-                                <td className="text-center fw-bold">
-                                  <span className="badge bg-light text-dark border rounded-circle d-inline-flex align-items-center justify-content-center" style={{ width: 24, height: 24, fontSize: 11 }}>
-                                    {idx + 1}
-                                  </span>
-                                </td>
-                                <td>
-                                  <span className="fw-bold text-dark">{item.short_name || item.college_name}</span>
-                                  <span className="text-muted small ms-1.5" style={{ fontSize: 11 }}>📍 {item.city}</span>
-                                </td>
-                                <td>
-                                  <span className="badge bg-light text-primary border border-primary-subtle fw-semibold px-2 py-1" style={{ fontSize: 11 }}>
-                                    {item.selected_branch}
-                                  </span>
-                                </td>
-                                <td className="text-center font-monospace small">
-                                  <strong>{item.cutoff_2026}</strong>%ile
-                                </td>
-                                <td className="text-center">
-                                  <span className={`badge px-2.5 py-1 rounded-pill fw-bold ${tierBadgeClass}`} style={{ fontSize: 10.5 }}>
-                                    {item.tier} • {item.admission_probability}%
-                                  </span>
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-
-                  {/* Action Footer: Completely Clear, Unambiguous Action Buttons */}
-                  <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 pt-3 border-top mt-3 bg-light p-3 rounded-3 border">
-                    <div className="d-flex align-items-center gap-2">
-                      <div className="badge bg-success-subtle text-success p-1.5 rounded-circle">
-                        <FaCheckCircle size={14} />
-                      </div>
-                      <div>
-                        <div className="fw-bold text-dark small" style={{ fontSize: 12 }}>
-                          {appliedAlert ? "Active in Preference Table" : "Ready to Apply"}
-                        </div>
-                        <div className="text-muted small" style={{ fontSize: 11 }}>
-                          {appliedAlert
-                            ? `These ${aiRebalanceResult.recommended_choices?.length || 0} choices are loaded into your live option form table below.`
-                            : `Click below to update your preference form with these ${aiRebalanceResult.recommended_choices?.length || 0} choices.`}
-                        </div>
+                {/* Compact Strategic Counseling Advice */}
+                {aiRebalanceResult.counselor_advice && (
+                  <div className="p-3 px-4 bg-white">
+                    <div className="d-flex align-items-start gap-2.5 text-dark small" style={{ fontSize: 12.5, lineHeight: 1.65 }}>
+                      <FaLightbulb className="text-warning flex-shrink-0 mt-1" size={14} />
+                      <div className="flex-grow-1">
+                        <strong className="text-primary d-block mb-1">AI Admission Officer Strategy & CAP Rule Guidance:</strong>
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                          {aiRebalanceResult.counselor_advice}
+                        </ReactMarkdown>
                       </div>
                     </div>
-
-                    <div className="d-flex align-items-center gap-2 flex-wrap">
-                      {previousChoicesBackup && (
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1.5 fw-semibold d-flex align-items-center gap-1.5"
-                          style={{ fontSize: 12 }}
-                          onClick={handleUndoRebalance}
-                        >
-                          <FaUndo size={11} /> Undo & Restore Previous
-                        </button>
-                      )}
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-outline-primary rounded-pill px-3 py-1.5 fw-bold d-flex align-items-center gap-1.5"
-                        style={{ fontSize: 12 }}
-                        onClick={() => {
-                          const el = document.getElementById("cap-simulation-table");
-                          if (el) el.scrollIntoView({ behavior: "smooth" });
-                        }}
-                      >
-                        <FaTable size={12} /> View in Table Below
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-sm btn-success rounded-pill px-4 py-2 fw-bold d-flex align-items-center gap-1.5 shadow"
-                        style={{ fontSize: 12.5 }}
-                        onClick={() => handleApplyRebalancedList(aiRebalanceResult.recommended_choices)}
-                      >
-                        <FaCheckDouble size={13} />
-                        <span>Apply to Preference Form</span>
-                      </button>
-                    </div>
                   </div>
-
-                </div>
+                )}
               </div>
             )}
           </div>
@@ -3128,13 +3030,13 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
               <span className="small text-muted fw-bold me-1 text-uppercase" style={{ fontSize: 10.5, letterSpacing: "0.5px" }}>
                 View Options:
               </span>
-              <div className="btn-group p-1 bg-light rounded-pill border" role="group">
+              <div className="d-flex align-items-center gap-2 flex-wrap">
                 <button
                   type="button"
-                  className={`btn btn-sm rounded-pill px-3 py-1 fw-semibold d-flex align-items-center gap-1.5 transition-all ${
+                  className={`btn btn-sm rounded-pill px-3 py-1.5 fw-semibold d-flex align-items-center gap-1.5 transition-all shadow-sm ${
                     viewMode === "table"
-                      ? "btn-primary text-white shadow-sm"
-                      : "btn-light text-secondary border-0"
+                      ? "btn-primary text-white border-primary"
+                      : "bg-white text-secondary border border-secondary-subtle"
                   }`}
                   style={{ fontSize: 12 }}
                   onClick={() => setViewMode("table")}
@@ -3146,10 +3048,10 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
 
                 <button
                   type="button"
-                  className={`btn btn-sm rounded-pill px-3 py-1 fw-semibold d-flex align-items-center gap-1.5 transition-all ${
+                  className={`btn btn-sm rounded-pill px-3 py-1.5 fw-semibold d-flex align-items-center gap-1.5 transition-all shadow-sm ${
                     viewMode === "tiers"
-                      ? "btn-primary text-white shadow-sm"
-                      : "btn-light text-secondary border-0"
+                      ? "btn-primary text-white border-primary"
+                      : "bg-white text-secondary border border-secondary-subtle"
                   }`}
                   style={{ fontSize: 12 }}
                   onClick={() => setViewMode("tiers")}
@@ -3164,10 +3066,10 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
 
                 <button
                   type="button"
-                  className={`btn btn-sm rounded-pill px-3 py-1 fw-semibold d-flex align-items-center gap-1.5 transition-all ${
+                  className={`btn btn-sm rounded-pill px-3 py-1.5 fw-semibold d-flex align-items-center gap-1.5 transition-all shadow-sm ${
                     viewMode === "official"
-                      ? "btn-primary text-white shadow-sm"
-                      : "btn-light text-secondary border-0"
+                      ? "btn-primary text-white border-primary"
+                      : "bg-white text-secondary border border-secondary-subtle"
                   }`}
                   style={{ fontSize: 12 }}
                   onClick={() => setViewMode("official")}
@@ -3182,10 +3084,10 @@ export default function CapSimulatorPage({ studentProfile, currentUser, onLogout
 
                 <button
                   type="button"
-                  className={`btn btn-sm rounded-pill px-3 py-1 fw-semibold d-flex align-items-center gap-1.5 transition-all ${
+                  className={`btn btn-sm rounded-pill px-3 py-1.5 fw-semibold d-flex align-items-center gap-1.5 transition-all shadow-sm ${
                     viewMode === "compact"
-                      ? "btn-primary text-white shadow-sm"
-                      : "btn-light text-secondary border-0"
+                      ? "btn-primary text-white border-primary"
+                      : "bg-white text-secondary border border-secondary-subtle"
                   }`}
                   style={{ fontSize: 12 }}
                   onClick={() => setViewMode("compact")}
