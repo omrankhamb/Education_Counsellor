@@ -269,16 +269,7 @@ export default function CollegeCard({
           </div>
         </div>
 
-        {/* Facilities Tags */}
-        {college.facilities && college.facilities.length > 0 && (
-          <div className="d-flex flex-wrap gap-1 mb-2">
-            {college.facilities.slice(0, 3).map((f, i) => (
-              <span key={i} className="badge bg-light text-secondary border fw-normal" style={{ fontSize: 10 }}>
-                ✓ {f}
-              </span>
-            ))}
-          </div>
-        )}
+
 
 
 
